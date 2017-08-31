@@ -10,9 +10,9 @@
     <key>CFBundleIdentifier</key>
     <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
     <key>CFBundleName</key>
-    <string>NewProject</string>
+    <string>Lazarus</string>
     <key>CFBundleDisplayName</key>
-    <string>NewProject</string>
+    <string>Lazarus</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleSignature</key>
@@ -22,7 +22,7 @@
     <key>CFBundleVersion</key>
     <string>1.0.0</string>
     <key>NSHumanReadableCopyright</key>
-    <string></string>
+    <string>Birchlabs</string>
     <key>NSHighResolutionCapable</key>
     <true/>
   </dict>

@@ -19,7 +19,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.yourcompany.newproject"
+        applicationId "uk.co.birchlabs.lazarus"
         minSdkVersion    10
         targetSdkVersion 10
         externalNativeBuild {

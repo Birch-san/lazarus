@@ -10,9 +10,9 @@
     <key>CFBundleIdentifier</key>
     <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
     <key>CFBundleName</key>
-    <string>NewProject</string>
+    <string>Lazarus</string>
     <key>CFBundleDisplayName</key>
-    <string>NewProject</string>
+    <string>Lazarus</string>
     <key>CFBundlePackageType</key>
     <string>BNDL</string>
     <key>CFBundleSignature</key>
@@ -22,24 +22,24 @@
     <key>CFBundleVersion</key>
     <string>1.0.0</string>
     <key>NSHumanReadableCopyright</key>
-    <string></string>
+    <string>Birchlabs</string>
     <key>NSHighResolutionCapable</key>
     <true/>
     <key>AudioComponents</key>
     <array>
       <dict>
         <key>name</key>
-        <string>yourcompany: NewProject</string>
+        <string>birchlabs: Lazarus</string>
         <key>description</key>
         <string>NewProject</string>
         <key>factoryFunction</key>
-        <string>NewProjectAUFactory</string>
+        <string>LazarusAUFactory</string>
         <key>manufacturer</key>
-        <string>Manu</string>
+        <string>Blab</string>
         <key>type</key>
-        <string>aufx</string>
+        <string>aumu</string>
         <key>subtype</key>
-        <string>Ysve</string>
+        <string>Lzrs</string>
         <key>version</key>
         <integer>65536</integer>
       </dict>

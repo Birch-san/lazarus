@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="ySVemV" name="NewProject" displaySplashScreen="1" reportAppUsage="1"
+<JUCERPROJECT id="ySVemV" name="Lazarus" displaySplashScreen="1" reportAppUsage="1"
               splashScreenColour="Dark" projectType="audioplug" version="1.0.0"
-              bundleIdentifier="com.yourcompany.NewProject" includeBinaryInAppConfig="1"
+              bundleIdentifier="uk.co.birchlabs.Lazarus" includeBinaryInAppConfig="1"
               cppLanguageStandard="11" buildVST="1" buildVST3="0" buildAU="1"
               buildAUv3="0" buildRTAS="0" buildAAX="0" buildStandalone="1"
-              enableIAA="0" pluginName="NewProject" pluginDesc="NewProject"
-              pluginManufacturer="yourcompany" pluginManufacturerCode="Manu"
-              pluginCode="Ysve" pluginChannelConfigs="" pluginIsSynth="0" pluginWantsMidiIn="0"
-              pluginProducesMidiOut="0" pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="0"
-              pluginAUExportPrefix="NewProjectAU" pluginRTASCategory="" aaxIdentifier="com.yourcompany.NewProject"
-              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="5.1.1">
-  <MAINGROUP id="UO2zBE" name="NewProject">
+              enableIAA="0" pluginName="Lazarus" pluginDesc="NewProject" pluginManufacturer="birchlabs"
+              pluginManufacturerCode="Blab" pluginCode="Lzrs" pluginChannelConfigs=""
+              pluginIsSynth="1" pluginWantsMidiIn="1" pluginProducesMidiOut="0"
+              pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="1" pluginAUExportPrefix="LazarusAU"
+              pluginRTASCategory="" aaxIdentifier="uk.co.birchlabs.Lazarus"
+              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="5.1.1"
+              companyName="Birchlabs" companyWebsite="https://birchlabs.co.uk/">
+  <MAINGROUP id="UO2zBE" name="Lazarus">
     <GROUP id="{C5A57B2D-6D09-D0DB-DDDB-F6B5B54937C6}" name="Source">
       <FILE id="JYtzeD" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>

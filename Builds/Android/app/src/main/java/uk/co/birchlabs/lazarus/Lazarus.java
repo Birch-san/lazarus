@@ -20,7 +20,7 @@
   ==============================================================================
 */
 
-package com.yourcompany.newproject;
+package uk.co.birchlabs.lazarus;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -72,7 +72,7 @@ import java.util.concurrent.atomic.*;
 
 
 //==============================================================================
-public class NewProject   extends Activity
+public class Lazarus   extends Activity
 {
     //==============================================================================
     static
@@ -542,7 +542,7 @@ public class NewProject   extends Activity
                         public void onClick (DialogInterface dialog, int id)
                         {
                             dialog.cancel();
-                            NewProject.this.alertDismissed (callback, 0);
+                            Lazarus.this.alertDismissed (callback, 0);
                         }
                     });
 
@@ -561,7 +561,7 @@ public class NewProject   extends Activity
                         public void onClick (DialogInterface dialog, int id)
                         {
                             dialog.cancel();
-                            NewProject.this.alertDismissed (callback, 1);
+                            Lazarus.this.alertDismissed (callback, 1);
                         }
                     })
                .setNegativeButton (cancelButtonText.isEmpty() ? "Cancel" : cancelButtonText, new DialogInterface.OnClickListener()
@@ -569,7 +569,7 @@ public class NewProject   extends Activity
                         public void onClick (DialogInterface dialog, int id)
                         {
                             dialog.cancel();
-                            NewProject.this.alertDismissed (callback, 0);
+                            Lazarus.this.alertDismissed (callback, 0);
                         }
                     });
 
@@ -587,7 +587,7 @@ public class NewProject   extends Activity
                         public void onClick (DialogInterface dialog, int id)
                         {
                             dialog.cancel();
-                            NewProject.this.alertDismissed (callback, 1);
+                            Lazarus.this.alertDismissed (callback, 1);
                         }
                     })
                .setNegativeButton ("No", new DialogInterface.OnClickListener()
@@ -595,7 +595,7 @@ public class NewProject   extends Activity
                         public void onClick (DialogInterface dialog, int id)
                         {
                             dialog.cancel();
-                            NewProject.this.alertDismissed (callback, 2);
+                            Lazarus.this.alertDismissed (callback, 2);
                         }
                     })
                .setNeutralButton ("Cancel", new DialogInterface.OnClickListener()
@@ -603,7 +603,7 @@ public class NewProject   extends Activity
                         public void onClick (DialogInterface dialog, int id)
                         {
                             dialog.cancel();
-                            NewProject.this.alertDismissed (callback, 0);
+                            Lazarus.this.alertDismissed (callback, 0);
                         }
                     });
 
