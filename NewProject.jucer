@@ -144,7 +144,7 @@
     </LINUX_MAKE>
     <ANDROIDSTUDIO targetFolder="Builds/Android">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" androidArchitectures="" isDebug="1" optimisation="1"
+        <CONFIGURATION name="Debug" androidArchitectures="armeabi x86" isDebug="1" optimisation="1"
                        targetName="NewProject"/>
         <CONFIGURATION name="Release" androidArchitectures="" isDebug="0" optimisation="3"
                        targetName="NewProject"/>
