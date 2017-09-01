@@ -10,8 +10,8 @@
 
 Model::Model()
 : isAddingFromMidiInput(false),
-startTime(Time::getMillisecondCounterHiRes() * 0.001) {
-    keyboardState.addListener(this);
+  startTime(Time::getMillisecondCounterHiRes() * 0.001) {
+  keyboardState.addListener(this);
 }
 
 Model::~Model(){

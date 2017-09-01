@@ -10,6 +10,7 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include "Model.hpp"
 
 
 //==============================================================================
@@ -23,7 +24,7 @@ NewProjectAudioProcessor::NewProjectAudioProcessor()
                        .withOutput ("Output", AudioChannelSet::stereo(), true)
                      #endif
                        ),
-        model(Model())
+        model(new Model())
 #endif
 {
 }
