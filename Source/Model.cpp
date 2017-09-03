@@ -40,6 +40,7 @@ void Model::handleIncomingMidiMessage (MidiInput* source, const MidiMessage& mes
     const ScopedValueSetter<bool> scopedInputFlag (isAddingFromMidiInput, true);
     keyboardState.processNextMidiEvent (message);
     //postMessageToList (message, source->getName());
+    postMessageToList (message, "default");
 }
     
 void Model::postMessageToList (const MidiMessage& message, const String& source)
