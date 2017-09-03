@@ -39,7 +39,7 @@ void Model::handleNoteOff (MidiKeyboardState*, int midiChannel, int midiNoteNumb
 void Model::handleIncomingMidiMessage (MidiInput* source, const MidiMessage& message) {
     const ScopedValueSetter<bool> scopedInputFlag (isAddingFromMidiInput, true);
     keyboardState.processNextMidiEvent (message);
-    postMessageToList (message, source->getName());
+    //postMessageToList (message, source->getName());
 }
     
 void Model::postMessageToList (const MidiMessage& message, const String& source)
