@@ -148,12 +148,12 @@ void NewProjectAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
     
 //    int midiEvents = midiMessages.getNumEvents();
     
-    MidiBuffer::Iterator *iterator = new MidiBuffer::Iterator(midiMessages);
+    MidiBuffer::Iterator iterator (midiMessages);
     
-    int samplePosition = 0;
+    int samplePosition;
     MidiMessage midiMessage;
     
-    while(iterator->getNextEvent(midiMessage, samplePosition)) {
+    while(iterator.getNextEvent(midiMessage, samplePosition)) {
         model->handleIncomingMidiMessage(NULL, midiMessage);
     }
 }
