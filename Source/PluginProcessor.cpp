@@ -31,6 +31,7 @@ NewProjectAudioProcessor::NewProjectAudioProcessor()
 
 NewProjectAudioProcessor::~NewProjectAudioProcessor()
 {
+
 }
 
 //==============================================================================

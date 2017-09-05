@@ -32,5 +32,7 @@ private:
     // access the processor object that created it.
     NewProjectAudioProcessor& processor;
 
+    MidiKeyboardComponent midiKeyboard;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NewProjectAudioProcessorEditor)
 };

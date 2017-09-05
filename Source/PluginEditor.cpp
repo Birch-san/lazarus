@@ -14,11 +14,16 @@
 
 //==============================================================================
 NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioProcessor& p)
-    : AudioProcessorEditor (&p), processor (p)
+    : AudioProcessorEditor (&p),
+      processor (p),
+      midiKeyboard (p.keyboardState, MidiKeyboardComponent::horizontalKeyboard)
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     setSize (400, 300);
+
+    midiKeyboard.setName ("MIDI Keyboard");
+    addAndMakeVisible (midiKeyboard);
 }
 
 NewProjectAudioProcessorEditor::~NewProjectAudioProcessorEditor()
@@ -38,6 +43,9 @@ void NewProjectAudioProcessorEditor::paint (Graphics& g)
 
 void NewProjectAudioProcessorEditor::resized()
 {
+    Rectangle<int> r (getLocalBounds().reduced (8));
+
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
+    midiKeyboard.setBounds (r.removeFromBottom (70));
 }
