@@ -71,6 +71,8 @@
 		4A1C73CBA4676B4CCDD7A64D /* include_juce_core.mm in Sources */ = {isa = PBXBuildFile; fileRef = 854E4764666D3D389B0F0A68 /* include_juce_core.mm */; };
 		4BD90FA89CF4C1674CB17B2D /* include_juce_audio_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = FBBB0A5233E9ED775EC6A287 /* include_juce_audio_basics.mm */; };
 		4E8C838E46054EBE6CD4B6A1 /* include_juce_video.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9BC8DAA8283E6CD60AC85CD8 /* include_juce_video.mm */; };
+		596723E34A9E57BD940080F3 /* SoundfontSynthVoice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5967253FFFDFC1B9C47C6150 /* SoundfontSynthVoice.cpp */; };
+		59672BEE636B3AE0F8E3A39D /* SoundfontSynthSound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 596724F772B010DBE851EFB9 /* SoundfontSynthSound.cpp */; };
 		616F29365A78524F10D569AA /* include_juce_events.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4237CC36A25BEE39597B8AF0 /* include_juce_events.mm */; };
 		63CB43EDC74F346436BE02E3 /* include_juce_audio_devices.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0312B2D7C03F6B2D6853C282 /* include_juce_audio_devices.mm */; };
 		67EFF6ABC4641E0B20BAE8BC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 444A0B81FA66C3EB7EE800CF /* OpenGL.framework */; };
@@ -147,6 +149,10 @@
 		467E06C6A606920FCA4BC918 /* include_juce_cryptography.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_cryptography.mm; path = ../../JuceLibraryCode/include_juce_cryptography.mm; sourceTree = SOURCE_ROOT; };
 		473D4289E6FAB8F1378E0143 /* include_juce_audio_plugin_client_AU_2.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_plugin_client_AU_2.mm; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_AU_2.mm; sourceTree = SOURCE_ROOT; };
 		56BB16C98DEC124804FBA6E5 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
+		596724F772B010DBE851EFB9 /* SoundfontSynthSound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoundfontSynthSound.cpp; sourceTree = "<group>"; };
+		5967253FFFDFC1B9C47C6150 /* SoundfontSynthVoice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoundfontSynthVoice.cpp; sourceTree = "<group>"; };
+		59672CCC31A3F6E079F24645 /* SoundfontSynthVoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundfontSynthVoice.h; sourceTree = "<group>"; };
+		59672EA77B05BFEC54D5E214 /* SoundfontSynthSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundfontSynthSound.h; sourceTree = "<group>"; };
 		5E05314461B2FBDEED99EAB5 /* include_juce_audio_utils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_utils.mm; path = ../../JuceLibraryCode/include_juce_audio_utils.mm; sourceTree = SOURCE_ROOT; };
 		5F86E4C362EE844E3DC234FE /* juce_graphics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_graphics; path = /Applications/JUCE/modules/juce_graphics; sourceTree = "<absolute>"; };
 		65DDDD509761D84053B53687 /* include_juce_graphics.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_graphics.mm; path = ../../JuceLibraryCode/include_juce_graphics.mm; sourceTree = SOURCE_ROOT; };
@@ -278,6 +284,10 @@
 				DA59244872845D7293DA11F7 /* PluginEditor.h */,
 				359EAE261F58D49A00DBF805 /* Model.cpp */,
 				359EAE271F58D49A00DBF805 /* Model.hpp */,
+				596724F772B010DBE851EFB9 /* SoundfontSynthSound.cpp */,
+				59672EA77B05BFEC54D5E214 /* SoundfontSynthSound.h */,
+				5967253FFFDFC1B9C47C6150 /* SoundfontSynthVoice.cpp */,
+				59672CCC31A3F6E079F24645 /* SoundfontSynthVoice.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -670,6 +680,8 @@
 				88529BD548A969BF936E6748 /* include_juce_gui_extra.mm in Sources */,
 				A0CE702B9ACE7C396D901D77 /* include_juce_opengl.mm in Sources */,
 				4E8C838E46054EBE6CD4B6A1 /* include_juce_video.mm in Sources */,
+				59672BEE636B3AE0F8E3A39D /* SoundfontSynthSound.cpp in Sources */,
+				596723E34A9E57BD940080F3 /* SoundfontSynthVoice.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
