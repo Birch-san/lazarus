@@ -25,4 +25,6 @@ public:
 
     void renderNextBlock (AudioSampleBuffer& outputBuffer, int startSample, int numSamples) override;
 
+private:
+    double tailOff;
 };
