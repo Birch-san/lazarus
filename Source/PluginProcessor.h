@@ -32,7 +32,8 @@ public:
     bool isBusesLayoutSupported (const BusesLayout& layouts) const override;
    #endif
 
-    void processBlock (AudioSampleBuffer&, MidiBuffer&) override;
+    void processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages) override;
+    void processBlock (AudioBuffer<double>& buffer, MidiBuffer& midiMessages) override;
 
     //==============================================================================
     AudioProcessorEditor* createEditor() override;
@@ -58,9 +59,16 @@ public:
 
     MidiKeyboardState keyboardState;
 private:
-    void process (AudioSampleBuffer& buffer, MidiBuffer& midiMessages);
+    template <typename FloatType>
+    void process (AudioBuffer<FloatType>& buffer, MidiBuffer& midiMessages);
 
-    Model* model;
+    void initialiseSynth();
+
+    Synthesiser synth;
+
+    static BusesProperties getBusesProperties();
+
+//    Model* model;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LazarusAudioProcessor)
 };

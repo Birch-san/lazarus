@@ -67,12 +67,10 @@ void SoundfontSynthVoice::renderNextBlock (AudioBuffer<double>& outputBuffer, in
 
 template <typename FloatType>
 void SoundfontSynthVoice::renderBlock (AudioBuffer<FloatType>& outputBuffer, int startSample, int numSamples) {
-    while (--numSamples >= 0)
-    {
-        if (angleDelta == 0.0) {
-            return;
-        }
-
+    if (angleDelta == 0.0) {
+        return;
+    }
+    while (--numSamples >= 0) {
         double qualifiedTailOff = tailOff > 0 ? tailOff : 1.0;
         auto currentSample = static_cast<FloatType> (std::sin (currentAngle) * level * qualifiedTailOff);
         for (int i = outputBuffer.getNumChannels(); --i >= 0;)
@@ -81,12 +79,14 @@ void SoundfontSynthVoice::renderBlock (AudioBuffer<FloatType>& outputBuffer, int
         currentAngle += angleDelta;
         ++startSample;
 
-        tailOff *= 0.99;
+        if (tailOff > 0) {
+            tailOff *= 0.99;
 
-        if (tailOff <= 0.005) {
-            clearCurrentNote();
-            angleDelta = 0.0;
-            break;
+            if (tailOff <= 0.005) {
+                clearCurrentNote();
+                angleDelta = 0.0;
+                break;
+            }
         }
     }
 }

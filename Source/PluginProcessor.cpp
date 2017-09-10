@@ -10,28 +10,35 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
-#include "Model.hpp"
+#include "SoundfontSynthVoice.h"
+#include "SoundfontSynthSound.h"
+// #include "Model.hpp"
+
+AudioProcessor* JUCE_CALLTYPE createPluginFilter();
 
 
 //==============================================================================
 LazarusAudioProcessor::LazarusAudioProcessor()
-#ifndef JucePlugin_PreferredChannelConfigurations
-     : AudioProcessor (BusesProperties()
-                     #if ! JucePlugin_IsMidiEffect
-                      #if ! JucePlugin_IsSynth
-                       .withInput  ("Input",  AudioChannelSet::stereo(), true)
-                      #endif
-                       .withOutput ("Output", AudioChannelSet::stereo(), true)
-                     #endif
-                       ),
-        model(new Model())
-#endif
+     : AudioProcessor (getBusesProperties()) /*,
+       model(new Model())*/
 {
+    initialiseSynth();
 }
 
 LazarusAudioProcessor::~LazarusAudioProcessor()
 {
 
+}
+
+void LazarusAudioProcessor::initialiseSynth() {
+    const int numVoices = 8;
+
+    // Add some voices...
+    for (int i = numVoices; --i >= 0;)
+        synth.addVoice (new SoundfontSynthVoice());
+
+    // ..and give the synth a sound to play
+    synth.addSound (new SoundfontSynthSound());
 }
 
 //==============================================================================
@@ -92,10 +99,8 @@ void LazarusAudioProcessor::prepareToPlay (double sampleRate, int /*samplesPerBl
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
-
+    synth.setCurrentPlaybackSampleRate (sampleRate);
     keyboardState.reset();
-
-
 
     reset();
 }
@@ -107,32 +112,31 @@ void LazarusAudioProcessor::releaseResources()
     keyboardState.reset();
 }
 
-#ifndef JucePlugin_PreferredChannelConfigurations
 bool LazarusAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
-  #if JucePlugin_IsMidiEffect
-    ignoreUnused (layouts);
-    return true;
-  #else
-    // This is the place where you check if the layout is supported.
-    // In this template code we only support mono or stereo.
-    if (layouts.getMainOutputChannelSet() != AudioChannelSet::mono()
-     && layouts.getMainOutputChannelSet() != AudioChannelSet::stereo())
+    // Only mono/stereo and input/output must have same layout
+    const AudioChannelSet& mainOutput = layouts.getMainOutputChannelSet();
+    const AudioChannelSet& mainInput  = layouts.getMainInputChannelSet();
+
+    // input and output layout must either be the same or the input must be disabled altogether
+    if (! mainInput.isDisabled() && mainInput != mainOutput)
         return false;
 
-    // This checks if the input layout matches the output layout
-   #if ! JucePlugin_IsSynth
-    if (layouts.getMainOutputChannelSet() != layouts.getMainInputChannelSet())
+    // do not allow disabling the main buses
+    if (mainOutput.isDisabled())
         return false;
-   #endif
 
-    return true;
-  #endif
+    // only allow stereo and mono
+    return mainOutput.size() <= 2;
 }
-#endif
 
-void LazarusAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
-{
+AudioProcessor::BusesProperties LazarusAudioProcessor::getBusesProperties() {
+    return BusesProperties().withInput  ("Input",  AudioChannelSet::stereo(), true)
+            .withOutput ("Output", AudioChannelSet::stereo(), true);
+}
+
+//void LazarusAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
+//{
     // const int totalNumInputChannels  = getTotalNumInputChannels();
     // const int totalNumOutputChannels = getTotalNumOutputChannels();
     //
@@ -165,13 +169,35 @@ void LazarusAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer&
     //     model->handleIncomingMidiMessage(NULL, midiMessage);
     // }
 
+//    process (buffer, midiMessages);
+//}
+
+void LazarusAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages) {
+    jassert (!isUsingDoublePrecision());
     process (buffer, midiMessages);
 }
 
-void LazarusAudioProcessor::process (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
-{
+void LazarusAudioProcessor::processBlock (AudioBuffer<double>& buffer, MidiBuffer& midiMessages) {
+    jassert (isUsingDoublePrecision());
+    process (buffer, midiMessages);
+}
+
+template <typename FloatType>
+void LazarusAudioProcessor::process (AudioBuffer<FloatType>& buffer, MidiBuffer& midiMessages) {
     const int numSamples = buffer.getNumSamples();
+
+    // Now pass any incoming midi messages to our keyboard state object, and let it
+    // add messages to the buffer if the user is clicking on the on-screen keys
     keyboardState.processNextMidiBuffer (midiMessages, 0, numSamples, true);
+
+    // and now get our synth to process these midi events and generate its output.
+    synth.renderNextBlock (buffer, midiMessages, 0, numSamples);
+
+    // In case we have more outputs than inputs, we'll clear any output
+    // channels that didn't contain input data, (because these aren't
+    // guaranteed to be empty - they may contain garbage).
+    for (int i = getTotalNumInputChannels(); i < getTotalNumOutputChannels(); ++i)
+        buffer.clear (i, 0, numSamples);
 }
 
 //==============================================================================
