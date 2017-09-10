@@ -178,10 +178,6 @@ AudioProcessor::BusesProperties LazarusAudioProcessor::getBusesProperties() {
 
 void LazarusAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages) {
     jassert (!isUsingDoublePrecision());
-    process (buffer, midiMessages);
-}
-
-void LazarusAudioProcessor::process (AudioBuffer<float>& buffer, MidiBuffer& midiMessages) {
     const int numSamples = buffer.getNumSamples();
 
     // Now pass any incoming midi messages to our keyboard state object, and let it

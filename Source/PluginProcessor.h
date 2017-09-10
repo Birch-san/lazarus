@@ -63,8 +63,6 @@ public:
 
     MidiKeyboardState keyboardState;
 private:
-    void process (AudioBuffer<float>& buffer, MidiBuffer& midiMessages);
-
     void initialiseSynth();
 
     FluidSynthModel* fluidSynthModel;

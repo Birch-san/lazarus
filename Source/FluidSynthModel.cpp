@@ -15,7 +15,7 @@ FluidSynthModel::~FluidSynthModel() {
 void FluidSynthModel::initialise() {
     settings = new_fluid_settings();
     // https://sourceforge.net/p/fluidsynth/wiki/FluidSettings/
-    fluid_settings_setstr(settings, "synth.verbose", "yes");
+//    fluid_settings_setstr(settings, "synth.verbose", "yes");
 
     fluid_synth_t* synth = new_fluid_synth(settings);
     fluid_synth_sfload(synth, "/Users/birch/Documents/soundfont/EarthBound.sf2", 1);
