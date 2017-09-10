@@ -8,9 +8,6 @@
 
 class SoundfontSynthSound : public SynthesiserSound {
 public:
-    SoundfontSynthSound();
-    ~SoundfontSynthSound();
-
     bool appliesToNote (int /*midiNoteNumber*/) override;
     bool appliesToChannel (int /*midiChannel*/) override;
 };

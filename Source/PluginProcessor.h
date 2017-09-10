@@ -12,7 +12,10 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Model.hpp"
+#include "FluidSynthModel.h"
+#include <memory>
 
+using std::shared_ptr;
 
 //==============================================================================
 /**
@@ -64,6 +67,7 @@ private:
 
     void initialiseSynth();
 
+    FluidSynthModel* fluidSynthModel;
     Synthesiser synth;
 
     static BusesProperties getBusesProperties();

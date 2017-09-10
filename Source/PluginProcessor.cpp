@@ -19,7 +19,9 @@ AudioProcessor* JUCE_CALLTYPE createPluginFilter();
 
 //==============================================================================
 LazarusAudioProcessor::LazarusAudioProcessor()
-     : AudioProcessor (getBusesProperties()) /*,
+     : AudioProcessor (getBusesProperties()),
+       fluidSynthModel(new FluidSynthModel())
+        /*,
        model(new Model())*/
 {
     initialiseSynth();
@@ -27,15 +29,17 @@ LazarusAudioProcessor::LazarusAudioProcessor()
 
 LazarusAudioProcessor::~LazarusAudioProcessor()
 {
-
+    delete fluidSynthModel;
 }
 
 void LazarusAudioProcessor::initialiseSynth() {
+    fluidSynthModel->initialise();
+
     const int numVoices = 8;
 
     // Add some voices...
     for (int i = numVoices; --i >= 0;)
-        synth.addVoice (new SoundfontSynthVoice());
+        synth.addVoice (new SoundfontSynthVoice(fluidSynthModel->getSynth()));
 
     // ..and give the synth a sound to play
     synth.addSound (new SoundfontSynthSound());

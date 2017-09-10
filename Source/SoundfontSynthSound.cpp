@@ -4,9 +4,6 @@
 
 #include "SoundfontSynthSound.h"
 
-SoundfontSynthSound::SoundfontSynthSound() {}
-SoundfontSynthSound::~SoundfontSynthSound() {}
-
 bool SoundfontSynthSound::appliesToChannel(int) {
     return true;
 }

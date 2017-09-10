@@ -4,15 +4,15 @@
 
 #include "SoundfontSynthVoice.h"
 #include "SoundfontSynthSound.h"
-// #include <fluidsynth.h>
+#include <fluidsynth.h>
 
-SoundfontSynthVoice::SoundfontSynthVoice()
+SoundfontSynthVoice::SoundfontSynthVoice(const shared_ptr<fluid_synth_t> synth)
 : tailOff (0.0),
 level(0.0),
 currentAngle(0.0),
-angleDelta(0.0)
+angleDelta(0.0),
+synth(synth)
 {
-
 }
 
 bool SoundfontSynthVoice::canPlaySound(SynthesiserSound* sound) {
@@ -21,34 +21,37 @@ bool SoundfontSynthVoice::canPlaySound(SynthesiserSound* sound) {
 void SoundfontSynthVoice::startNote(
         int midiNoteNumber,
         float velocity,
-        SynthesiserSound* /*sound*/,
+        SynthesiserSound* sound,
         int /*currentPitchWheelPosition*/) {
-    currentAngle = 0.0;
-    level = velocity * 0.15;
-    tailOff = 0.0;
+//    currentAngle = 0.0;
+//    level = velocity * 0.15;
+//    tailOff = 0.0;
+//
+//    double cyclesPerSecond = MidiMessage::getMidiNoteInHertz (midiNoteNumber);
+//    double cyclesPerSample = cyclesPerSecond / getSampleRate();
+//
+//    angleDelta = cyclesPerSample * 2.0 * double_Pi;
 
-    double cyclesPerSecond = MidiMessage::getMidiNoteInHertz (midiNoteNumber);
-    double cyclesPerSample = cyclesPerSecond / getSampleRate();
-
-    angleDelta = cyclesPerSample * 2.0 * double_Pi;
+//    jassert(dynamic_cast<SoundfontSynthSound*> (sound) != nullptr);
+//    SoundfontSynthSound* sfsynth = dynamic_cast<SoundfontSynthSound*> (sound);
 }
 
 void SoundfontSynthVoice::stopNote (float /*velocity*/, bool allowTailOff) {
-    if (allowTailOff) {
-        // start a tail-off by setting this flag. The render callback will pick up on
-        // this and do a fade out, calling clearCurrentNote() when it's finished.
-
-        // we only need to begin a tail-off if it's not already doing so - the
-        if (tailOff == 0.0) {
-            // stopNote method could be called more than once.
-            tailOff = 1.0;
-        }
-    } else {
-        // we're being told to stop playing immediately, so reset everything..
-
-        clearCurrentNote();
-        angleDelta = 0.0;
-    }
+//    if (allowTailOff) {
+//        // start a tail-off by setting this flag. The render callback will pick up on
+//        // this and do a fade out, calling clearCurrentNote() when it's finished.
+//
+//        // we only need to begin a tail-off if it's not already doing so - the
+//        if (tailOff == 0.0) {
+//            // stopNote method could be called more than once.
+//            tailOff = 1.0;
+//        }
+//    } else {
+//        // we're being told to stop playing immediately, so reset everything..
+//
+//        clearCurrentNote();
+//        angleDelta = 0.0;
+//    }
 }
 void SoundfontSynthVoice::pitchWheelMoved (int /*newValue*/) {
     // who cares?
@@ -67,26 +70,26 @@ void SoundfontSynthVoice::renderNextBlock (AudioBuffer<double>& outputBuffer, in
 
 template <typename FloatType>
 void SoundfontSynthVoice::renderBlock (AudioBuffer<FloatType>& outputBuffer, int startSample, int numSamples) {
-    if (angleDelta == 0.0) {
-        return;
-    }
-    while (--numSamples >= 0) {
-        double qualifiedTailOff = tailOff > 0 ? tailOff : 1.0;
-        auto currentSample = static_cast<FloatType> (std::sin (currentAngle) * level * qualifiedTailOff);
-        for (int i = outputBuffer.getNumChannels(); --i >= 0;)
-            outputBuffer.addSample (i, startSample, currentSample);
-
-        currentAngle += angleDelta;
-        ++startSample;
-
-        if (tailOff > 0) {
-            tailOff *= 0.99;
-
-            if (tailOff <= 0.005) {
-                clearCurrentNote();
-                angleDelta = 0.0;
-                break;
-            }
-        }
-    }
+//    if (angleDelta == 0.0) {
+//        return;
+//    }
+//    while (--numSamples >= 0) {
+//        double qualifiedTailOff = tailOff > 0 ? tailOff : 1.0;
+//        auto currentSample = static_cast<FloatType> (std::sin (currentAngle) * level * qualifiedTailOff);
+//        for (int i = outputBuffer.getNumChannels(); --i >= 0;)
+//            outputBuffer.addSample (i, startSample, currentSample);
+//
+//        currentAngle += angleDelta;
+//        ++startSample;
+//
+//        if (tailOff > 0) {
+//            tailOff *= 0.99;
+//
+//            if (tailOff <= 0.005) {
+//                clearCurrentNote();
+//                angleDelta = 0.0;
+//                break;
+//            }
+//        }
+//    }
 }

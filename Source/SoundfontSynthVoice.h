@@ -4,11 +4,15 @@
 
 #pragma once
 
+#include<memory>
+#include<fluidsynth.h>
 #include "../JuceLibraryCode/JuceHeader.h"
+
+using std::shared_ptr;
 
 class SoundfontSynthVoice : public SynthesiserVoice {
 public:
-    SoundfontSynthVoice();
+    SoundfontSynthVoice(shared_ptr<fluid_synth_t> synth);
 
     bool canPlaySound (SynthesiserSound* sound) override;
     void startNote (
@@ -30,6 +34,8 @@ private:
     double level;
     double currentAngle;
     double angleDelta;
+
+    shared_ptr<fluid_synth_t> synth;
 
     template <typename FloatType>
     void renderBlock (AudioBuffer<FloatType>& outputBuffer, int startSample, int numSamples);
