@@ -4,12 +4,14 @@
 
 #include "SoundfontSynthVoice.h"
 #include "SoundfontSynthSound.h"
+// #include <fluidsynth.h>
 
 SoundfontSynthVoice::SoundfontSynthVoice()
-: tailOff (0.0) {
-
-}
-SoundfontSynthVoice::~SoundfontSynthVoice() {
+: tailOff (0.0),
+level(0.0),
+currentAngle(0.0),
+angleDelta(0.0)
+{
 
 }
 
@@ -21,7 +23,14 @@ void SoundfontSynthVoice::startNote(
         float velocity,
         SynthesiserSound* /*sound*/,
         int /*currentPitchWheelPosition*/) {
+    currentAngle = 0.0;
+    level = velocity * 0.15;
     tailOff = 0.0;
+
+    double cyclesPerSecond = MidiMessage::getMidiNoteInHertz (midiNoteNumber);
+    double cyclesPerSample = cyclesPerSecond / getSampleRate();
+
+    angleDelta = cyclesPerSample * 2.0 * double_Pi;
 }
 
 void SoundfontSynthVoice::stopNote (float /*velocity*/, bool allowTailOff) {
@@ -38,6 +47,7 @@ void SoundfontSynthVoice::stopNote (float /*velocity*/, bool allowTailOff) {
         // we're being told to stop playing immediately, so reset everything..
 
         clearCurrentNote();
+        angleDelta = 0.0;
     }
 }
 void SoundfontSynthVoice::pitchWheelMoved (int /*newValue*/) {
@@ -48,6 +58,35 @@ void SoundfontSynthVoice::controllerMoved (int /*controllerNumber*/, int /*newVa
     // what's a controller?
 }
 
-void SoundfontSynthVoice::renderNextBlock (AudioSampleBuffer& outputBuffer, int startSample, int numSamples) {
+void SoundfontSynthVoice::renderNextBlock (AudioBuffer<float>& outputBuffer, int startSample, int numSamples) {
+    renderBlock(outputBuffer, startSample, numSamples);
+}
+void SoundfontSynthVoice::renderNextBlock (AudioBuffer<double>& outputBuffer, int startSample, int numSamples) {
+    renderBlock(outputBuffer, startSample, numSamples);
+}
 
+template <typename FloatType>
+void SoundfontSynthVoice::renderBlock (AudioBuffer<FloatType>& outputBuffer, int startSample, int numSamples) {
+    while (--numSamples >= 0)
+    {
+        if (angleDelta == 0.0) {
+            return;
+        }
+
+        double qualifiedTailOff = tailOff > 0 ? tailOff : 1.0;
+        auto currentSample = static_cast<FloatType> (std::sin (currentAngle) * level * qualifiedTailOff);
+        for (int i = outputBuffer.getNumChannels(); --i >= 0;)
+            outputBuffer.addSample (i, startSample, currentSample);
+
+        currentAngle += angleDelta;
+        ++startSample;
+
+        tailOff *= 0.99;
+
+        if (tailOff <= 0.005) {
+            clearCurrentNote();
+            angleDelta = 0.0;
+            break;
+        }
+    }
 }

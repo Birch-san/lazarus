@@ -9,7 +9,6 @@
 class SoundfontSynthVoice : public SynthesiserVoice {
 public:
     SoundfontSynthVoice();
-    ~SoundfontSynthVoice();
 
     bool canPlaySound (SynthesiserSound* sound) override;
     void startNote (
@@ -23,8 +22,15 @@ public:
 
     void controllerMoved (int /*controllerNumber*/, int /*newValue*/) override;
 
-    void renderNextBlock (AudioSampleBuffer& outputBuffer, int startSample, int numSamples) override;
+    void renderNextBlock (AudioBuffer<float>& outputBuffer, int startSample, int numSamples) override;
+    void renderNextBlock (AudioBuffer<double>& outputBuffer, int startSample, int numSamples) override;
 
 private:
     double tailOff;
+    double level;
+    double currentAngle;
+    double angleDelta;
+
+    template <typename FloatType>
+    void renderBlock (AudioBuffer<FloatType>& outputBuffer, int startSample, int numSamples);
 };
