@@ -36,7 +36,6 @@ public:
    #endif
 
     void processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages) override;
-    void processBlock (AudioBuffer<double>& buffer, MidiBuffer& midiMessages) override;
 
     //==============================================================================
     AudioProcessorEditor* createEditor() override;
@@ -60,10 +59,11 @@ public:
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
+    bool supportsDoublePrecisionProcessing() const override;
+
     MidiKeyboardState keyboardState;
 private:
-    template <typename FloatType>
-    void process (AudioBuffer<FloatType>& buffer, MidiBuffer& midiMessages);
+    void process (AudioBuffer<float>& buffer, MidiBuffer& midiMessages);
 
     void initialiseSynth();
 

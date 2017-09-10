@@ -181,13 +181,7 @@ void LazarusAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer
     process (buffer, midiMessages);
 }
 
-void LazarusAudioProcessor::processBlock (AudioBuffer<double>& buffer, MidiBuffer& midiMessages) {
-    jassert (isUsingDoublePrecision());
-    process (buffer, midiMessages);
-}
-
-template <typename FloatType>
-void LazarusAudioProcessor::process (AudioBuffer<FloatType>& buffer, MidiBuffer& midiMessages) {
+void LazarusAudioProcessor::process (AudioBuffer<float>& buffer, MidiBuffer& midiMessages) {
     const int numSamples = buffer.getNumSamples();
 
     // Now pass any incoming midi messages to our keyboard state object, and let it
@@ -227,6 +221,11 @@ void LazarusAudioProcessor::setStateInformation (const void* data, int sizeInByt
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
+}
+
+// FluidSynth only supports float in its process function, so that's all we can support.
+bool LazarusAudioProcessor::supportsDoublePrecisionProcessing() const {
+    return false;
 }
 
 //==============================================================================

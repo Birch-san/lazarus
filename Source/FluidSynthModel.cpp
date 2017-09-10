@@ -7,7 +7,7 @@
 
 FluidSynthModel::~FluidSynthModel() {
     if (initialised) {
-        delete_fluid_audio_driver(driver);
+//        delete_fluid_audio_driver(driver);
         delete_fluid_settings(settings);
     }
 }
@@ -20,7 +20,7 @@ void FluidSynthModel::initialise() {
     fluid_synth_t* synth = new_fluid_synth(settings);
     fluid_synth_sfload(synth, "/Users/birch/Documents/soundfont/EarthBound.sf2", 1);
 
-    driver = new_fluid_audio_driver(settings, synth);
+//    driver = new_fluid_audio_driver(settings, synth);
 
     this->synth = shared_ptr<fluid_synth_t>(synth, [](fluid_synth_t* f) {
         std::cout << "[fluid_synth_t deleter invoked]\n";

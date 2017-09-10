@@ -4,13 +4,13 @@
 
 #include "SoundfontSynthVoice.h"
 #include "SoundfontSynthSound.h"
-#include <fluidsynth.h>
 
 SoundfontSynthVoice::SoundfontSynthVoice(const shared_ptr<fluid_synth_t> synth)
 : tailOff (0.0),
 level(0.0),
 currentAngle(0.0),
 angleDelta(0.0),
+midiNoteNumber(0),
 synth(synth)
 {
 }
@@ -23,6 +23,9 @@ void SoundfontSynthVoice::startNote(
         float velocity,
         SynthesiserSound* sound,
         int /*currentPitchWheelPosition*/) {
+    this->midiNoteNumber = midiNoteNumber;
+    fluid_synth_noteon(synth.get(), 0, midiNoteNumber, 127);
+
 //    currentAngle = 0.0;
 //    level = velocity * 0.15;
 //    tailOff = 0.0;
@@ -52,6 +55,7 @@ void SoundfontSynthVoice::stopNote (float /*velocity*/, bool allowTailOff) {
 //        clearCurrentNote();
 //        angleDelta = 0.0;
 //    }
+    fluid_synth_noteoff(synth.get(), 0, this->midiNoteNumber);
 }
 void SoundfontSynthVoice::pitchWheelMoved (int /*newValue*/) {
     // who cares?
@@ -62,14 +66,11 @@ void SoundfontSynthVoice::controllerMoved (int /*controllerNumber*/, int /*newVa
 }
 
 void SoundfontSynthVoice::renderNextBlock (AudioBuffer<float>& outputBuffer, int startSample, int numSamples) {
-    renderBlock(outputBuffer, startSample, numSamples);
-}
-void SoundfontSynthVoice::renderNextBlock (AudioBuffer<double>& outputBuffer, int startSample, int numSamples) {
-    renderBlock(outputBuffer, startSample, numSamples);
+    fluid_synth_process(synth.get(), numSamples, 1, nullptr, outputBuffer.getNumChannels(), outputBuffer.getArrayOfWritePointers());
 }
 
-template <typename FloatType>
-void SoundfontSynthVoice::renderBlock (AudioBuffer<FloatType>& outputBuffer, int startSample, int numSamples) {
+//void SoundfontSynthVoice::renderBlock (AudioBuffer<float>& outputBuffer, int startSample, int numSamples) {
+//    fluid_synth_process(synth.get(), numSamples, 1, nullptr, outputBuffer.getNumChannels(), outputBuffer.getArrayOfWritePointers());
 //    if (angleDelta == 0.0) {
 //        return;
 //    }
@@ -92,4 +93,4 @@ void SoundfontSynthVoice::renderBlock (AudioBuffer<FloatType>& outputBuffer, int
 //            }
 //        }
 //    }
-}
+//}
