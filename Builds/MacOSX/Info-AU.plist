@@ -31,7 +31,7 @@
         <key>name</key>
         <string>birchlabs: Lazarus</string>
         <key>description</key>
-        <string>NewProject</string>
+        <string>Lazarus</string>
         <key>factoryFunction</key>
         <string>LazarusAUFactory</string>
         <key>manufacturer</key>

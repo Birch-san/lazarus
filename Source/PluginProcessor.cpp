@@ -14,7 +14,7 @@
 
 
 //==============================================================================
-NewProjectAudioProcessor::NewProjectAudioProcessor()
+LazarusAudioProcessor::LazarusAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
      : AudioProcessor (BusesProperties()
                      #if ! JucePlugin_IsMidiEffect
@@ -29,18 +29,18 @@ NewProjectAudioProcessor::NewProjectAudioProcessor()
 {
 }
 
-NewProjectAudioProcessor::~NewProjectAudioProcessor()
+LazarusAudioProcessor::~LazarusAudioProcessor()
 {
 
 }
 
 //==============================================================================
-const String NewProjectAudioProcessor::getName() const
+const String LazarusAudioProcessor::getName() const
 {
     return JucePlugin_Name;
 }
 
-bool NewProjectAudioProcessor::acceptsMidi() const
+bool LazarusAudioProcessor::acceptsMidi() const
 {
    #if JucePlugin_WantsMidiInput
     return true;
@@ -49,7 +49,7 @@ bool NewProjectAudioProcessor::acceptsMidi() const
    #endif
 }
 
-bool NewProjectAudioProcessor::producesMidi() const
+bool LazarusAudioProcessor::producesMidi() const
 {
    #if JucePlugin_ProducesMidiOutput
     return true;
@@ -58,37 +58,37 @@ bool NewProjectAudioProcessor::producesMidi() const
    #endif
 }
 
-double NewProjectAudioProcessor::getTailLengthSeconds() const
+double LazarusAudioProcessor::getTailLengthSeconds() const
 {
     return 0.0;
 }
 
-int NewProjectAudioProcessor::getNumPrograms()
+int LazarusAudioProcessor::getNumPrograms()
 {
     return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
                 // so this should be at least 1, even if you're not really implementing programs.
 }
 
-int NewProjectAudioProcessor::getCurrentProgram()
+int LazarusAudioProcessor::getCurrentProgram()
 {
     return 0;
 }
 
-void NewProjectAudioProcessor::setCurrentProgram (int index)
+void LazarusAudioProcessor::setCurrentProgram (int index)
 {
 }
 
-const String NewProjectAudioProcessor::getProgramName (int index)
+const String LazarusAudioProcessor::getProgramName (int index)
 {
     return {};
 }
 
-void NewProjectAudioProcessor::changeProgramName (int index, const String& newName)
+void LazarusAudioProcessor::changeProgramName (int index, const String& newName)
 {
 }
 
 //==============================================================================
-void NewProjectAudioProcessor::prepareToPlay (double sampleRate, int /*samplesPerBlock*/)
+void LazarusAudioProcessor::prepareToPlay (double sampleRate, int /*samplesPerBlock*/)
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
@@ -100,7 +100,7 @@ void NewProjectAudioProcessor::prepareToPlay (double sampleRate, int /*samplesPe
     reset();
 }
 
-void NewProjectAudioProcessor::releaseResources()
+void LazarusAudioProcessor::releaseResources()
 {
     // When playback stops, you can use this as an opportunity to free up any
     // spare memory, etc.
@@ -108,7 +108,7 @@ void NewProjectAudioProcessor::releaseResources()
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-bool NewProjectAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
+bool LazarusAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
   #if JucePlugin_IsMidiEffect
     ignoreUnused (layouts);
@@ -131,7 +131,7 @@ bool NewProjectAudioProcessor::isBusesLayoutSupported (const BusesLayout& layout
 }
 #endif
 
-void NewProjectAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
+void LazarusAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
     // const int totalNumInputChannels  = getTotalNumInputChannels();
     // const int totalNumOutputChannels = getTotalNumOutputChannels();
@@ -168,32 +168,32 @@ void NewProjectAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuff
     process (buffer, midiMessages);
 }
 
-void NewProjectAudioProcessor::process (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
+void LazarusAudioProcessor::process (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
     const int numSamples = buffer.getNumSamples();
     keyboardState.processNextMidiBuffer (midiMessages, 0, numSamples, true);
 }
 
 //==============================================================================
-bool NewProjectAudioProcessor::hasEditor() const
+bool LazarusAudioProcessor::hasEditor() const
 {
     return true; // (change this to false if you choose to not supply an editor)
 }
 
-AudioProcessorEditor* NewProjectAudioProcessor::createEditor()
+AudioProcessorEditor* LazarusAudioProcessor::createEditor()
 {
-    return new NewProjectAudioProcessorEditor (*this);
+    return new LazarusAudioProcessorEditor (*this);
 }
 
 //==============================================================================
-void NewProjectAudioProcessor::getStateInformation (MemoryBlock& destData)
+void LazarusAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
 }
 
-void NewProjectAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
+void LazarusAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
@@ -203,5 +203,5 @@ void NewProjectAudioProcessor::setStateInformation (const void* data, int sizeIn
 // This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new NewProjectAudioProcessor();
+    return new LazarusAudioProcessor();
 }

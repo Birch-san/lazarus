@@ -17,12 +17,12 @@
 //==============================================================================
 /**
 */
-class NewProjectAudioProcessor  : public AudioProcessor
+class LazarusAudioProcessor  : public AudioProcessor
 {
 public:
     //==============================================================================
-    NewProjectAudioProcessor();
-    ~NewProjectAudioProcessor();
+    LazarusAudioProcessor();
+    ~LazarusAudioProcessor();
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -62,5 +62,5 @@ private:
 
     Model* model;
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NewProjectAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LazarusAudioProcessor)
 };

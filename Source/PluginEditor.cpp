@@ -13,7 +13,7 @@
 
 
 //==============================================================================
-NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioProcessor& p)
+LazarusAudioProcessorEditor::LazarusAudioProcessorEditor (LazarusAudioProcessor& p)
     : AudioProcessorEditor (&p),
       processor (p),
       midiKeyboard (p.keyboardState, MidiKeyboardComponent::horizontalKeyboard)
@@ -26,12 +26,12 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
     addAndMakeVisible (midiKeyboard);
 }
 
-NewProjectAudioProcessorEditor::~NewProjectAudioProcessorEditor()
+LazarusAudioProcessorEditor::~LazarusAudioProcessorEditor()
 {
 }
 
 //==============================================================================
-void NewProjectAudioProcessorEditor::paint (Graphics& g)
+void LazarusAudioProcessorEditor::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
@@ -41,7 +41,7 @@ void NewProjectAudioProcessorEditor::paint (Graphics& g)
     g.drawFittedText ("Hello World!", getLocalBounds(), Justification::centred, 1);
 }
 
-void NewProjectAudioProcessorEditor::resized()
+void LazarusAudioProcessorEditor::resized()
 {
     Rectangle<int> r (getLocalBounds().reduced (8));
 
