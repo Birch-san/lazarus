@@ -186,6 +186,7 @@ void LazarusAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer
 
     // and now get our synth to process these midi events and generate its output.
     synth.renderNextBlock (buffer, midiMessages, 0, numSamples);
+    fluid_synth_process(fluidSynthModel->getSynth().get(), numSamples, 1, nullptr, buffer.getNumChannels(), buffer.getArrayOfWritePointers());
 
     // In case we have more outputs than inputs, we'll clear any output
     // channels that didn't contain input data, (because these aren't

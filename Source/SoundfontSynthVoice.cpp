@@ -67,7 +67,7 @@ void SoundfontSynthVoice::controllerMoved (int /*controllerNumber*/, int /*newVa
 }
 
 void SoundfontSynthVoice::renderNextBlock (AudioBuffer<float>& outputBuffer, int startSample, int numSamples) {
-    fluid_synth_process(synth.get(), numSamples, 1, nullptr, outputBuffer.getNumChannels(), outputBuffer.getArrayOfWritePointers());
+    //fluid_synth_process(synth.get(), numSamples, 1, nullptr, outputBuffer.getNumChannels(), outputBuffer.getArrayOfWritePointers());
 }
 
 //void SoundfontSynthVoice::renderBlock (AudioBuffer<float>& outputBuffer, int startSample, int numSamples) {

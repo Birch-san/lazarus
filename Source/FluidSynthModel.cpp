@@ -18,7 +18,9 @@ void FluidSynthModel::initialise() {
 //    fluid_settings_setstr(settings, "synth.verbose", "yes");
 
     fluid_synth_t* synth = new_fluid_synth(settings);
-    fluid_synth_sfload(synth, "/Users/birch/Documents/soundfont/EarthBound.sf2", 1);
+//    fluid_synth_sfload(synth, "/Users/birch/Documents/soundfont/EarthBound.sf2", 1);
+    fluid_synth_sfload(synth, "/Users/birch/Documents/soundfont/free/Perfect Sine.sf2", 1);
+    fluid_synth_set_gain(synth, 2.0);
 
 //    driver = new_fluid_audio_driver(settings, synth);
 
