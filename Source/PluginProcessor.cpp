@@ -35,6 +35,8 @@ LazarusAudioProcessor::~LazarusAudioProcessor()
 void LazarusAudioProcessor::initialiseSynth() {
     fluidSynthModel->initialise();
 
+    fluidSynth = fluidSynthModel->getSynth();
+
     const int numVoices = 8;
 
     // Add some voices...
@@ -139,43 +141,6 @@ AudioProcessor::BusesProperties LazarusAudioProcessor::getBusesProperties() {
             .withOutput ("Output", AudioChannelSet::stereo(), true);
 }
 
-//void LazarusAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
-//{
-    // const int totalNumInputChannels  = getTotalNumInputChannels();
-    // const int totalNumOutputChannels = getTotalNumOutputChannels();
-    //
-    // // In case we have more outputs than inputs, this code clears any output
-    // // channels that didn't contain input data, (because these aren't
-    // // guaranteed to be empty - they may contain garbage).
-    // // This is here to avoid people getting screaming feedback
-    // // when they first compile a plugin, but obviously you don't need to keep
-    // // this code if your algorithm always overwrites all the output channels.
-    // for (int i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
-    //     buffer.clear (i, 0, buffer.getNumSamples());
-    //
-    // // This is the place where you'd normally do the guts of your plugin's
-    // // audio processing...
-    // for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    // {
-    //     float* channelData = buffer.getWritePointer (channel);
-    //
-    //     // ..do something to the data...
-    // }
-    //
-    // //    int midiEvents = midiMessages.getNumEvents();
-    //
-    // MidiBuffer::Iterator iterator (midiMessages);
-    //
-    // int samplePosition;
-    // MidiMessage midiMessage;
-    //
-    // while(iterator.getNextEvent(midiMessage, samplePosition)) {
-    //     model->handleIncomingMidiMessage(NULL, midiMessage);
-    // }
-
-//    process (buffer, midiMessages);
-//}
-
 void LazarusAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages) {
     jassert (!isUsingDoublePrecision());
     const int numSamples = buffer.getNumSamples();
@@ -186,13 +151,16 @@ void LazarusAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer
 
     // and now get our synth to process these midi events and generate its output.
     synth.renderNextBlock (buffer, midiMessages, 0, numSamples);
-    fluid_synth_process(fluidSynthModel->getSynth().get(), numSamples, 1, nullptr, buffer.getNumChannels(), buffer.getArrayOfWritePointers());
+    fluid_synth_process(fluidSynth.get(), numSamples, 1, nullptr, buffer.getNumChannels(), buffer.getArrayOfWritePointers());
 
-    // In case we have more outputs than inputs, we'll clear any output
+    // In case we have more outputs than inputs, this code clears any output
     // channels that didn't contain input data, (because these aren't
     // guaranteed to be empty - they may contain garbage).
-    for (int i = getTotalNumInputChannels(); i < getTotalNumOutputChannels(); ++i)
-        buffer.clear (i, 0, numSamples);
+    // This is here to avoid people getting screaming feedback
+    // when they first compile a plugin, but obviously you don't need to keep
+    // this code if your algorithm always overwrites all the output channels.
+//    for (int i = getTotalNumInputChannels(); i < getTotalNumOutputChannels(); ++i)
+//        buffer.clear (i, 0, numSamples);
 }
 
 //==============================================================================

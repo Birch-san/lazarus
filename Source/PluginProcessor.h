@@ -66,6 +66,7 @@ private:
     void initialiseSynth();
 
     FluidSynthModel* fluidSynthModel;
+    shared_ptr<fluid_synth_t> fluidSynth;
     Synthesiser synth;
 
     static BusesProperties getBusesProperties();
