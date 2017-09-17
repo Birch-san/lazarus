@@ -35,27 +35,7 @@ public:
 
     void sortOrderChanged (int newSortColumnId, bool isForwards) override;
 
-    // Component* refreshComponentForCell (
-    //         int rowNumber,
-    //         int columnId,
-    //         bool isRowSelected,
-    //         Component* existingComponentToUpdate
-    // ) override;
-
     int getColumnAutoSizeWidth (int columnId) override;
-
-    int getRating (const int rowNumber) const;
-    void setRating (const int rowNumber, const int newRating);
-
-    String getText (
-            const int columnNumber,
-            const int rowNumber
-    ) const;
-    void setText (
-            const int columnNumber,
-            const int rowNumber,
-            const String& newText
-    );
 
     void resized() override;
 
@@ -64,9 +44,8 @@ private:
     Font font;
 
     ScopedPointer<XmlElement> demoData;   // This is the XML document loaded from the embedded file "demo table data.xml"
-    XmlElement* columnList; // A pointer to the sub-node of demoData that contains the list of columns
-    XmlElement* dataList;   // A pointer to the sub-node of demoData that contains the list of data rows
-    int numRows;            // The number of rows of data we've got
+    std::vector<String> columnList;
+    std::vector<std::vector<String>> dataList;
 
     void loadData();
     String getAttributeNameForColumnId (const int columnId) const;

@@ -49,7 +49,7 @@ TableComponent::TableComponent()
 // This is overloaded from TableListBoxModel, and must return the total number of rows in our table
 int TableComponent::getNumRows()
 {
-    return numRows;
+    return static_cast<int>(dataList.size());
 }
 
 // This is overloaded from TableListBoxModel, and should fill in the background of the whole row
@@ -100,49 +100,12 @@ void TableComponent::sortOrderChanged (
 ) {
     if (newSortColumnId != 0)
     {
-        DataSorter sorter (getAttributeNameForColumnId (newSortColumnId), isForwards);
+        TableComponent::DataSorter sorter (getAttributeNameForColumnId (newSortColumnId), isForwards);
         dataList->sortChildElements (sorter);
 
         table.updateContent();
     }
 }
-
-// // This is overloaded from TableListBoxModel, and must update any custom components that we're using
-// Component* TableComponent::refreshComponentForCell (
-//         int rowNumber,
-//         int columnId,
-//         bool /*isRowSelected*/,
-//         Component* existingComponentToUpdate
-// ) {
-//     if (columnId == 1 || columnId == 7) // The ID and Length columns do not have a custom component
-//     {
-//         jassert (existingComponentToUpdate == nullptr);
-//         return nullptr;
-//     }
-//
-//     if (columnId == 5) // For the ratings column, we return the custom combobox component
-//     {
-//         RatingColumnCustomComponent* ratingsBox = static_cast<RatingColumnCustomComponent*> (existingComponentToUpdate);
-//
-//         // If an existing component is being passed-in for updating, we'll re-use it, but
-//         // if not, we'll have to create one.
-//         if (ratingsBox == nullptr)
-//             ratingsBox = new RatingColumnCustomComponent (*this);
-//
-//         ratingsBox->setRowAndColumn (rowNumber, columnId);
-//         return ratingsBox;
-//     }
-//
-//     // The other columns are editable text columns, for which we use the custom Label component
-//     EditableTextCustomComponent* textLabel = static_cast<EditableTextCustomComponent*> (existingComponentToUpdate);
-//
-//     // same as above...
-//     if (textLabel == nullptr)
-//         textLabel = new EditableTextCustomComponent (*this);
-//
-//     textLabel->setRowAndColumn (rowNumber, columnId);
-//     return textLabel;
-// }
 
 // This is overloaded from TableListBoxModel, and should choose the best width for the specified
 // column.
@@ -164,35 +127,6 @@ int TableComponent::getColumnAutoSizeWidth (int columnId) {
     }
 
     return widest + 8;
-}
-
-// A couple of quick methods to set and get cell values when the user changes them
-int TableComponent::getRating (const int rowNumber) const
-{
-    return dataList->getChildElement (rowNumber)->getIntAttribute ("Rating");
-}
-
-void TableComponent::setRating (
-        const int rowNumber,
-        const int newRating
-) {
-    dataList->getChildElement (rowNumber)->setAttribute ("Rating", newRating);
-}
-
-String TableComponent::getText (
-        const int columnNumber,
-        const int rowNumber
-) const {
-    return dataList->getChildElement (rowNumber)->getStringAttribute ( getAttributeNameForColumnId(columnNumber));
-}
-
-void TableComponent::setText (
-        const int columnNumber,
-        const int rowNumber,
-        const String& newText
-) {
-    const String& columnName = table.getHeader().getColumnName (columnNumber);
-    dataList->getChildElement (rowNumber)->setAttribute (columnName, newText);
 }
 
 //==============================================================================
@@ -233,17 +167,9 @@ void TableComponent::loadData() {
 
     dataList   = demoData->getChildByName ("DATA");
     columnList = demoData->getChildByName ("COLUMNS");
-
-    numRows = dataList->getNumChildElements();
 }
 
 // (a utility method to search our XML for the attribute that matches a column ID)
 String TableComponent::getAttributeNameForColumnId (const int columnId) const {
-    forEachXmlChildElement (*columnList, columnXml)
-    {
-        if (columnXml->getIntAttribute ("columnId") == columnId)
-            return columnXml->getStringAttribute ("name");
-    }
-
-    return String();
+    return columnList[columnId];
 }

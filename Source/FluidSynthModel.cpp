@@ -20,9 +20,14 @@ void FluidSynthModel::initialise() {
     fluid_synth_t* synth = new_fluid_synth(settings);
     fluid_synth_sfload(synth, "/Users/birch/Documents/soundfont/EarthBound.sf2", 1);
 //    fluid_synth_sfload(synth, "/Users/birch/Documents/soundfont/free/Perfect Sine.sf2", 1);
+
+    sfont_id = 1;
+
     fluid_synth_set_gain(synth, 2.0);
-    fluid_synth_program_select(synth, 0, 1, 128, 13);
+    fluid_synth_program_select(synth, 0, sfont_id, 128, 13);
 //    fluid_synth_bank_select(synth, 0, 3);
+
+//    fluid_handle_inst
 
 //    driver = new_fluid_audio_driver(settings, synth);
 
@@ -32,6 +37,33 @@ void FluidSynthModel::initialise() {
     });
 
     initialised = true;
+}
+
+std::set<int> FluidSynthModel::getPresets() {
+
+}
+std::vector<Bank> FluidSynthModel::getBanks() {
+    std::vector<Bank> array;
+    array.reserve(128);
+
+    fluid_sfont_t* sfont = fluid_synth_get_sfont_by_id(this->synth.get(), sfont_id);
+
+    int offset = fluid_synth_get_bank_offset(this->synth.get(), sfont_id);
+
+    jassert(sfont != nullptr);
+    fluid_sfont_iteration_start(sfont);
+
+    fluid_preset_t preset;
+
+    while(sfont->iteration_next(sfont, &preset)) {
+        array.push_back(*new Bank(
+                preset.get_num(&preset),
+                preset.get_banknum(&preset) + offset,
+                preset.get_name(&preset)
+        ));
+    }
+
+    return array;
 }
 
 shared_ptr<fluid_synth_t> FluidSynthModel::getSynth() {
