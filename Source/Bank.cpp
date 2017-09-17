@@ -5,16 +5,10 @@
 #include "Bank.h"
 
 Bank::Bank(
-        int preset,
         int bank,
         String name
-) : preset(preset),
-    bank(bank),
+) : bank(bank),
     name(name) {}
-
-int Bank::getPreset() {
-    return preset;
-}
 
 int Bank::getBank() {
     return bank;

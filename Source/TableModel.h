@@ -1,24 +1,14 @@
 //
-//  Model.hpp
-//  Lazarus
-//
-//  Created by Alex Birch on 01/09/2017.
-//
+// Created by Alex Birch on 17/09/2017.
 //
 
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "PresetsToBanks.h"
-#include <memory>
 
-using namespace std;
 
-class TableComponent    : public Component,
-                          public TableListBoxModel {
+class TableModel: public TableListBoxModel {
 public:
-    TableComponent();
-
     int getNumRows() override;
 
     void paintRowBackground (
@@ -41,15 +31,10 @@ public:
 
     int getColumnAutoSizeWidth (int columnId) override;
 
-    void resized() override;
-
 private:
-    TableListBox table;     // the table component itself
-    Font font;
-
     ScopedPointer<XmlElement> demoData;   // This is the XML document loaded from the embedded file "demo table data.xml"
-    vector<String> columnList;
-    shared_ptr<PresetsToBanks> presetsToBanks;
+    std::vector<String> columnList;
+    std::vector<std::vector<String>> dataList;
 
     void loadData();
     String getAttributeNameForColumnId (const int columnId) const;
@@ -72,5 +57,5 @@ private:
         int direction;
     };
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TableComponent)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TableModel)
 };

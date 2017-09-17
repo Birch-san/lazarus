@@ -12,6 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
+#include "TablesComponent.h"
 
 
 //==============================================================================
@@ -33,6 +34,7 @@ private:
     LazarusAudioProcessor& processor;
 
     MidiKeyboardComponent midiKeyboard;
+    TablesComponent* tablesComponent;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LazarusAudioProcessorEditor)
 };

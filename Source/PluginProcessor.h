@@ -61,6 +61,8 @@ public:
 
     bool supportsDoublePrecisionProcessing() const override;
 
+    shared_ptr<FluidSynthModel> getFluidSynthModel();
+
     MidiKeyboardState keyboardState;
 private:
     void initialiseSynth();

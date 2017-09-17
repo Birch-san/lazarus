@@ -193,6 +193,10 @@ bool LazarusAudioProcessor::supportsDoublePrecisionProcessing() const {
     return false;
 }
 
+shared_ptr<FluidSynthModel> LazarusAudioProcessor::getFluidSynthModel() {
+    return shared_ptr<FluidSynthModel>(fluidSynthModel);
+}
+
 //==============================================================================
 // This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()

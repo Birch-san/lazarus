@@ -61,7 +61,6 @@
 		359EAE1F1F58CAB900DBF805 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 444A0B81FA66C3EB7EE800CF /* OpenGL.framework */; };
 		359EAE201F58CAB900DBF805 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1591A07004352E74EE94CED /* QuartzCore.framework */; };
 		359EAE211F58CAB900DBF805 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F8600C6E1D18CDA0A62FA7 /* WebKit.framework */; };
-		359EAE281F58D49A00DBF805 /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 359EAE261F58D49A00DBF805 /* Model.cpp */; };
 		38314726B31344F4CF98933F /* include_juce_audio_plugin_client_VST_utils.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB8172315CDE369D9E7DDA77 /* include_juce_audio_plugin_client_VST_utils.mm */; };
 		40C1670980D22A3DA2E7050A /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D7AD804D840D6A8B0080B00 /* CoreMIDI.framework */; };
 		42C7DFBFDB27A0E1DFFD10CC /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = B066D43D2D100CB2AC07F8D0 /* RecentFilesMenuTemplate.nib */; };
@@ -74,6 +73,7 @@
 		59672461AAA28A05B7F999D3 /* SoundfontSynthVoice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 596722904181D85873BE2B4E /* SoundfontSynthVoice.cpp */; };
 		5967291A562D16D6861E97C2 /* SoundfontSynthSound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59672ACB08865F9E7E6E17AB /* SoundfontSynthSound.cpp */; };
 		5967298583ADD01CF9AF6F03 /* FluidSynthModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59672ECDD9C4A449FE14195E /* FluidSynthModel.cpp */; };
+		59672BFF180E9D00CE30A7EA /* TablesComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 596729466B6AB26A5C021657 /* TablesComponent.cpp */; };
 		59672F60D5C754B7F15B5722 /* TableComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5967200372818443BF5C2CE8 /* TableComponent.cpp */; };
 		616F29365A78524F10D569AA /* include_juce_events.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4237CC36A25BEE39597B8AF0 /* include_juce_events.mm */; };
 		63CB43EDC74F346436BE02E3 /* include_juce_audio_devices.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0312B2D7C03F6B2D6853C282 /* include_juce_audio_devices.mm */; };
@@ -140,8 +140,6 @@
 		1DE781C2ADA44ABA5E6E586B /* juce_gui_extra */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_gui_extra; path = /Applications/JUCE/modules/juce_gui_extra; sourceTree = "<absolute>"; };
 		25DDDED22570B01A61D1F195 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		32F266B4F65A1FD5EE5A0F32 /* juce_gui_basics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_gui_basics; path = /Applications/JUCE/modules/juce_gui_basics; sourceTree = "<absolute>"; };
-		359EAE261F58D49A00DBF805 /* Model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Model.cpp; path = ../../Source/Model.cpp; sourceTree = "<group>"; };
-		359EAE271F58D49A00DBF805 /* Model.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Model.hpp; path = ../../Source/Model.hpp; sourceTree = "<group>"; };
 		37BBD5043CD97BE35BD8D3BE /* Info-Standalone_Plugin.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Standalone_Plugin.plist"; sourceTree = SOURCE_ROOT; };
 		3D7AD804D840D6A8B0080B00 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		4237CC36A25BEE39597B8AF0 /* include_juce_events.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_events.mm; path = ../../JuceLibraryCode/include_juce_events.mm; sourceTree = SOURCE_ROOT; };
@@ -152,9 +150,12 @@
 		473D4289E6FAB8F1378E0143 /* include_juce_audio_plugin_client_AU_2.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_plugin_client_AU_2.mm; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_AU_2.mm; sourceTree = SOURCE_ROOT; };
 		56BB16C98DEC124804FBA6E5 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		5967200372818443BF5C2CE8 /* TableComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TableComponent.cpp; path = ../../Source/TableComponent.cpp; sourceTree = "<group>"; };
+		596721626E584088DA335497 /* TablesComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TablesComponent.h; path = ../../Source/TablesComponent.h; sourceTree = "<group>"; };
 		596722904181D85873BE2B4E /* SoundfontSynthVoice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SoundfontSynthVoice.cpp; path = ../../Source/SoundfontSynthVoice.cpp; sourceTree = "<group>"; };
 		596722D9B25B1FDD25BC34BA /* SoundfontSynthVoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SoundfontSynthVoice.h; path = ../../Source/SoundfontSynthVoice.h; sourceTree = "<group>"; };
 		596725AACC9003D230B175E9 /* FluidSynthModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FluidSynthModel.h; path = ../../Source/FluidSynthModel.h; sourceTree = "<group>"; };
+		596728FCF4084A07DE2B4859 /* PresetsToBanks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresetsToBanks.h; path = ../../Source/PresetsToBanks.h; sourceTree = "<group>"; };
+		596729466B6AB26A5C021657 /* TablesComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TablesComponent.cpp; path = ../../Source/TablesComponent.cpp; sourceTree = "<group>"; };
 		59672ACB08865F9E7E6E17AB /* SoundfontSynthSound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SoundfontSynthSound.cpp; path = ../../Source/SoundfontSynthSound.cpp; sourceTree = "<group>"; };
 		59672B7AA2E6104E41D7AC45 /* Bank.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Bank.cpp; path = ../../Source/Bank.cpp; sourceTree = "<group>"; };
 		59672D6FEFAA75CA5DFB38D5 /* TableComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableComponent.h; path = ../../Source/TableComponent.h; sourceTree = "<group>"; };
@@ -290,8 +291,6 @@
 				8220C2F8769C9A27E9FD1B0D /* PluginProcessor.h */,
 				85FE7832B57957E69EE988FD /* PluginEditor.cpp */,
 				DA59244872845D7293DA11F7 /* PluginEditor.h */,
-				359EAE261F58D49A00DBF805 /* Model.cpp */,
-				359EAE271F58D49A00DBF805 /* Model.hpp */,
 				59672ACB08865F9E7E6E17AB /* SoundfontSynthSound.cpp */,
 				59672F262A54820ABB972C52 /* SoundfontSynthSound.h */,
 				596722904181D85873BE2B4E /* SoundfontSynthVoice.cpp */,
@@ -302,6 +301,9 @@
 				59672D6FEFAA75CA5DFB38D5 /* TableComponent.h */,
 				59672E9CE4966045649E0CC6 /* Bank.h */,
 				59672B7AA2E6104E41D7AC45 /* Bank.cpp */,
+				596728FCF4084A07DE2B4859 /* PresetsToBanks.h */,
+				596729466B6AB26A5C021657 /* TablesComponent.cpp */,
+				596721626E584088DA335497 /* TablesComponent.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -686,7 +688,6 @@
 				A4B3D0EBF00D0C3085235B2D /* include_juce_audio_utils.mm in Sources */,
 				4A1C73CBA4676B4CCDD7A64D /* include_juce_core.mm in Sources */,
 				FFD5847425CE3F166A69355E /* include_juce_cryptography.mm in Sources */,
-				359EAE281F58D49A00DBF805 /* Model.cpp in Sources */,
 				1CC5AA957A2E3476E8C432D3 /* include_juce_data_structures.mm in Sources */,
 				616F29365A78524F10D569AA /* include_juce_events.mm in Sources */,
 				B22EB0A42D892D3D7E27DB08 /* include_juce_graphics.mm in Sources */,
@@ -698,6 +699,7 @@
 				59672461AAA28A05B7F999D3 /* SoundfontSynthVoice.cpp in Sources */,
 				5967298583ADD01CF9AF6F03 /* FluidSynthModel.cpp in Sources */,
 				59672F60D5C754B7F15B5722 /* TableComponent.cpp in Sources */,
+				59672BFF180E9D00CE30A7EA /* TablesComponent.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

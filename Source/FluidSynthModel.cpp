@@ -4,6 +4,9 @@
 
 #include <iostream>
 #include "FluidSynthModel.h"
+#include "Bank.h"
+
+using namespace std;
 
 FluidSynthModel::~FluidSynthModel() {
     if (initialised) {
@@ -39,12 +42,8 @@ void FluidSynthModel::initialise() {
     initialised = true;
 }
 
-std::set<int> FluidSynthModel::getPresets() {
-
-}
-std::vector<Bank> FluidSynthModel::getBanks() {
-    std::vector<Bank> array;
-    array.reserve(128);
+shared_ptr<PresetsToBanks> FluidSynthModel::getBanks() {
+    PresetsToBanks presetsToBanks;
 
     fluid_sfont_t* sfont = fluid_synth_get_sfont_by_id(this->synth.get(), sfont_id);
 
@@ -54,18 +53,18 @@ std::vector<Bank> FluidSynthModel::getBanks() {
     sfont->iteration_start(sfont);
 
     fluid_preset_t preset;
-    int presetNum;
 
     while(sfont->iteration_next(sfont, &preset)) {
-        presetNum = preset.get_num(&preset);
-        array.push_back(*new Bank(
-                presetNum,
-                preset.get_banknum(&preset) + offset,
-                String(preset.get_name(&preset))
+        presetsToBanks.insert(PresetsToBanks::value_type(
+                preset.get_num(&preset),
+                *new Bank(
+                        preset.get_banknum(&preset) + offset,
+                        String(preset.get_name(&preset))
+                )
         ));
     }
 
-    return array;
+    return shared_ptr<PresetsToBanks>(&presetsToBanks);
 }
 
 shared_ptr<fluid_synth_t> FluidSynthModel::getSynth() {

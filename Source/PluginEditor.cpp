@@ -24,6 +24,12 @@ LazarusAudioProcessorEditor::LazarusAudioProcessorEditor (LazarusAudioProcessor&
 
     midiKeyboard.setName ("MIDI Keyboard");
     addAndMakeVisible (midiKeyboard);
+
+    tablesComponent = new TablesComponent(
+            p.getFluidSynthModel().get()->getBanks()
+    );
+
+    addAndMakeVisible(tablesComponent);
 }
 
 LazarusAudioProcessorEditor::~LazarusAudioProcessorEditor()
@@ -36,9 +42,9 @@ void LazarusAudioProcessorEditor::paint (Graphics& g)
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
 
-    g.setColour (Colours::white);
-    g.setFont (15.0f);
-    g.drawFittedText ("Hello World!", getLocalBounds(), Justification::centred, 1);
+//    g.setColour (Colours::white);
+//    g.setFont (15.0f);
+//    g.drawFittedText ("Hello World!", getLocalBounds(), Justification::centred, 1);
 }
 
 void LazarusAudioProcessorEditor::resized()

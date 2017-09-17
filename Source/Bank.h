@@ -9,17 +9,14 @@
 class Bank {
 public:
     Bank(
-            int preset,
             int bank,
             String name
     );
 
-    int getPreset();
     int getBank();
     String getName();
 
 private:
-    int preset;
     int bank;
     String name;
 };
