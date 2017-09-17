@@ -51,15 +51,17 @@ std::vector<Bank> FluidSynthModel::getBanks() {
     int offset = fluid_synth_get_bank_offset(this->synth.get(), sfont_id);
 
     jassert(sfont != nullptr);
-    fluid_sfont_iteration_start(sfont);
+    sfont->iteration_start(sfont);
 
     fluid_preset_t preset;
+    int presetNum;
 
     while(sfont->iteration_next(sfont, &preset)) {
+        presetNum = preset.get_num(&preset);
         array.push_back(*new Bank(
-                preset.get_num(&preset),
+                presetNum,
                 preset.get_banknum(&preset) + offset,
-                preset.get_name(&preset)
+                String(preset.get_name(&preset))
         ));
     }
 

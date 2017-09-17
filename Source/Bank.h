@@ -4,20 +4,22 @@
 
 #pragma once
 
+#include "../JuceLibraryCode/JuceHeader.h"
+
 class Bank {
 public:
     Bank(
             int preset,
             int bank,
-            char* name
+            String name
     );
 
     int getPreset();
     int getBank();
-    char* getName();
+    String getName();
 
 private:
     int preset;
     int bank;
-    char* name;
+    String name;
 };

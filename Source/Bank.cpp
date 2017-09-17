@@ -7,11 +7,10 @@
 Bank::Bank(
         int preset,
         int bank,
-        char* name
+        String name
 ) : preset(preset),
     bank(bank),
-    name(name) {
-}
+    name(name) {}
 
 int Bank::getPreset() {
     return preset;
@@ -21,6 +20,6 @@ int Bank::getBank() {
     return bank;
 }
 
-char* Bank::getName() {
+String Bank::getName() {
     return name;
 }
