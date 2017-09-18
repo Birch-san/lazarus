@@ -26,7 +26,7 @@ LazarusAudioProcessorEditor::LazarusAudioProcessorEditor (LazarusAudioProcessor&
     addAndMakeVisible (midiKeyboard);
 
     tablesComponent = new TablesComponent(
-            p.getFluidSynthModel().get()->getBanks()
+            p.getFluidSynthModel()
     );
 
     addAndMakeVisible(tablesComponent);

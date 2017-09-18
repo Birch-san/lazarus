@@ -59,7 +59,7 @@ unique_ptr<PresetsToBanks> FluidSynthModel::getBanks() {
                 preset.get_num(&preset),
                 *new Bank(
                         preset.get_banknum(&preset) + offset,
-                        String(preset.get_name(&preset))
+                        preset.get_name(&preset)
                 )
         ));
     }
