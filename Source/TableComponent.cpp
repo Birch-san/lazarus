@@ -15,8 +15,8 @@ using namespace std;
     This class shows how to implement a TableListBoxModel to show in a TableListBox.
 */
 TableComponent::TableComponent(
-        vector<string> columns,
-        vector<vector<string>> rows
+        const vector<string> &columns,
+        const vector<vector<string>> &rows
 )
         : font (14.0f),
           columns(columns),

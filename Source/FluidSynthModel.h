@@ -20,7 +20,7 @@ public:
     shared_ptr<fluid_synth_t> getSynth();
     void initialise();
 
-    shared_ptr<PresetsToBanks> getBanks();
+    unique_ptr<PresetsToBanks> getBanks();
 
 private:
     shared_ptr<fluid_synth_t> synth;

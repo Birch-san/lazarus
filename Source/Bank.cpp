@@ -4,9 +4,11 @@
 
 #include "Bank.h"
 
+using namespace std;
+
 Bank::Bank(
         int bank,
-        String name
+        string name
 ) : bank(bank),
     name(name) {}
 
@@ -14,6 +16,6 @@ int Bank::getBank() {
     return bank;
 }
 
-String Bank::getName() {
+string Bank::getName() {
     return name;
 }

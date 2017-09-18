@@ -19,8 +19,8 @@ class TableComponent    : public Component,
                           public TableListBoxModel {
 public:
     TableComponent(
-            vector<string> columns,
-            vector<vector<string>> rows
+            const vector<string> &columns,
+            const vector<vector<string>> &rows
     );
 
     int getNumRows() override;

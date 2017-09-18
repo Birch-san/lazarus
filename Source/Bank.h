@@ -6,17 +6,19 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
+using namespace std;
+
 class Bank {
 public:
     Bank(
             int bank,
-            String name
+            string name
     );
 
     int getBank();
-    String getName();
+    string getName();
 
 private:
     int bank;
-    String name;
+    string name;
 };
