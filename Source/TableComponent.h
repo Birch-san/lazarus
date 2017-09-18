@@ -11,13 +11,17 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PresetsToBanks.h"
 #include <memory>
+#include <string>
 
 using namespace std;
 
 class TableComponent    : public Component,
                           public TableListBoxModel {
 public:
-    TableComponent();
+    TableComponent(
+            vector<string> columns,
+            vector<vector<string>> rows
+    );
 
     int getNumRows() override;
 
@@ -47,28 +51,24 @@ private:
     TableListBox table;     // the table component itself
     Font font;
 
-    ScopedPointer<XmlElement> demoData;   // This is the XML document loaded from the embedded file "demo table data.xml"
-    vector<String> columnList;
-    shared_ptr<PresetsToBanks> presetsToBanks;
-
-    void loadData();
-    String getAttributeNameForColumnId (const int columnId) const;
+    vector<string> columns;
+    vector<vector<string>> rows;
 
     // A comparator used to sort our data when the user clicks a column header
     class DataSorter {
     public:
         DataSorter (
-                const String& attributeToSortBy,
+                int columnByWhichToSort,
                 bool forwards
         );
 
-        int compareElements (
-                XmlElement* first,
-                XmlElement* second
-        ) const;
+        bool operator ()(
+                vector<string> first,
+                vector<string> second
+        );
 
     private:
-        String attributeToSort;
+        int columnByWhichToSort;
         int direction;
     };
 

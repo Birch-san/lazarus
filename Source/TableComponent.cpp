@@ -8,16 +8,20 @@
 
 #include "TableComponent.h"
 
+using namespace std;
+
 //==============================================================================
 /**
     This class shows how to implement a TableListBoxModel to show in a TableListBox.
 */
-TableComponent::TableComponent()
-        : font (14.0f)
+TableComponent::TableComponent(
+        vector<string> columns,
+        vector<vector<string>> rows
+)
+        : font (14.0f),
+          columns(columns),
+          rows(rows)
 {
-    // Load some data from an embedded XML file..
-    loadData();
-
     // Create our table component and add it to this component..
     addAndMakeVisible (table);
     table.setModel (this);
@@ -26,14 +30,19 @@ TableComponent::TableComponent()
     table.setColour (ListBox::outlineColourId, Colours::grey);
     table.setOutlineThickness (1);
 
+    int columnIx = 0;
+
     // Add some columns to the table header, based on the column list in our database..
-    forEachXmlChildElement (*columnList, columnXml)
+    for (auto &column : columns) // access by reference to avoid copying
     {
-        table.getHeader().addColumn (columnXml->getStringAttribute ("name"),
-                columnXml->getIntAttribute ("columnId"),
-                columnXml->getIntAttribute ("width"),
-                50, 400,
-                TableHeaderComponent::defaultFlags);
+        table.getHeader().addColumn (
+                String(column),
+                columnIx++,
+                100, // column width
+                50, // min width
+                400, // max width
+                TableHeaderComponent::defaultFlags
+        );
     }
 
     // we could now change some initial settings..
@@ -49,7 +58,7 @@ TableComponent::TableComponent()
 // This is overloaded from TableListBoxModel, and must return the total number of rows in our table
 int TableComponent::getNumRows()
 {
-    return static_cast<int>(dataList.size());
+    return static_cast<int>(rows.size());
 }
 
 // This is overloaded from TableListBoxModel, and should fill in the background of the whole row
@@ -81,12 +90,7 @@ void TableComponent::paintCell (
     g.setColour (getLookAndFeel().findColour (ListBox::textColourId));
     g.setFont (font);
 
-    if (const XmlElement* rowElement = dataList->getChildElement (rowNumber))
-    {
-        const String text (rowElement->getStringAttribute (getAttributeNameForColumnId (columnId)));
-
-        g.drawText (text, 2, 0, width - 4, height, Justification::centredLeft, true);
-    }
+    g.drawText (rows[rowNumber][columnId], 2, 0, width - 4, height, Justification::centredLeft, true);
 
     g.setColour (getLookAndFeel().findColour (ListBox::backgroundColourId));
     g.fillRect (width - 1, 0, 1, height);
@@ -98,10 +102,9 @@ void TableComponent::sortOrderChanged (
         int newSortColumnId,
         bool isForwards
 ) {
-    if (newSortColumnId != 0)
-    {
-        TableComponent::DataSorter sorter (getAttributeNameForColumnId (newSortColumnId), isForwards);
-        dataList->sortChildElements (sorter);
+    if (newSortColumnId != 0) {
+        TableComponent::DataSorter sorter (newSortColumnId, isForwards);
+        sort(rows.begin(), rows.end(), sorter);
 
         table.updateContent();
     }
@@ -116,14 +119,8 @@ int TableComponent::getColumnAutoSizeWidth (int columnId) {
     int widest = 32;
 
     // find the widest bit of text in this column..
-    for (int i = getNumRows(); --i >= 0;)
-    {
-        if (const XmlElement* rowElement = dataList->getChildElement (i))
-        {
-            const String text (rowElement->getStringAttribute (getAttributeNameForColumnId (columnId)));
-
-            widest = jmax (widest, font.getStringWidth (text));
-        }
+    for (int i = getNumRows(); --i >= 0;) {
+        widest = jmax (widest, font.getStringWidth (rows[i][columnId]));
     }
 
     return widest + 8;
@@ -139,37 +136,25 @@ void TableComponent::resized() {
 // A comparator used to sort our data when the user clicks a column header
 
 TableComponent::DataSorter::DataSorter (
-        const String& attributeToSortBy,
+        int columnByWhichToSort,
         bool forwards
 )
-        : attributeToSort (attributeToSortBy),
+        : columnByWhichToSort (columnByWhichToSort),
           direction (forwards ? 1 : -1)
 {}
 
-int TableComponent::DataSorter::compareElements (
-        XmlElement* first,
-        XmlElement* second
-) const {
-    int result = first->getStringAttribute (attributeToSort)
-            .compareNatural (second->getStringAttribute (attributeToSort));
+bool TableComponent::DataSorter::operator ()(
+        vector<string> first,
+        vector<string> second
+) {
+    int result = String(first[columnByWhichToSort])
+            .compareNatural (String(second[columnByWhichToSort]));
 
     if (result == 0)
-        result = first->getStringAttribute ("ID")
-                .compareNatural (second->getStringAttribute ("ID"));
+        result = String(first[0])
+                .compareNatural (String(second[0]));
 
-    return direction * result;
-}
+    result *= direction;
 
-//==============================================================================
-// this loads the embedded database XML file into memory
-void TableComponent::loadData() {
-    demoData = XmlDocument::parse (BinaryData::demo_table_data_xml);
-
-    dataList   = demoData->getChildByName ("DATA");
-    columnList = demoData->getChildByName ("COLUMNS");
-}
-
-// (a utility method to search our XML for the attribute that matches a column ID)
-String TableComponent::getAttributeNameForColumnId (const int columnId) const {
-    return columnList[columnId];
+    return result > 0;
 }
