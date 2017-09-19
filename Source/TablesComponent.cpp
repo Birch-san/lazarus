@@ -35,7 +35,7 @@ TablesComponent::TablesComponent(
 unique_ptr<vector<vector<string>>> TablesComponent::mapBanks(const BanksToPresets &banksToPresets) {
     vector<vector<string>> rows;
 
-    const auto compareKey = [](const BanksToPresets::value_type& lhs, const BanksToPresets::value_type& rhs) {
+    const auto compareKey = [](const std::pair<const int, Preset>& lhs, const std::pair<const int, Preset>& rhs) {
         return lhs.first < rhs.first;
     };
 
