@@ -8,17 +8,17 @@
 
 using namespace std;
 
-class Bank {
+class Preset {
 public:
-    Bank(
-            int bank,
+    Preset(
+            int preset,
             string name
     );
 
-    int getBank();
+    int getPreset();
     string getName();
 
 private:
-    int bank;
+    int preset;
     string name;
 };

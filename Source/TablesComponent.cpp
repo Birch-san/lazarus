@@ -10,36 +10,36 @@ TablesComponent::TablesComponent(
         shared_ptr<FluidSynthModel> fluidSynthModel
 ) : fluidSynthModel(fluidSynthModel)
 {
-    unique_ptr<PresetsToBanks> presetsToBanks = fluidSynthModel->getBanks();
+    unique_ptr<BanksToPresets> banksToPresets = fluidSynthModel->getBanks();
 
-    vector<string> presetColumns = {"Preset"};
-    vector<string> bankColumns = {"Bank", "Name"};
-    presetTable = new TableComponent(
-            presetColumns,
-            *mapPresets(
-                    *presetsToBanks
-            )
-    );
+    vector<string> bankColumns = {"Bank"};
+    vector<string> presetColumns = {"Preset", "Name"};
     bankTable = new TableComponent(
             bankColumns,
             *mapBanks(
-                    *presetsToBanks,
+                    *banksToPresets
+            )
+    );
+    presetTable = new TableComponent(
+            presetColumns,
+            *mapPresets(
+                    *banksToPresets,
                     0
             )
     );
 
-    addAndMakeVisible (presetTable);
     addAndMakeVisible (bankTable);
+    addAndMakeVisible (presetTable);
 }
 
-unique_ptr<vector<vector<string>>> TablesComponent::mapPresets(const PresetsToBanks& presetsToBanks) {
+unique_ptr<vector<vector<string>>> TablesComponent::mapBanks(const BanksToPresets &banksToPresets) {
     vector<vector<string>> rows;
 
-    const auto compareKey = [](const PresetsToBanks::value_type& lhs, const PresetsToBanks::value_type& rhs) {
+    const auto compareKey = [](const BanksToPresets::value_type& lhs, const BanksToPresets::value_type& rhs) {
         return lhs.first < rhs.first;
     };
 
-    for(auto i = presetsToBanks.begin(); i != presetsToBanks.end(); i = std::upper_bound(i, presetsToBanks.end(), *i, compareKey)) {
+    for(auto i = banksToPresets.begin(); i != banksToPresets.end(); i = std::upper_bound(i, banksToPresets.end(), *i, compareKey)) {
         vector<string> row;
 
         row.push_back(to_string(i->first));
@@ -51,14 +51,14 @@ unique_ptr<vector<vector<string>>> TablesComponent::mapPresets(const PresetsToBa
 }
 
 
-unique_ptr<vector<vector<string>>> TablesComponent::mapBanks(const PresetsToBanks& presetsToBanks, int bank) {
+unique_ptr<vector<vector<string>>> TablesComponent::mapPresets(const BanksToPresets &banksToPresets, int bank) {
     vector<vector<string>> rows;
 
-    pair<PresetsToBanks::const_iterator, PresetsToBanks::const_iterator> iterators = presetsToBanks.equal_range(bank);
+    pair<BanksToPresets::const_iterator, BanksToPresets::const_iterator> iterators = banksToPresets.equal_range(bank);
     for (auto it = iterators.first; it != iterators.second; ++it) {
-        Bank b = it->second;
+        Preset b = it->second;
         vector<string> row;
-        row.push_back(to_string(b.getBank()));
+        row.push_back(to_string(b.getPreset()));
         row.push_back(b.getName());
 
         rows.push_back(row);

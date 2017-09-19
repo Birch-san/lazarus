@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "FluidSynthModel.h"
-#include "Bank.h"
+#include "Preset.h"
 
 using namespace std;
 
@@ -42,8 +42,8 @@ void FluidSynthModel::initialise() {
     initialised = true;
 }
 
-unique_ptr<PresetsToBanks> FluidSynthModel::getBanks() {
-    PresetsToBanks presetsToBanks;
+unique_ptr<BanksToPresets> FluidSynthModel::getBanks() {
+    BanksToPresets presetsToBanks;
 
     fluid_sfont_t* sfont = fluid_synth_get_sfont_by_id(this->synth.get(), sfont_id);
 
@@ -55,16 +55,16 @@ unique_ptr<PresetsToBanks> FluidSynthModel::getBanks() {
     fluid_preset_t preset;
 
     while(sfont->iteration_next(sfont, &preset)) {
-        presetsToBanks.insert(PresetsToBanks::value_type(
-                preset.get_num(&preset),
-                *new Bank(
-                        preset.get_banknum(&preset) + offset,
+        presetsToBanks.insert(BanksToPresets::value_type(
+                preset.get_banknum(&preset) + offset,
+                *new Preset(
+                        preset.get_num(&preset),
                         preset.get_name(&preset)
                 )
         ));
     }
 
-    return unique_ptr<PresetsToBanks>(&presetsToBanks);
+    return unique_ptr<BanksToPresets>(&presetsToBanks);
 }
 
 shared_ptr<fluid_synth_t> FluidSynthModel::getSynth() {

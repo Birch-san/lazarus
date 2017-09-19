@@ -21,13 +21,13 @@ public:
 
 private:
 
-    TableComponent* presetTable;
     TableComponent* bankTable;
+    TableComponent* presetTable;
 
     shared_ptr<FluidSynthModel> fluidSynthModel;
 
-    static unique_ptr<vector<vector<string>>> mapBanks(const PresetsToBanks& presetsToBanks, int bank);
-    static unique_ptr<vector<vector<string>>> mapPresets(const PresetsToBanks& presetsToBanks);
+    static unique_ptr<vector<vector<string>>> mapPresets(const BanksToPresets &banksToPresets, int bank);
+    static unique_ptr<vector<vector<string>>> mapBanks(const BanksToPresets &banksToPresets);
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TablesComponent)
 };

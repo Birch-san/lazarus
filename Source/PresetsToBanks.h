@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "Bank.h"
+#include "Preset.h"
 #include <map>
 
-typedef std::multimap<int, Bank> PresetsToBanks;
+typedef std::multimap<int, Preset> BanksToPresets;
