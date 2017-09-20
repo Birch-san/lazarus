@@ -43,7 +43,7 @@ void FluidSynthModel::initialise() {
 }
 
 unique_ptr<BanksToPresets> FluidSynthModel::getBanks() {
-    BanksToPresets presetsToBanks;
+    BanksToPresets banksToPresets;
 
     fluid_sfont_t* sfont = fluid_synth_get_sfont_by_id(this->synth.get(), sfont_id);
 
@@ -55,7 +55,7 @@ unique_ptr<BanksToPresets> FluidSynthModel::getBanks() {
     fluid_preset_t preset;
 
     while(sfont->iteration_next(sfont, &preset)) {
-        presetsToBanks.insert(BanksToPresets::value_type(
+        banksToPresets.insert(BanksToPresets::value_type(
                 preset.get_banknum(&preset) + offset,
                 *new Preset(
                         preset.get_num(&preset),
@@ -64,7 +64,7 @@ unique_ptr<BanksToPresets> FluidSynthModel::getBanks() {
         ));
     }
 
-    return unique_ptr<BanksToPresets>(&presetsToBanks);
+    return unique_ptr<BanksToPresets>(&banksToPresets);
 }
 
 shared_ptr<fluid_synth_t> FluidSynthModel::getSynth() {
