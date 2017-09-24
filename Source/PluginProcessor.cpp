@@ -29,7 +29,7 @@ LazarusAudioProcessor::LazarusAudioProcessor()
 
 LazarusAudioProcessor::~LazarusAudioProcessor()
 {
-    delete fluidSynthModel;
+//    delete fluidSynthModel;
 }
 
 void LazarusAudioProcessor::initialiseSynth() {

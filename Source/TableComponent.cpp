@@ -102,12 +102,12 @@ void TableComponent::sortOrderChanged (
         int newSortColumnId,
         bool isForwards
 ) {
-    if (newSortColumnId != 0) {
-        TableComponent::DataSorter sorter (newSortColumnId, isForwards);
-        sort(rows.begin(), rows.end(), sorter);
-
-        table.updateContent();
-    }
+//    if (newSortColumnId != 0) {
+//        TableComponent::DataSorter sorter (newSortColumnId, isForwards);
+//        sort(rows.begin(), rows.end(), sorter);
+//
+//        table.updateContent();
+//    }
 }
 
 // This is overloaded from TableListBoxModel, and should choose the best width for the specified
