@@ -5,6 +5,7 @@
 #include "TablesComponent.h"
 
 using namespace std;
+using namespace placeholders;
 
 TablesComponent::TablesComponent(
         shared_ptr<FluidSynthModel> fluidSynthModel
@@ -12,19 +13,13 @@ TablesComponent::TablesComponent(
 {
     BanksToPresets banksToPresets(fluidSynthModel->getBanks());
 
-    auto rowToIndexMapper = [](vector<string> row) {
-        return stoi(row[0]);
-    };
-
     bankTable = new TableComponent(
             {"Bank"},
             mapBanks(
                     banksToPresets
             ),
-            [](int row) {
-                cout << "Bank " << row << endl;
-            },
-            rowToIndexMapper
+            bind(&TablesComponent::onBankSelected, this, _1),
+            bind(&TablesComponent::rowToIndexMapper, this, _1)
     );
     presetTable = new TableComponent(
             {"Preset", "Name"},
@@ -32,14 +27,24 @@ TablesComponent::TablesComponent(
                     banksToPresets,
                     0
             ),
-            [](int row) {
-                cout << "Preset " << row << endl;
-            },
-            rowToIndexMapper
+            bind(&TablesComponent::onPresetSelected, this, _1),
+            bind(&TablesComponent::rowToIndexMapper, this, _1)
     );
 
     addAndMakeVisible (bankTable);
     addAndMakeVisible (presetTable);
+}
+
+int TablesComponent::rowToIndexMapper(vector<string> row) {
+    return stoi(row[0]);
+}
+
+void TablesComponent::onBankSelected(int bank) {
+    cout << "Bank " << bank << endl;
+}
+
+void TablesComponent::onPresetSelected(int preset) {
+    cout << "Preset " << preset << endl;
 }
 
 TablesComponent::~TablesComponent() {

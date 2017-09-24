@@ -29,5 +29,9 @@ private:
     static vector<vector<string>> mapPresets(const BanksToPresets &banksToPresets, int bank);
     static vector<vector<string>> mapBanks(const BanksToPresets &banksToPresets);
 
+    int rowToIndexMapper(vector<string> row);
+    void onBankSelected(int bank);
+    void onPresetSelected(int preset);
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TablesComponent)
 };

@@ -21,8 +21,8 @@ public:
     TableComponent(
             const vector<string> &columns,
             const vector<vector<string>> &rows,
-            function<void (int)> onRowSelected,
-            function<int (vector<string>)> rowToIndexMapper
+            const function<void (int)> &onRowSelected,
+            const function<int (vector<string>)> &rowToIndexMapper
     );
 
     int getNumRows() override;
