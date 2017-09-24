@@ -90,7 +90,7 @@ void TableComponent::paintCell (
     g.setColour (getLookAndFeel().findColour (ListBox::textColourId));
     g.setFont (font);
 
-    g.drawText (rows[rowNumber][columnId], 2, 0, width - 4, height, Justification::centredLeft, true);
+    g.drawText (rows[rowNumber][columnId-1], 2, 0, width - 4, height, Justification::centredLeft, true);
 
     g.setColour (getLookAndFeel().findColour (ListBox::backgroundColourId));
     g.fillRect (width - 1, 0, 1, height);
