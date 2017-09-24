@@ -10,20 +10,20 @@ TablesComponent::TablesComponent(
         shared_ptr<FluidSynthModel> fluidSynthModel
 ) : fluidSynthModel(fluidSynthModel)
 {
-    unique_ptr<BanksToPresets> banksToPresets = fluidSynthModel->getBanks();
+    BanksToPresets banksToPresets = fluidSynthModel->getBanks();
 
     vector<string> bankColumns = {"Bank"};
     vector<string> presetColumns = {"Preset", "Name"};
     bankTable = new TableComponent(
             bankColumns,
-            *mapBanks(
-                    *banksToPresets
+            mapBanks(
+                    banksToPresets
             )
     );
     presetTable = new TableComponent(
             presetColumns,
-            *mapPresets(
-                    *banksToPresets,
+            mapPresets(
+                    banksToPresets,
                     0
             )
     );
@@ -32,10 +32,10 @@ TablesComponent::TablesComponent(
     addAndMakeVisible (presetTable);
 }
 
-unique_ptr<vector<vector<string>>> TablesComponent::mapBanks(const BanksToPresets &banksToPresets) {
+vector<vector<string>> TablesComponent::mapBanks(const BanksToPresets &banksToPresets) {
     vector<vector<string>> rows;
 
-    const auto compareKey = [](const std::pair<const int, Preset>& lhs, const std::pair<const int, Preset>& rhs) {
+    const auto compareKey = [](const BanksToPresets::value_type& lhs, const BanksToPresets::value_type& rhs) {
         return lhs.first < rhs.first;
     };
 
@@ -47,11 +47,11 @@ unique_ptr<vector<vector<string>>> TablesComponent::mapBanks(const BanksToPreset
         rows.push_back(row);
     }
 
-    return unique_ptr<vector<vector<string>>>(&rows);
+    return rows;
 }
 
 
-unique_ptr<vector<vector<string>>> TablesComponent::mapPresets(const BanksToPresets &banksToPresets, int bank) {
+vector<vector<string>> TablesComponent::mapPresets(const BanksToPresets &banksToPresets, int bank) {
     vector<vector<string>> rows;
 
     pair<BanksToPresets::const_iterator, BanksToPresets::const_iterator> iterators = banksToPresets.equal_range(bank);
@@ -64,5 +64,5 @@ unique_ptr<vector<vector<string>>> TablesComponent::mapPresets(const BanksToPres
         rows.push_back(row);
     }
 
-    return unique_ptr<vector<vector<string>>>(&rows);
+    return rows;
 }
