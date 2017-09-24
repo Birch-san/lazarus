@@ -8,20 +8,31 @@ using namespace std;
 
 TablesComponent::TablesComponent(
         shared_ptr<FluidSynthModel> fluidSynthModel
-) : fluidSynthModel(fluidSynthModel),
-    banksToPresets(fluidSynthModel->getBanks()),
-    bankTable({"Bank"},
+) : fluidSynthModel(fluidSynthModel)
+{
+    BanksToPresets banksToPresets(fluidSynthModel->getBanks());
+
+    bankTable = new TableComponent(
+            {"Bank"},
             mapBanks(
                     banksToPresets
-            )),
-    presetTable({"Preset", "Name"},
+            )
+    );
+    presetTable = new TableComponent(
+            {"Preset", "Name"},
             mapPresets(
                     banksToPresets,
                     0
-            ))
-{
+            )
+    );
+
     addAndMakeVisible (bankTable);
     addAndMakeVisible (presetTable);
+}
+
+TablesComponent::~TablesComponent() {
+    delete bankTable;
+    delete presetTable;
 }
 
 vector<vector<string>> TablesComponent::mapBanks(const BanksToPresets &banksToPresets) {
@@ -61,6 +72,6 @@ vector<vector<string>> TablesComponent::mapPresets(const BanksToPresets &banksTo
 
 void TablesComponent::resized() {
     Rectangle<int> r (getLocalBounds().reduced (8));
-    bankTable.setBounds (r.removeFromBottom (120));
-    presetTable.setBounds (r.removeFromBottom (100));
+    bankTable->setBounds (r.removeFromBottom (120));
+    presetTable->setBounds (r.removeFromBottom (100));
 }
