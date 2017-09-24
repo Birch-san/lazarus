@@ -20,7 +20,9 @@ class TableComponent    : public Component,
 public:
     TableComponent(
             const vector<string> &columns,
-            const vector<vector<string>> &rows
+            const vector<vector<string>> &rows,
+            function<void (int)> onRowSelected,
+            function<int (vector<string>)> rowToIndexMapper
     );
 
     int getNumRows() override;
@@ -45,6 +47,8 @@ public:
 
     int getColumnAutoSizeWidth (int columnId) override;
 
+    void selectedRowsChanged (int row) override;
+
     void resized() override;
 
 private:
@@ -53,6 +57,9 @@ private:
 
     vector<string> columns;
     vector<vector<string>> rows;
+
+    function<void (int)> onRowSelected;
+    function<int (vector<string>)> rowToIndexMapper;
 
     // A comparator used to sort our data when the user clicks a column header
     class DataSorter {

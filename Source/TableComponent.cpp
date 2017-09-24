@@ -16,11 +16,15 @@ using namespace std;
 */
 TableComponent::TableComponent(
         const vector<string> &columns,
-        const vector<vector<string>> &rows
+        const vector<vector<string>> &rows,
+        function<void (int)> onRowSelected,
+        function<int (vector<string>)> rowToIndexMapper
 )
         : font (14.0f),
           columns(columns),
-          rows(rows)
+          rows(rows),
+          onRowSelected(onRowSelected),
+          rowToIndexMapper(rowToIndexMapper)
 {
     // Create our table component and add it to this component..
     addAndMakeVisible (table);
@@ -157,4 +161,8 @@ bool TableComponent::DataSorter::operator ()(
     result *= direction;
 
     return result > 0;
+}
+
+void TableComponent::selectedRowsChanged (int row) {
+    onRowSelected(rowToIndexMapper(rows[row]));
 }

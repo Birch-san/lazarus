@@ -12,18 +12,30 @@ TablesComponent::TablesComponent(
 {
     BanksToPresets banksToPresets(fluidSynthModel->getBanks());
 
+    auto rowToIndexMapper = [](vector<string> row) {
+        return stoi(row[0]);
+    };
+
     bankTable = new TableComponent(
             {"Bank"},
             mapBanks(
                     banksToPresets
-            )
+            ),
+            [](int row) {
+                cout << "Bank " << row << endl;
+            },
+            rowToIndexMapper
     );
     presetTable = new TableComponent(
             {"Preset", "Name"},
             mapPresets(
                     banksToPresets,
                     0
-            )
+            ),
+            [](int row) {
+                cout << "Preset " << row << endl;
+            },
+            rowToIndexMapper
     );
 
     addAndMakeVisible (bankTable);
