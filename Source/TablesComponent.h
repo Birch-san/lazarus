@@ -17,14 +17,15 @@ public:
             shared_ptr<FluidSynthModel> fluidSynthModel
     );
 
-//    void resized() override;
+    void resized() override;
 
 private:
-
-    TableComponent* bankTable;
-    TableComponent* presetTable;
-
     shared_ptr<FluidSynthModel> fluidSynthModel;
+
+    BanksToPresets banksToPresets;
+
+    TableComponent bankTable;
+    TableComponent presetTable;
 
     static vector<vector<string>> mapPresets(const BanksToPresets &banksToPresets, int bank);
     static vector<vector<string>> mapBanks(const BanksToPresets &banksToPresets);

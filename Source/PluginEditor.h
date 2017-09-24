@@ -34,7 +34,7 @@ private:
     LazarusAudioProcessor& processor;
 
     MidiKeyboardComponent midiKeyboard;
-    TablesComponent* tablesComponent;
+    TablesComponent tablesComponent;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LazarusAudioProcessorEditor)
 };

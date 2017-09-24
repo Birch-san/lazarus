@@ -16,7 +16,8 @@
 LazarusAudioProcessorEditor::LazarusAudioProcessorEditor (LazarusAudioProcessor& p)
     : AudioProcessorEditor (&p),
       processor (p),
-      midiKeyboard (p.keyboardState, MidiKeyboardComponent::horizontalKeyboard)
+      midiKeyboard (p.keyboardState, MidiKeyboardComponent::horizontalKeyboard),
+      tablesComponent(p.getFluidSynthModel())
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
@@ -24,10 +25,6 @@ LazarusAudioProcessorEditor::LazarusAudioProcessorEditor (LazarusAudioProcessor&
 
     midiKeyboard.setName ("MIDI Keyboard");
     addAndMakeVisible (midiKeyboard);
-
-    tablesComponent = new TablesComponent(
-            p.getFluidSynthModel()
-    );
 
     addAndMakeVisible(tablesComponent);
 }
@@ -54,4 +51,5 @@ void LazarusAudioProcessorEditor::resized()
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
     midiKeyboard.setBounds (r.removeFromBottom (70));
+    tablesComponent.setBounds (r.removeFromBottom (150));
 }
