@@ -29,7 +29,7 @@ void FluidSynthModel::initialise() {
     sfont_id = 1;
 
     fluid_synth_set_gain(synth, 2.0);
-    fluid_synth_program_select(synth, 0, sfont_id, 128, 13);
+
 //    fluid_synth_bank_select(synth, 0, 3);
 
 //    fluid_handle_inst
@@ -40,8 +40,13 @@ void FluidSynthModel::initialise() {
         std::cout << "[fluid_synth_t deleter invoked]\n";
         delete_fluid_synth(f);
     });
+    changePreset(128, 13);
 
     initialised = true;
+}
+
+void FluidSynthModel::changePreset(int bank, int preset) {
+    fluid_synth_program_select(synth.get(), 0, sfont_id, static_cast<unsigned int>(bank), static_cast<unsigned int>(preset));
 }
 
 BanksToPresets FluidSynthModel::getBanks() {

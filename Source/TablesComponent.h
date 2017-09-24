@@ -22,6 +22,7 @@ public:
 
 private:
     shared_ptr<FluidSynthModel> fluidSynthModel;
+    int selectedBank;
 
     TableComponent* bankTable;
     TableComponent* presetTable;
@@ -29,7 +30,6 @@ private:
     static vector<vector<string>> mapPresets(const BanksToPresets &banksToPresets, int bank);
     static vector<vector<string>> mapBanks(const BanksToPresets &banksToPresets);
 
-    int rowToIndexMapper(vector<string> row);
     void onBankSelected(int bank);
     void onPresetSelected(int preset);
 

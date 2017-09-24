@@ -12,6 +12,7 @@ TablesComponent::TablesComponent(
 ) : fluidSynthModel(fluidSynthModel)
 {
     BanksToPresets banksToPresets(fluidSynthModel->getBanks());
+    selectedBank = banksToPresets.cbegin()->first;
 
     auto rowToIndexMapper = [](const vector<string> &row) {
         return stoi(row[0]);
@@ -31,7 +32,7 @@ TablesComponent::TablesComponent(
             {"Preset", "Name"},
             mapPresets(
                     banksToPresets,
-                    0
+                    selectedBank
             ),
             [this](int preset){
                 this->onPresetSelected(preset);
@@ -49,6 +50,7 @@ void TablesComponent::onBankSelected(int bank) {
 
 void TablesComponent::onPresetSelected(int preset) {
     cout << "Preset " << preset << endl;
+    fluidSynthModel.get()->changePreset(selectedBank, preset);
 }
 
 TablesComponent::~TablesComponent() {

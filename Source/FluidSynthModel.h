@@ -22,6 +22,8 @@ public:
 
     BanksToPresets getBanks();
 
+    void changePreset(int bank, int preset);
+
 private:
     shared_ptr<fluid_synth_t> synth;
     fluid_settings_t* settings;
