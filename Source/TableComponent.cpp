@@ -18,7 +18,8 @@ TableComponent::TableComponent(
         const vector<string> &columns,
         const vector<vector<string>> &rows,
         const function<void (int)> &onRowSelected,
-        const function<int (const vector<string>&)> &rowToIndexMapper
+        const function<int (const vector<string>&)> &rowToIndexMapper,
+        int initiallySelectedRow
 )
         : font (14.0f),
           columns(columns),
@@ -49,6 +50,8 @@ TableComponent::TableComponent(
         );
     }
 
+    table.selectRow(initiallySelectedRow);
+
     // we could now change some initial settings..
     table.getHeader().setSortColumnId (1, false); // sort ascending by ID column
 //    table.getHeader().setColumnVisible (7, false); // hide the "length" column until the user shows it
@@ -56,7 +59,7 @@ TableComponent::TableComponent(
     // un-comment this line to have a go of stretch-to-fit mode
     // table.getHeader().setStretchToFitActive (true);
 
-    table.setMultipleSelectionEnabled (true);
+//    table.setMultipleSelectionEnabled (false);
 }
 
 // This is overloaded from TableListBoxModel, and must return the total number of rows in our table
@@ -107,10 +110,25 @@ void TableComponent::sortOrderChanged (
         bool isForwards
 ) {
     if (newSortColumnId != 0) {
+//        int selectedRow = table.getSelectedRow();
+//        int rowIx = selectedRow >= 0
+//                        ? rowToIndexMapper(rows[selectedRow])
+//                        : -1;
+
         TableComponent::DataSorter sorter (newSortColumnId, isForwards);
         sort(rows.begin(), rows.end(), sorter);
 
         table.updateContent();
+
+//        if (rowIx >= 0) {
+//            for(auto row : rows) {
+//                int ix = rowToIndexMapper(row);
+//                if (ix == rowIx) {
+//                    table.selectRow(ix);
+//                    break;
+//                }
+//            }
+//        }
     }
 }
 

@@ -40,13 +40,17 @@ void FluidSynthModel::initialise() {
         std::cout << "[fluid_synth_t deleter invoked]\n";
         delete_fluid_synth(f);
     });
-    changePreset(128, 13);
+//    changePreset(128, 13);
 
     initialised = true;
 }
 
+int FluidSynthModel::getChannel() {
+    return channel;
+}
+
 void FluidSynthModel::changePreset(int bank, int preset) {
-    fluid_synth_program_select(synth.get(), 0, sfont_id, static_cast<unsigned int>(bank), static_cast<unsigned int>(preset));
+    fluid_synth_program_select(synth.get(), channel, sfont_id, static_cast<unsigned int>(bank), static_cast<unsigned int>(preset));
 }
 
 BanksToPresets FluidSynthModel::getBanks() {

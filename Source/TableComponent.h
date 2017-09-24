@@ -22,7 +22,8 @@ public:
             const vector<string> &columns,
             const vector<vector<string>> &rows,
             const function<void (int)> &onRowSelected,
-            const function<int (const vector<string>&)> &rowToIndexMapper
+            const function<int (const vector<string>&)> &rowToIndexMapper,
+            int initiallySelectedRow
     );
 
     int getNumRows() override;

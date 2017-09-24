@@ -23,12 +23,14 @@ public:
     BanksToPresets getBanks();
 
     void changePreset(int bank, int preset);
+    int getChannel();
 
 private:
     shared_ptr<fluid_synth_t> synth;
     fluid_settings_t* settings;
-    fluid_audio_driver_t* driver;
+//    fluid_audio_driver_t* driver;
 
     bool initialised;
     unsigned int sfont_id;
+    unsigned int channel;
 };

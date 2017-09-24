@@ -8,6 +8,7 @@
 #include "PresetsToBanks.h"
 #include "FluidSynthModel.h"
 #include <memory>
+#include <fluidsynth.h>
 
 using namespace std;
 
@@ -23,6 +24,7 @@ public:
 private:
     shared_ptr<FluidSynthModel> fluidSynthModel;
     int selectedBank;
+//    int selectedPreset;
 
     TableComponent* bankTable;
     TableComponent* presetTable;

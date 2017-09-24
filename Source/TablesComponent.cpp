@@ -12,7 +12,15 @@ TablesComponent::TablesComponent(
 ) : fluidSynthModel(fluidSynthModel)
 {
     BanksToPresets banksToPresets(fluidSynthModel->getBanks());
-    selectedBank = banksToPresets.cbegin()->first;
+
+
+    FluidSynthModel* fluidSynthModelP = fluidSynthModel.get();
+    fluid_synth_t* synth = fluidSynthModelP->getSynth().get();
+
+    fluid_preset_t* firstPreset = fluid_synth_get_channel_preset(synth, fluidSynthModelP->getChannel());
+
+    selectedBank = firstPreset->get_banknum(firstPreset);
+    int selectedPreset = firstPreset->get_num(firstPreset);
 
     auto rowToIndexMapper = [](const vector<string> &row) {
         return stoi(row[0]);
@@ -26,18 +34,20 @@ TablesComponent::TablesComponent(
             [this](int bank){
                 this->onBankSelected(bank);
             },
-            rowToIndexMapper
+            rowToIndexMapper,
+            selectedBank
     );
     presetTable = new TableComponent(
             {"Preset", "Name"},
             mapPresets(
                     banksToPresets,
-                    selectedBank
+                    firstPreset->get_banknum(firstPreset)
             ),
             [this](int preset){
                 this->onPresetSelected(preset);
             },
-            rowToIndexMapper
+            rowToIndexMapper,
+            selectedPreset
     );
 
     addAndMakeVisible (bankTable);
@@ -50,6 +60,7 @@ void TablesComponent::onBankSelected(int bank) {
 
 void TablesComponent::onPresetSelected(int preset) {
     cout << "Preset " << preset << endl;
+//    selectedPreset = preset;
     fluidSynthModel.get()->changePreset(selectedBank, preset);
 }
 
