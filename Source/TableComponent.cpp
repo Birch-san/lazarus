@@ -30,7 +30,7 @@ TableComponent::TableComponent(
     table.setColour (ListBox::outlineColourId, Colours::grey);
     table.setOutlineThickness (1);
 
-    int columnIx = 0;
+    int columnIx = 1;
 
     // Add some columns to the table header, based on the column list in our database..
     for (auto &column : columns) // access by reference to avoid copying
