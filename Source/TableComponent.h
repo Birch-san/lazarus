@@ -22,7 +22,7 @@ public:
             const vector<string> &columns,
             const vector<vector<string>> &rows,
             const function<void (int)> &onRowSelected,
-            const function<int (vector<string>)> &rowToIndexMapper
+            const function<int (const vector<string>&)> &rowToIndexMapper
     );
 
     int getNumRows() override;
@@ -59,7 +59,7 @@ private:
     vector<vector<string>> rows;
 
     function<void (int)> onRowSelected;
-    function<int (vector<string>)> rowToIndexMapper;
+    function<int (const vector<string>&)> rowToIndexMapper;
 
     // A comparator used to sort our data when the user clicks a column header
     class DataSorter {
