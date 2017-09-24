@@ -11,7 +11,7 @@ using namespace std;
 FluidSynthModel::~FluidSynthModel() {
     if (initialised) {
 //        delete_fluid_audio_driver(driver);
-//        delete_fluid_settings(settings);
+        delete_fluid_settings(settings);
 //        delete driver;
 //        delete settings;
     }
