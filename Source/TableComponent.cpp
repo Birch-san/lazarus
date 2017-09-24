@@ -46,7 +46,7 @@ TableComponent::TableComponent(
     }
 
     // we could now change some initial settings..
-    table.getHeader().setSortColumnId (1, true); // sort forwards by the ID column
+    table.getHeader().setSortColumnId (1, false); // sort ascending by ID column
 //    table.getHeader().setColumnVisible (7, false); // hide the "length" column until the user shows it
 
     // un-comment this line to have a go of stretch-to-fit mode
@@ -102,12 +102,12 @@ void TableComponent::sortOrderChanged (
         int newSortColumnId,
         bool isForwards
 ) {
-//    if (newSortColumnId != 0) {
-//        TableComponent::DataSorter sorter (newSortColumnId, isForwards);
-//        sort(rows.begin(), rows.end(), sorter);
-//
-//        table.updateContent();
-//    }
+    if (newSortColumnId != 0) {
+        TableComponent::DataSorter sorter (newSortColumnId, isForwards);
+        sort(rows.begin(), rows.end(), sorter);
+
+        table.updateContent();
+    }
 }
 
 // This is overloaded from TableListBoxModel, and should choose the best width for the specified
@@ -120,7 +120,7 @@ int TableComponent::getColumnAutoSizeWidth (int columnId) {
 
     // find the widest bit of text in this column..
     for (int i = getNumRows(); --i >= 0;) {
-        widest = jmax (widest, font.getStringWidth (rows[i][columnId]));
+        widest = jmax (widest, font.getStringWidth (rows[i][columnId-1]));
     }
 
     return widest + 8;
@@ -147,8 +147,8 @@ bool TableComponent::DataSorter::operator ()(
         vector<string> first,
         vector<string> second
 ) {
-    int result = String(first[columnByWhichToSort])
-            .compareNatural (String(second[columnByWhichToSort]));
+    int result = String(first[columnByWhichToSort-1])
+            .compareNatural (String(second[columnByWhichToSort-1]));
 
     if (result == 0)
         result = String(first[0])
