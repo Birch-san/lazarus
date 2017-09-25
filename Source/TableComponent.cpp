@@ -110,25 +110,26 @@ void TableComponent::sortOrderChanged (
         bool isForwards
 ) {
     if (newSortColumnId != 0) {
-//        int selectedRow = table.getSelectedRow();
-//        int rowIx = selectedRow >= 0
-//                        ? rowToIndexMapper(rows[selectedRow])
-//                        : -1;
+        int selectedRowIx = table.getSelectedRow();
+        vector<string> selectedRow;
+        if (selectedRowIx >= 0) {
+            selectedRow = rows[selectedRowIx];
+        }
 
         TableComponent::DataSorter sorter (newSortColumnId, isForwards);
         sort(rows.begin(), rows.end(), sorter);
 
         table.updateContent();
 
-//        if (rowIx >= 0) {
-//            for(auto row : rows) {
-//                int ix = rowToIndexMapper(row);
-//                if (ix == rowIx) {
-//                    table.selectRow(ix);
-//                    break;
-//                }
-//            }
-//        }
+        if (selectedRowIx >= 0) {
+            for (auto it = rows.begin(); it != rows.end(); ++it) {
+                if(*it == selectedRow) {
+                    int index = static_cast<int>(std::distance(rows.begin(), it));
+                    table.selectRow(index);
+                    break;
+                }
+            }
+        }
     }
 }
 
