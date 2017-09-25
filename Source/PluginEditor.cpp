@@ -34,6 +34,8 @@ LazarusAudioProcessorEditor::~LazarusAudioProcessorEditor()
 {
 }
 
+// FL studio key chart:
+// http://s3.amazonaws.com/fl_resource/flkeychart.png
 void LazarusAudioProcessorEditor::bindKeysToMidiKeyboard() {
     midiKeyboard.clearKeyMappings();
     midiKeyboard.setKeyPressBaseOctave(5); // C3
