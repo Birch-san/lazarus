@@ -59,6 +59,22 @@ void LazarusAudioProcessorEditor::bindKeysToMidiKeyboard() {
         midiKeyboard.setKeyPressForNote(keypress, degree);
         degree += blackJumps[ix++ % blackJumpsC];
     }
+
+    ix = 0;
+    degree = 12;
+    for (const char keyCode : "QWERTYUIOP") {
+        KeyPress keypress(keyCode);
+        midiKeyboard.setKeyPressForNote(keypress, degree);
+        degree += whiteJumps[ix++ % whiteJumpsC];
+    }
+
+    ix = 0;
+    degree = 13;
+    for (const char keyCode : "2356790") {
+        KeyPress keypress(keyCode);
+        midiKeyboard.setKeyPressForNote(keypress, degree);
+        degree += blackJumps[ix++ % blackJumpsC];
+    }
 }
 
 //==============================================================================
