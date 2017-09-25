@@ -52,6 +52,8 @@ public:
 
     void resized() override;
 
+    void setRows(const vector<vector<string>>& rows, int initiallySelectedRow);
+
 private:
     TableListBox table;     // the table component itself
     Font font;

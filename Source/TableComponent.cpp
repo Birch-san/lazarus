@@ -62,6 +62,13 @@ TableComponent::TableComponent(
 //    table.setMultipleSelectionEnabled (false);
 }
 
+void TableComponent::setRows(const vector<vector<string>>& rows, int initiallySelectedRow) {
+    this->rows = rows;
+    table.deselectAllRows();
+    table.updateContent();
+    table.selectRow(initiallySelectedRow);
+}
+
 // This is overloaded from TableListBoxModel, and must return the total number of rows in our table
 int TableComponent::getNumRows()
 {
@@ -183,5 +190,8 @@ bool TableComponent::DataSorter::operator ()(
 }
 
 void TableComponent::selectedRowsChanged (int row) {
+    if (row < 0) {
+        return;
+    }
     onRowSelected(rowToIndexMapper(rows[row]));
 }

@@ -9,18 +9,14 @@ using namespace placeholders;
 
 TablesComponent::TablesComponent(
         shared_ptr<FluidSynthModel> fluidSynthModel
-) : fluidSynthModel(fluidSynthModel)
+) : fluidSynthModel(fluidSynthModel),
+    banksToPresets(fluidSynthModel->getBanks()),
+    initialised(false)
 {
-    BanksToPresets banksToPresets(fluidSynthModel->getBanks());
+    fluid_preset_t* currentPreset = getCurrentPreset();
 
-
-    FluidSynthModel* fluidSynthModelP = fluidSynthModel.get();
-    fluid_synth_t* synth = fluidSynthModelP->getSynth().get();
-
-    fluid_preset_t* firstPreset = fluid_synth_get_channel_preset(synth, fluidSynthModelP->getChannel());
-
-    selectedBank = firstPreset->get_banknum(firstPreset);
-    int selectedPreset = firstPreset->get_num(firstPreset);
+    selectedBank = currentPreset->get_banknum(currentPreset);
+    int selectedPreset = currentPreset->get_num(currentPreset);
 
     auto rowToIndexMapper = [](const vector<string> &row) {
         return stoi(row[0]);
@@ -41,7 +37,7 @@ TablesComponent::TablesComponent(
             {"Preset", "Name"},
             mapPresets(
                     banksToPresets,
-                    firstPreset->get_banknum(firstPreset)
+                    currentPreset->get_banknum(currentPreset)
             ),
             [this](int preset){
                 this->onPresetSelected(preset);
@@ -52,13 +48,43 @@ TablesComponent::TablesComponent(
 
     addAndMakeVisible (bankTable);
     addAndMakeVisible (presetTable);
+
+    initialised = true;
+}
+
+fluid_preset_t* TablesComponent::getCurrentPreset() {
+    FluidSynthModel* fluidSynthModelP = fluidSynthModel.get();
+    fluid_synth_t* synth = fluidSynthModelP->getSynth().get();
+
+    return fluid_synth_get_channel_preset(synth, fluidSynthModelP->getChannel());
+}
+
+Preset TablesComponent::getFirstPresetInBank(int bank) {
+    pair<BanksToPresets::const_iterator, BanksToPresets::const_iterator> iterators = banksToPresets.equal_range(bank);
+    BanksToPresets::const_iterator it = iterators.first;
+    return it->second;
 }
 
 void TablesComponent::onBankSelected(int bank) {
+    if (!initialised) {
+        return;
+    }
     cout << "Bank " << bank << endl;
+    selectedBank = bank;
+    Preset firstPresetInBank = getFirstPresetInBank(bank);
+    presetTable->setRows(
+            mapPresets(
+                    banksToPresets,
+                    bank
+            ),
+            firstPresetInBank.getPreset()
+    );
 }
 
 void TablesComponent::onPresetSelected(int preset) {
+    if (!initialised) {
+        return;
+    }
     cout << "Preset " << preset << endl;
 //    selectedPreset = preset;
     fluidSynthModel.get()->changePreset(selectedBank, preset);
