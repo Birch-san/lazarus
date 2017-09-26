@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "../JuceLibraryCode/JuceHeader.h"
 #include "TableComponent.h"
 #include "Preset.h"
 #include "PresetsToBanks.h"

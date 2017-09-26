@@ -13,7 +13,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
 #include "TablesComponent.h"
-
+#include "SurjectiveMidiKeyboardComponent.h"
 
 //==============================================================================
 /**
@@ -33,7 +33,7 @@ private:
     // access the processor object that created it.
     LazarusAudioProcessor& processor;
 
-    MidiKeyboardComponent midiKeyboard;
+    SurjectiveMidiKeyboardComponent midiKeyboard;
     TablesComponent tablesComponent;
 
     void bindKeysToMidiKeyboard();

@@ -11,12 +11,11 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-
 //==============================================================================
 LazarusAudioProcessorEditor::LazarusAudioProcessorEditor (LazarusAudioProcessor& p)
     : AudioProcessorEditor (&p),
       processor (p),
-      midiKeyboard (p.keyboardState, MidiKeyboardComponent::horizontalKeyboard),
+      midiKeyboard (p.keyboardState, SurjectiveMidiKeyboardComponent::horizontalKeyboard),
       tablesComponent(p.getFluidSynthModel())
 {
     // Make sure that before the constructor has finished, you've set the

@@ -75,6 +75,7 @@
 		5967291A562D16D6861E97C2 /* SoundfontSynthSound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59672ACB08865F9E7E6E17AB /* SoundfontSynthSound.cpp */; };
 		5967298583ADD01CF9AF6F03 /* FluidSynthModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59672ECDD9C4A449FE14195E /* FluidSynthModel.cpp */; };
 		59672E1EEBDA9BA30CF97C40 /* Preset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59672EE6A7EA4B1566779158 /* Preset.cpp */; };
+		59672E87A2E09D4B464EE2C8 /* SurjectiveMidiKeyboardComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59672FD4FDDB16C2F079AD72 /* SurjectiveMidiKeyboardComponent.cpp */; };
 		59672F60D5C754B7F15B5722 /* TableComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5967200372818443BF5C2CE8 /* TableComponent.cpp */; };
 		616F29365A78524F10D569AA /* include_juce_events.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4237CC36A25BEE39597B8AF0 /* include_juce_events.mm */; };
 		63CB43EDC74F346436BE02E3 /* include_juce_audio_devices.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0312B2D7C03F6B2D6853C282 /* include_juce_audio_devices.mm */; };
@@ -159,10 +160,12 @@
 		596728B88A6006F841C70F39 /* Preset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Preset.h; path = ../../Source/Preset.h; sourceTree = "<group>"; };
 		596728FCF4084A07DE2B4859 /* PresetsToBanks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresetsToBanks.h; path = ../../Source/PresetsToBanks.h; sourceTree = "<group>"; };
 		59672ACB08865F9E7E6E17AB /* SoundfontSynthSound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SoundfontSynthSound.cpp; path = ../../Source/SoundfontSynthSound.cpp; sourceTree = "<group>"; };
+		59672ADE72329BE51F4E12DD /* SurjectiveMidiKeyboardComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SurjectiveMidiKeyboardComponent.h; path = ../../Source/SurjectiveMidiKeyboardComponent.h; sourceTree = "<group>"; };
 		59672D6FEFAA75CA5DFB38D5 /* TableComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableComponent.h; path = ../../Source/TableComponent.h; sourceTree = "<group>"; };
 		59672ECDD9C4A449FE14195E /* FluidSynthModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FluidSynthModel.cpp; path = ../../Source/FluidSynthModel.cpp; sourceTree = "<group>"; };
 		59672EE6A7EA4B1566779158 /* Preset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Preset.cpp; path = ../../Source/Preset.cpp; sourceTree = "<group>"; };
 		59672F262A54820ABB972C52 /* SoundfontSynthSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SoundfontSynthSound.h; path = ../../Source/SoundfontSynthSound.h; sourceTree = "<group>"; };
+		59672FD4FDDB16C2F079AD72 /* SurjectiveMidiKeyboardComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SurjectiveMidiKeyboardComponent.cpp; path = ../../Source/SurjectiveMidiKeyboardComponent.cpp; sourceTree = "<group>"; };
 		5E05314461B2FBDEED99EAB5 /* include_juce_audio_utils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_utils.mm; path = ../../JuceLibraryCode/include_juce_audio_utils.mm; sourceTree = SOURCE_ROOT; };
 		5F86E4C362EE844E3DC234FE /* juce_graphics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_graphics; path = /Applications/JUCE/modules/juce_graphics; sourceTree = "<absolute>"; };
 		65DDDD509761D84053B53687 /* include_juce_graphics.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_graphics.mm; path = ../../JuceLibraryCode/include_juce_graphics.mm; sourceTree = SOURCE_ROOT; };
@@ -305,6 +308,8 @@
 				596728B88A6006F841C70F39 /* Preset.h */,
 				596725123525D4A396479570 /* TablesComponent.cpp */,
 				5967228A36301F7D37916F9F /* TablesComponent.h */,
+				59672FD4FDDB16C2F079AD72 /* SurjectiveMidiKeyboardComponent.cpp */,
+				59672ADE72329BE51F4E12DD /* SurjectiveMidiKeyboardComponent.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -702,6 +707,7 @@
 				59672F60D5C754B7F15B5722 /* TableComponent.cpp in Sources */,
 				59672E1EEBDA9BA30CF97C40 /* Preset.cpp in Sources */,
 				5967212059158398BDBEFB99 /* TablesComponent.cpp in Sources */,
+				59672E87A2E09D4B464EE2C8 /* SurjectiveMidiKeyboardComponent.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
