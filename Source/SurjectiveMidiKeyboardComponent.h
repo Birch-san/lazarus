@@ -427,6 +427,7 @@ private:
     void updateNoteUnderMouse (const MouseEvent&, bool isDown);
     void repaintNote (int midiNoteNumber);
     void setLowestVisibleKeyFloat (float noteNumber);
+    void bindKeysToMidiKeyboard();
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SurjectiveMidiKeyboardComponent)
 };

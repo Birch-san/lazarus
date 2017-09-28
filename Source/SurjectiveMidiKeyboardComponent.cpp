@@ -84,17 +84,13 @@ SurjectiveMidiKeyboardComponent::SurjectiveMidiKeyboardComponent (MidiKeyboardSt
           canScroll (true),
           useMousePositionForVelocity (true),
           shouldCheckMousePos (false),
-          keyMappingOctave (6),
+          keyMappingOctave (5),
           octaveNumForMiddleC (3)
 {
     addChildComponent (scrollDown = new SurjectiveMidiKeyboardUpDownButton (*this, -1));
     addChildComponent (scrollUp   = new SurjectiveMidiKeyboardUpDownButton (*this, 1));
 
-    // initialise with a default set of qwerty key-mappings..
-    const char* const keymap = "awsedftgyhujkolp;";
-
-    for (int i = 0; keymap[i] != 0; ++i)
-        setKeyPressForNote (KeyPress (keymap[i], 0, 0), i);
+    bindKeysToMidiKeyboard();
 
     mouseOverNotes.insertMultiple (0, -1, 32);
     mouseDownNotes.insertMultiple (0, -1, 32);
@@ -110,6 +106,44 @@ SurjectiveMidiKeyboardComponent::SurjectiveMidiKeyboardComponent (MidiKeyboardSt
 SurjectiveMidiKeyboardComponent::~SurjectiveMidiKeyboardComponent()
 {
     state.removeListener (this);
+}
+
+void SurjectiveMidiKeyboardComponent::bindKeysToMidiKeyboard() {
+    // FL studio key chart:
+    // http://s3.amazonaws.com/fl_resource/flkeychart.png
+
+    int ix, degree;
+    int whiteJumps[] = {2,2,1,2,2,2,1};
+    int blackJumps[] = {2,3,2};
+    int whiteJumpsC = sizeof(whiteJumps)/sizeof(whiteJumps[0]);
+    int blackJumpsC = sizeof(blackJumps)/sizeof(blackJumps[0]);
+
+    ix = degree = 0;
+    for (const char keyCode : "ZXCVBNM,./") {
+        setKeyPressForNote(KeyPress(keyCode), degree);
+        degree += whiteJumps[ix++ % whiteJumpsC];
+    }
+
+    ix = 0;
+    degree = 1;
+    for (const char keyCode : "SDGHJL;") {
+        setKeyPressForNote(KeyPress(keyCode), degree);
+        degree += blackJumps[ix++ % blackJumpsC];
+    }
+
+    ix = 0;
+    degree = 12;
+    for (const char keyCode : "QWERTYUIOP") {
+        setKeyPressForNote(KeyPress(keyCode), degree);
+        degree += whiteJumps[ix++ % whiteJumpsC];
+    }
+
+    ix = 0;
+    degree = 13;
+    for (const char keyCode : "2356790") {
+        setKeyPressForNote(KeyPress(keyCode), degree);
+        degree += blackJumps[ix++ % blackJumpsC];
+    }
 }
 
 //==============================================================================

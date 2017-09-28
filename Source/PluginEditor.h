@@ -36,7 +36,5 @@ private:
     SurjectiveMidiKeyboardComponent midiKeyboard;
     TablesComponent tablesComponent;
 
-    void bindKeysToMidiKeyboard();
-
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LazarusAudioProcessorEditor)
 };

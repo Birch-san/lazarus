@@ -23,7 +23,6 @@ LazarusAudioProcessorEditor::LazarusAudioProcessorEditor (LazarusAudioProcessor&
     setSize (400, 300);
 
     midiKeyboard.setName ("MIDI Keyboard");
-    bindKeysToMidiKeyboard();
     addAndMakeVisible (midiKeyboard);
 
     addAndMakeVisible(tablesComponent);
@@ -31,49 +30,6 @@ LazarusAudioProcessorEditor::LazarusAudioProcessorEditor (LazarusAudioProcessor&
 
 LazarusAudioProcessorEditor::~LazarusAudioProcessorEditor()
 {
-}
-
-// FL studio key chart:
-// http://s3.amazonaws.com/fl_resource/flkeychart.png
-void LazarusAudioProcessorEditor::bindKeysToMidiKeyboard() {
-    midiKeyboard.clearKeyMappings();
-    midiKeyboard.setKeyPressBaseOctave(5); // C3
-    int ix, degree;
-    int whiteJumps[] = {2,2,1,2,2,2,1};
-    int blackJumps[] = {2,3,2,2,3,2};
-    int whiteJumpsC = sizeof(whiteJumps)/sizeof(whiteJumps[0]);
-    int blackJumpsC = sizeof(blackJumps)/sizeof(blackJumps[0]);
-
-    ix = degree = 0;
-    for (const char keyCode : "ZXCVBNM,./") {
-        KeyPress keypress(keyCode);
-        midiKeyboard.setKeyPressForNote(keypress, degree);
-        degree += whiteJumps[ix++ % whiteJumpsC];
-    }
-
-    ix = 0;
-    degree = 1;
-    for (const char keyCode : "SDGHJL;") {
-        KeyPress keypress(keyCode);
-        midiKeyboard.setKeyPressForNote(keypress, degree);
-        degree += blackJumps[ix++ % blackJumpsC];
-    }
-
-    ix = 0;
-    degree = 12;
-    for (const char keyCode : "QWERTYUIOP") {
-        KeyPress keypress(keyCode);
-        midiKeyboard.setKeyPressForNote(keypress, degree);
-        degree += whiteJumps[ix++ % whiteJumpsC];
-    }
-
-    ix = 0;
-    degree = 13;
-    for (const char keyCode : "2356790") {
-        KeyPress keypress(keyCode);
-        midiKeyboard.setKeyPressForNote(keypress, degree);
-        degree += blackJumps[ix++ % blackJumpsC];
-    }
 }
 
 //==============================================================================
