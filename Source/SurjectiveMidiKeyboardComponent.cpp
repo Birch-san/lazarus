@@ -908,28 +908,32 @@ void SurjectiveMidiKeyboardComponent::timerCallback()
 void SurjectiveMidiKeyboardComponent::clearKeyMappings()
 {
     resetAnyKeysInUse();
-    keyPressNotes.clear();
-    keyPresses.clear();
+//    keyPressNotes.clear();
+//    keyPresses.clear();
+    degreeToAsciis.clear();
 }
 
 void SurjectiveMidiKeyboardComponent::setKeyPressForNote (const KeyPress& key, int midiNoteOffsetFromC)
 {
-    removeKeyPressForNote (midiNoteOffsetFromC);
+//    removeKeyPressForNote (midiNoteOffsetFromC);
 
-    keyPressNotes.add (midiNoteOffsetFromC);
-    keyPresses.add (key);
+    degreeToAsciis.insert(DegreeToAscii::value_type(midiNoteOffsetFromC, key));
+
+//    keyPressNotes.add (midiNoteOffsetFromC);
+//    keyPresses.add (key);
 }
 
 void SurjectiveMidiKeyboardComponent::removeKeyPressForNote (const int midiNoteOffsetFromC)
 {
-    for (int i = keyPressNotes.size(); --i >= 0;)
-    {
-        if (keyPressNotes.getUnchecked (i) == midiNoteOffsetFromC)
-        {
-            keyPressNotes.remove (i);
-            keyPresses.remove (i);
-        }
-    }
+    degreeToAsciis.erase(midiNoteOffsetFromC);
+//    for (int i = keyPressNotes.size(); --i >= 0;)
+//    {
+//        if (keyPressNotes.getUnchecked (i) == midiNoteOffsetFromC)
+//        {
+//            keyPressNotes.remove (i);
+//            keyPresses.remove (i);
+//        }
+//    }
 }
 
 void SurjectiveMidiKeyboardComponent::setKeyPressBaseOctave (const int newOctaveNumber)
@@ -943,29 +947,57 @@ bool SurjectiveMidiKeyboardComponent::keyStateChanged (const bool /*isKeyDown*/)
 {
     bool keyPressUsed = false;
 
-    for (int i = keyPresses.size(); --i >= 0;)
-    {
-        const int note = 12 * keyMappingOctave + keyPressNotes.getUnchecked (i);
-
-        if (keyPresses.getReference(i).isCurrentlyDown())
-        {
-            if (! keysPressed [note])
-            {
-                keysPressed.setBit (note);
-                state.noteOn (midiChannel, note, velocity);
+    int currentDegree = -1;
+    bool keyDepressedForCurrentDegree = false;
+    for (auto it = degreeToAsciis.begin(); it != degreeToAsciis.end(); it++){
+        const int note = 12 * keyMappingOctave + it->first;
+        if (it->first != currentDegree) {
+            if (currentDegree != -1
+                    && !keyDepressedForCurrentDegree
+                    && keysPressed[note]) {
+                keysPressed.clearBit(note);
+                state.noteOff(midiChannel, note, velocity);
                 keyPressUsed = true;
             }
+            keyDepressedForCurrentDegree = false;
+            currentDegree = it->first;
         }
-        else
-        {
-            if (keysPressed [note])
-            {
-                keysPressed.clearBit (note);
-                state.noteOff (midiChannel, note, 0.0f);
+        if (keyDepressedForCurrentDegree) {
+            continue;
+        }
+        if (it->second.isCurrentlyDown()) {
+            keyDepressedForCurrentDegree = true;
+            if (!keysPressed[note]) {
+                keysPressed.setBit(note);
+                state.noteOn(midiChannel, note, velocity);
                 keyPressUsed = true;
             }
         }
     }
+
+//    for (int i = keyPresses.size(); --i >= 0;)
+//    {
+//        const int note = 12 * keyMappingOctave + keyPressNotes.getUnchecked (i);
+//
+//        if (keyPresses.getReference(i).isCurrentlyDown())
+//        {
+//            if (! keysPressed [note])
+//            {
+//                keysPressed.setBit (note);
+//                state.noteOn (midiChannel, note, velocity);
+//                keyPressUsed = true;
+//            }
+//        }
+//        else
+//        {
+//            if (keysPressed [note])
+//            {
+//                keysPressed.clearBit (note);
+//                state.noteOff (midiChannel, note, 0.0f);
+//                keyPressUsed = true;
+//            }
+//        }
+//    }
 
     return keyPressUsed;
 }

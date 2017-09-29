@@ -5,6 +5,9 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include <map>
+
+using namespace std;
 
 /*
  * Forked from JUCE/modules/juce_audio_utils/gui/juce_SurjectiveMidiKeyboardComponent.h,
@@ -411,6 +414,9 @@ private:
     float firstKey;
     bool canScroll, useMousePositionForVelocity, shouldCheckMousePos;
     ScopedPointer<Button> scrollDown, scrollUp;
+
+    typedef multimap<int, KeyPress> DegreeToAscii;
+    DegreeToAscii degreeToAsciis;
 
     Array<KeyPress> keyPresses;
     Array<int> keyPressNotes;
