@@ -949,8 +949,9 @@ bool SurjectiveMidiKeyboardComponent::keyStateChanged (const bool /*isKeyDown*/)
 
     int currentDegree = -1;
     bool keyDepressedForCurrentDegree = false;
+    int note = -1;
     for (auto it = degreeToAsciis.begin(); it != degreeToAsciis.end(); it++){
-        const int note = 12 * keyMappingOctave + it->first;
+        note = 12 * keyMappingOctave + it->first;
         if (it->first != currentDegree) {
             if (currentDegree != -1
                     && !keyDepressedForCurrentDegree
@@ -962,10 +963,8 @@ bool SurjectiveMidiKeyboardComponent::keyStateChanged (const bool /*isKeyDown*/)
             keyDepressedForCurrentDegree = false;
             currentDegree = it->first;
         }
-        if (keyDepressedForCurrentDegree) {
-            continue;
-        }
-        if (it->second.isCurrentlyDown()) {
+        if (!keyDepressedForCurrentDegree
+                && it->second.isCurrentlyDown()) {
             keyDepressedForCurrentDegree = true;
             if (!keysPressed[note]) {
                 keysPressed.setBit(note);
@@ -973,6 +972,13 @@ bool SurjectiveMidiKeyboardComponent::keyStateChanged (const bool /*isKeyDown*/)
                 keyPressUsed = true;
             }
         }
+    }
+
+    if (currentDegree != -1
+            && !keyDepressedForCurrentDegree
+            && keysPressed[note]) {
+        keysPressed.clearBit(note);
+        state.noteOff(midiChannel, note, velocity);
     }
 
 //    for (int i = keyPresses.size(); --i >= 0;)
