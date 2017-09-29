@@ -418,8 +418,6 @@ private:
     typedef multimap<int, KeyPress> DegreeToAscii;
     DegreeToAscii degreeToAsciis;
 
-    Array<KeyPress> keyPresses;
-    Array<int> keyPressNotes;
     int keyMappingOctave, octaveNumForMiddleC;
 
     static const uint8 whiteNotes[];

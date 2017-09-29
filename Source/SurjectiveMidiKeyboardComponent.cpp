@@ -908,32 +908,17 @@ void SurjectiveMidiKeyboardComponent::timerCallback()
 void SurjectiveMidiKeyboardComponent::clearKeyMappings()
 {
     resetAnyKeysInUse();
-//    keyPressNotes.clear();
-//    keyPresses.clear();
     degreeToAsciis.clear();
 }
 
 void SurjectiveMidiKeyboardComponent::setKeyPressForNote (const KeyPress& key, int midiNoteOffsetFromC)
 {
-//    removeKeyPressForNote (midiNoteOffsetFromC);
-
     degreeToAsciis.insert(DegreeToAscii::value_type(midiNoteOffsetFromC, key));
-
-//    keyPressNotes.add (midiNoteOffsetFromC);
-//    keyPresses.add (key);
 }
 
 void SurjectiveMidiKeyboardComponent::removeKeyPressForNote (const int midiNoteOffsetFromC)
 {
     degreeToAsciis.erase(midiNoteOffsetFromC);
-//    for (int i = keyPressNotes.size(); --i >= 0;)
-//    {
-//        if (keyPressNotes.getUnchecked (i) == midiNoteOffsetFromC)
-//        {
-//            keyPressNotes.remove (i);
-//            keyPresses.remove (i);
-//        }
-//    }
 }
 
 void SurjectiveMidiKeyboardComponent::setKeyPressBaseOctave (const int newOctaveNumber)
@@ -980,36 +965,17 @@ bool SurjectiveMidiKeyboardComponent::keyStateChanged (const bool /*isKeyDown*/)
         state.noteOff(midiChannel, currentNote, velocity);
     }
 
-//    for (int i = keyPresses.size(); --i >= 0;)
-//    {
-//        const int note = 12 * keyMappingOctave + keyPressNotes.getUnchecked (i);
-//
-//        if (keyPresses.getReference(i).isCurrentlyDown())
-//        {
-//            if (! keysPressed [note])
-//            {
-//                keysPressed.setBit (note);
-//                state.noteOn (midiChannel, note, velocity);
-//                keyPressUsed = true;
-//            }
-//        }
-//        else
-//        {
-//            if (keysPressed [note])
-//            {
-//                keysPressed.clearBit (note);
-//                state.noteOff (midiChannel, note, 0.0f);
-//                keyPressUsed = true;
-//            }
-//        }
-//    }
-
     return keyPressUsed;
 }
 
 bool SurjectiveMidiKeyboardComponent::keyPressed (const KeyPress& key)
 {
-    return keyPresses.contains (key);
+    for (auto it = degreeToAsciis.begin(); it != degreeToAsciis.end(); it++){
+        if (it->second == key) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void SurjectiveMidiKeyboardComponent::focusLost (FocusChangeType)
