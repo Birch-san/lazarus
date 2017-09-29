@@ -947,38 +947,37 @@ bool SurjectiveMidiKeyboardComponent::keyStateChanged (const bool /*isKeyDown*/)
 {
     bool keyPressUsed = false;
 
-    int currentDegree = -1;
-    bool keyDepressedForCurrentDegree = false;
-    int note = -1;
+    bool keyDepressedForCurrentNote = false;
+    int currentNote = -1;
     for (auto it = degreeToAsciis.begin(); it != degreeToAsciis.end(); it++){
-        note = 12 * keyMappingOctave + it->first;
-        if (it->first != currentDegree) {
-            if (currentDegree != -1
-                    && !keyDepressedForCurrentDegree
-                    && keysPressed[note]) {
-                keysPressed.clearBit(note);
-                state.noteOff(midiChannel, note, velocity);
+        const int proposedNote = 12 * keyMappingOctave + it->first;
+        if (proposedNote != currentNote) {
+            if (currentNote != -1
+                    && !keyDepressedForCurrentNote
+                    && keysPressed[currentNote]) {
+                keysPressed.clearBit(currentNote);
+                state.noteOff(midiChannel, currentNote, velocity);
                 keyPressUsed = true;
             }
-            keyDepressedForCurrentDegree = false;
-            currentDegree = it->first;
+            keyDepressedForCurrentNote = false;
+            currentNote = proposedNote;
         }
-        if (!keyDepressedForCurrentDegree
+        if (!keyDepressedForCurrentNote
                 && it->second.isCurrentlyDown()) {
-            keyDepressedForCurrentDegree = true;
-            if (!keysPressed[note]) {
-                keysPressed.setBit(note);
-                state.noteOn(midiChannel, note, velocity);
+            keyDepressedForCurrentNote = true;
+            if (!keysPressed[currentNote]) {
+                keysPressed.setBit(currentNote);
+                state.noteOn(midiChannel, currentNote, velocity);
                 keyPressUsed = true;
             }
         }
     }
 
-    if (currentDegree != -1
-            && !keyDepressedForCurrentDegree
-            && keysPressed[note]) {
-        keysPressed.clearBit(note);
-        state.noteOff(midiChannel, note, velocity);
+    if (currentNote != -1
+            && !keyDepressedForCurrentNote
+            && keysPressed[currentNote]) {
+        keysPressed.clearBit(currentNote);
+        state.noteOff(midiChannel, currentNote, velocity);
     }
 
 //    for (int i = keyPresses.size(); --i >= 0;)
