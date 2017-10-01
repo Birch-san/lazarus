@@ -50,6 +50,8 @@ TableComponent::TableComponent(
         );
     }
 
+    table.setWantsKeyboardFocus(false);
+
     table.selectRow(initiallySelectedRow);
 
     // we could now change some initial settings..

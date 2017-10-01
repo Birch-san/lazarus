@@ -46,6 +46,9 @@ TablesComponent::TablesComponent(
             selectedPreset
     );
 
+    bankTable->setWantsKeyboardFocus(false);
+    presetTable->setWantsKeyboardFocus(false);
+
     addAndMakeVisible (bankTable);
     addAndMakeVisible (presetTable);
 

@@ -24,8 +24,8 @@ LazarusAudioProcessorEditor::LazarusAudioProcessorEditor (LazarusAudioProcessor&
 
     midiKeyboard.setName ("MIDI Keyboard");
 
-//    midiKeyboard.setWantsKeyboardFocus(false);
-//    tablesComponent.setWantsKeyboardFocus(false);
+    midiKeyboard.setWantsKeyboardFocus(false);
+    tablesComponent.setWantsKeyboardFocus(false);
 
     setWantsKeyboardFocus(true);
     addAndMakeVisible (midiKeyboard);
