@@ -72,6 +72,7 @@
 		4E8C838E46054EBE6CD4B6A1 /* include_juce_video.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9BC8DAA8283E6CD60AC85CD8 /* include_juce_video.mm */; };
 		5967212059158398BDBEFB99 /* TablesComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 596725123525D4A396479570 /* TablesComponent.cpp */; };
 		59672461AAA28A05B7F999D3 /* SoundfontSynthVoice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 596722904181D85873BE2B4E /* SoundfontSynthVoice.cpp */; };
+		596725FC1F8F0A335063FB43 /* Pills.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59672462150FA7B676474799 /* Pills.cpp */; };
 		5967291A562D16D6861E97C2 /* SoundfontSynthSound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59672ACB08865F9E7E6E17AB /* SoundfontSynthSound.cpp */; };
 		5967298583ADD01CF9AF6F03 /* FluidSynthModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59672ECDD9C4A449FE14195E /* FluidSynthModel.cpp */; };
 		59672E1EEBDA9BA30CF97C40 /* Preset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59672EE6A7EA4B1566779158 /* Preset.cpp */; };
@@ -152,9 +153,11 @@
 		473D4289E6FAB8F1378E0143 /* include_juce_audio_plugin_client_AU_2.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_plugin_client_AU_2.mm; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_AU_2.mm; sourceTree = SOURCE_ROOT; };
 		56BB16C98DEC124804FBA6E5 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		5967200372818443BF5C2CE8 /* TableComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TableComponent.cpp; path = ../../Source/TableComponent.cpp; sourceTree = "<group>"; };
+		596722091C01B250D2F35844 /* Pills.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Pills.h; path = ../../Source/Pills.h; sourceTree = "<group>"; };
 		5967228A36301F7D37916F9F /* TablesComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TablesComponent.h; path = ../../Source/TablesComponent.h; sourceTree = "<group>"; };
 		596722904181D85873BE2B4E /* SoundfontSynthVoice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SoundfontSynthVoice.cpp; path = ../../Source/SoundfontSynthVoice.cpp; sourceTree = "<group>"; };
 		596722D9B25B1FDD25BC34BA /* SoundfontSynthVoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SoundfontSynthVoice.h; path = ../../Source/SoundfontSynthVoice.h; sourceTree = "<group>"; };
+		59672462150FA7B676474799 /* Pills.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Pills.cpp; path = ../../Source/Pills.cpp; sourceTree = "<group>"; };
 		596725123525D4A396479570 /* TablesComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TablesComponent.cpp; path = ../../Source/TablesComponent.cpp; sourceTree = "<group>"; };
 		596725AACC9003D230B175E9 /* FluidSynthModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FluidSynthModel.h; path = ../../Source/FluidSynthModel.h; sourceTree = "<group>"; };
 		596728B88A6006F841C70F39 /* Preset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Preset.h; path = ../../Source/Preset.h; sourceTree = "<group>"; };
@@ -310,6 +313,8 @@
 				5967228A36301F7D37916F9F /* TablesComponent.h */,
 				59672FD4FDDB16C2F079AD72 /* SurjectiveMidiKeyboardComponent.cpp */,
 				59672ADE72329BE51F4E12DD /* SurjectiveMidiKeyboardComponent.h */,
+				59672462150FA7B676474799 /* Pills.cpp */,
+				596722091C01B250D2F35844 /* Pills.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -708,6 +713,7 @@
 				59672E1EEBDA9BA30CF97C40 /* Preset.cpp in Sources */,
 				5967212059158398BDBEFB99 /* TablesComponent.cpp in Sources */,
 				59672E87A2E09D4B464EE2C8 /* SurjectiveMidiKeyboardComponent.cpp in Sources */,
+				596725FC1F8F0A335063FB43 /* Pills.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
