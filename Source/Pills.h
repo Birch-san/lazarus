@@ -27,12 +27,12 @@ private:
     function<void (int)> onItemSelected;
     function<int (const string&)> itemToIndexMapper;
 
-    OwnedArray<Component> components;
+    OwnedArray<TextButton> buttons;
 
-    template <typename ComponentType>
-    ComponentType* addToList (ComponentType* newComp);
+    TextButton* addToList (TextButton* newButton);
 
     void populate(int initiallySelectedItem);
+    void resized() override;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Pills)
 };

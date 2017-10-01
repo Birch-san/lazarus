@@ -5,6 +5,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "Pills.h"
 #include "TableComponent.h"
 #include "Preset.h"
 #include "PresetsToBanks.h"
@@ -30,6 +31,7 @@ private:
     int selectedBank;
 //    int selectedPreset;
 
+    Pills* banks;
     TableComponent* bankTable;
     TableComponent* presetTable;
 
@@ -39,6 +41,7 @@ private:
 
     static vector<vector<string>> mapPresets(const BanksToPresets &banksToPresets, int bank);
     static vector<vector<string>> mapBanks(const BanksToPresets &banksToPresets);
+    static vector<string> mapBanks2(const BanksToPresets &banksToPresets);
 
     void onBankSelected(int bank);
     void onPresetSelected(int preset);

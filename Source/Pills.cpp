@@ -3,7 +3,6 @@
 //
 
 #include "Pills.h"
-#include "Pill.h"
 
 using namespace std;
 
@@ -24,11 +23,14 @@ Pills::Pills(
 void Pills::populate(int initiallySelectedItem) {
     int index = 0;
     for (string item : items) {
-        Pill* pill = addToList(new Pill(
-                item,
-                index,
-                static_cast<const int>(items.size())
+        TextButton* pill = addToList(new TextButton(
+                item
         ));
+//        pill->setBounds(20 + index * 55, 260, 55, 24);
+        pill->setConnectedEdges (
+                (index == 0 ? 0 : Button::ConnectedOnLeft)
+                        | (index == items.size() ? 0 : Button::ConnectedOnRight)
+        );
         pill->setRadioGroupId(34567);
         if (index == initiallySelectedItem) {
             pill->setToggleState(true, dontSendNotification);
@@ -41,9 +43,18 @@ void Pills::buttonClicked (Button* button) {
 
 }
 
-template <typename ComponentType>
-ComponentType* Pills::addToList (ComponentType* newComp) {
-    components.add (newComp);
-    addAndMakeVisible (newComp);
-    return newComp;
+TextButton* Pills::addToList (TextButton* newButton) {
+    buttons.add (newButton);
+    addAndMakeVisible (newButton);
+    return newButton;
+}
+
+void Pills::resized() {
+    int index = 0;
+    for(TextButton* t : buttons) {
+        Rectangle<int> r (getLocalBounds());
+        r.removeFromLeft(index*50);
+        t->setBounds (r);
+        index++;
+    }
 }

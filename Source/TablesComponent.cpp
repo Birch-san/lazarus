@@ -21,6 +21,9 @@ TablesComponent::TablesComponent(
     auto rowToIndexMapper = [](const vector<string> &row) {
         return stoi(row[0]);
     };
+    auto itemToIndexMapper = [](const string &item) {
+        return stoi(item);
+    };
 
     bankTable = new TableComponent(
             {"Bank"},
@@ -53,6 +56,18 @@ TablesComponent::TablesComponent(
 
     addAndMakeVisible (bankTable);
     addAndMakeVisible (presetTable);
+
+    banks = new Pills(
+            "Banks",
+            mapBanks2(banksToPresets),
+            [this](int bank){
+                this->onBankSelected(bank);
+            },
+            itemToIndexMapper,
+            selectedBank
+    );
+
+    addAndMakeVisible (banks);
 
     initialised = true;
 }
@@ -98,6 +113,7 @@ void TablesComponent::onPresetSelected(int preset) {
 TablesComponent::~TablesComponent() {
     delete bankTable;
     delete presetTable;
+    delete banks;
 }
 
 vector<vector<string>> TablesComponent::mapBanks(const BanksToPresets &banksToPresets) {
@@ -113,6 +129,20 @@ vector<vector<string>> TablesComponent::mapBanks(const BanksToPresets &banksToPr
         row.push_back(to_string(i->first));
 
         rows.push_back(row);
+    }
+
+    return rows;
+}
+
+vector<string> TablesComponent::mapBanks2(const BanksToPresets &banksToPresets) {
+    vector<string> rows;
+
+    const auto compareKey = [](const BanksToPresets::value_type& lhs, const BanksToPresets::value_type& rhs) {
+        return lhs.first < rhs.first;
+    };
+
+    for(auto i = banksToPresets.begin(); i != banksToPresets.end(); i = std::upper_bound(i, banksToPresets.end(), *i, compareKey)) {
+        rows.push_back(to_string(i->first));
     }
 
     return rows;
@@ -136,13 +166,16 @@ vector<vector<string>> TablesComponent::mapPresets(const BanksToPresets &banksTo
 }
 
 void TablesComponent::resized() {
-    const int halfHeight = getLocalBounds().proportionOfHeight(0.5f);
 
     Rectangle<int> r (getLocalBounds());
-    bankTable->setBounds (r.removeFromTop (halfHeight));
+    const int thirdHeight = r.proportionOfHeight(0.33f);
+    banks->setBounds (r.removeFromTop(thirdHeight));
 
-    Rectangle<int> r2 (getLocalBounds());
-    presetTable->setBounds (r2.removeFromBottom(halfHeight));
+//    Rectangle<int> r2 (getLocalBounds());
+    bankTable->setBounds (r.removeFromTop(thirdHeight));
+
+//    Rectangle<int> r3 (getLocalBounds());
+    presetTable->setBounds (r.removeFromTop(thirdHeight));
 }
 
 bool TablesComponent::keyPressed(const KeyPress &key) {
