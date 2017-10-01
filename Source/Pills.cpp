@@ -26,10 +26,11 @@ void Pills::populate(int initiallySelectedItem) {
         TextButton* pill = addToList(new TextButton(
                 item
         ));
+//        pill->setColour (TextButton::buttonOnColourId, Colours::blueviolet.brighter());
 //        pill->setBounds(20 + index * 55, 260, 55, 24);
         pill->setConnectedEdges (
                 (index == 0 ? 0 : Button::ConnectedOnLeft)
-                        | (index == items.size() ? 0 : Button::ConnectedOnRight)
+                        | (index == (items.size()-1) ? 0 : Button::ConnectedOnRight)
         );
         pill->setRadioGroupId(34567);
         if (index == initiallySelectedItem) {
@@ -51,10 +52,13 @@ TextButton* Pills::addToList (TextButton* newButton) {
 
 void Pills::resized() {
     int index = 0;
+    Rectangle<int> r (getLocalBounds());
+    const int equalWidth = r.proportionOfWidth(buttons.size() <= 0 ? 1.0 : 1.0f/buttons.size());
     for(TextButton* t : buttons) {
-        Rectangle<int> r (getLocalBounds());
-        r.removeFromLeft(index*50);
-        t->setBounds (r);
+        Rectangle<int> r2 (getLocalBounds());
+        r2.removeFromLeft(equalWidth * index);
+        r2.removeFromRight(equalWidth * (buttons.size()-index-1));
+        t->setBounds (r2);
         index++;
     }
 }
