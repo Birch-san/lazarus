@@ -54,6 +54,8 @@ public:
 
     void setRows(const vector<vector<string>>& rows, int initiallySelectedRow);
 
+    bool keyPressed(const KeyPress &key) override;
+
 private:
     TableListBox table;     // the table component itself
     Font font;

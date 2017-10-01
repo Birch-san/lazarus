@@ -197,3 +197,7 @@ void TableComponent::selectedRowsChanged (int row) {
     }
     onRowSelected(rowToIndexMapper(rows[row]));
 }
+
+bool TableComponent::keyPressed(const KeyPress &key) {
+    return table.keyPressed(key);
+}
