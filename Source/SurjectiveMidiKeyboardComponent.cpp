@@ -113,10 +113,10 @@ void SurjectiveMidiKeyboardComponent::bindKeysToMidiKeyboard() {
     // http://s3.amazonaws.com/fl_resource/flkeychart.png
 
     int ix, degree;
-    int whiteJumps[] = {2,2,1,2,2,2,1};
-    int blackJumps[] = {2,3,2};
-    int whiteJumpsC = sizeof(whiteJumps)/sizeof(whiteJumps[0]);
-    int blackJumpsC = sizeof(blackJumps)/sizeof(blackJumps[0]);
+    const int whiteJumps[] = {2,2,1,2,2,2,1};
+    const int blackJumps[] = {2,3,2};
+    const int whiteJumpsC = sizeof(whiteJumps)/sizeof(whiteJumps[0]);
+    const int blackJumpsC = sizeof(blackJumps)/sizeof(blackJumps[0]);
 
     ix = degree = 0;
     for (const char keyCode : "ZXCVBNM,./") {

@@ -33,6 +33,8 @@ private:
     TableComponent* bankTable;
     TableComponent* presetTable;
 
+    TableComponent* focused;
+
     BanksToPresets banksToPresets;
 
     static vector<vector<string>> mapPresets(const BanksToPresets &banksToPresets, int bank);

@@ -78,16 +78,32 @@ bool LazarusAudioProcessorEditor::keyPressed(const KeyPress &key) {
 //        return false;
 //    if (key.getKeyCode() == KeyPress::upKey){
 //    }
-    cout << "hey\n";
-    for(auto childComponent : getChildren()) {
-        if (childComponent->keyPressed(key)) return true;
+//    cout << "hey\n";
+    const int cursorKeys[] = {
+            KeyPress::leftKey,
+            KeyPress::rightKey,
+            KeyPress::upKey,
+            KeyPress::downKey
+    };
+    if (any_of(
+            begin(cursorKeys),
+            end(cursorKeys),
+            [&](int i) { return i == key.getKeyCode(); }
+    )) {
+        return tablesComponent.keyPressed(key);
+    } else {
+        return midiKeyboard.keyPressed(key);
     }
+//    for(auto childComponent : getChildren()) {
+//        if (childComponent->keyPressed(key)) return true;
+//    }
     return false;
 }
 
 bool LazarusAudioProcessorEditor::keyStateChanged (bool isKeyDown) {
-    for(auto childComponent : getChildren()) {
-        if (childComponent->keyStateChanged(isKeyDown)) return true;
-    }
-    return false;
+    return midiKeyboard.keyStateChanged(isKeyDown);
+//    for(auto childComponent : getChildren()) {
+//        if (childComponent->keyStateChanged(isKeyDown)) return true;
+//    }
+//    return false;
 }

@@ -49,6 +49,8 @@ TablesComponent::TablesComponent(
     bankTable->setWantsKeyboardFocus(false);
     presetTable->setWantsKeyboardFocus(false);
 
+    focused = presetTable;
+
     addAndMakeVisible (bankTable);
     addAndMakeVisible (presetTable);
 
@@ -144,6 +146,13 @@ void TablesComponent::resized() {
 }
 
 bool TablesComponent::keyPressed(const KeyPress &key) {
-    cout << key.getKeyCode() << "\n";
-    return false;
+    if (key.getKeyCode() == KeyPress::leftKey && focused == presetTable) {
+        focused = bankTable;
+        return true;
+    }
+    if (key.getKeyCode() == KeyPress::rightKey && focused == bankTable) {
+        focused = presetTable;
+        return true;
+    }
+    return focused->keyPressed(key);
 }
