@@ -139,3 +139,8 @@ void TablesComponent::resized() {
     Rectangle<int> r2 (getLocalBounds());
     presetTable->setBounds (r2.removeFromBottom(halfHeight));
 }
+
+bool TablesComponent::keyPressed(const KeyPress &key) {
+    cout << key.getKeyCode() << "\n";
+    return false;
+}

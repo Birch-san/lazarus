@@ -23,6 +23,8 @@ public:
 
     void resized() override;
 
+    bool keyPressed(const KeyPress &key) override;
+
 private:
     shared_ptr<FluidSynthModel> fluidSynthModel;
     int selectedBank;

@@ -23,6 +23,11 @@ LazarusAudioProcessorEditor::LazarusAudioProcessorEditor (LazarusAudioProcessor&
     setSize (400, 300);
 
     midiKeyboard.setName ("MIDI Keyboard");
+
+//    midiKeyboard.setWantsKeyboardFocus(false);
+//    tablesComponent.setWantsKeyboardFocus(false);
+
+    setWantsKeyboardFocus(true);
     addAndMakeVisible (midiKeyboard);
 
     addAndMakeVisible(tablesComponent);
@@ -41,6 +46,15 @@ void LazarusAudioProcessorEditor::paint (Graphics& g)
 //    g.setColour (Colours::white);
 //    g.setFont (15.0f);
 //    g.drawFittedText ("Hello World!", getLocalBounds(), Justification::centred, 1);
+
+    if (!focusInitialized) {
+        if (!hasKeyboardFocus(false) && isVisible()) {
+            grabKeyboardFocus();
+        }
+        if (getCurrentlyFocusedComponent() == this) {
+            focusInitialized = true;
+        }
+    }
 }
 
 void LazarusAudioProcessorEditor::resized()
@@ -57,4 +71,23 @@ void LazarusAudioProcessorEditor::resized()
     r2.reduce(0, padding);
     r2.removeFromBottom(pianoHeight);
     tablesComponent.setBounds (r2);
+}
+
+bool LazarusAudioProcessorEditor::keyPressed(const KeyPress &key) {
+//    if (!hasKeyboardFocus(false))
+//        return false;
+//    if (key.getKeyCode() == KeyPress::upKey){
+//    }
+    cout << "hey\n";
+    for(auto childComponent : getChildren()) {
+        if (childComponent->keyPressed(key)) return true;
+    }
+    return false;
+}
+
+bool LazarusAudioProcessorEditor::keyStateChanged (bool isKeyDown) {
+    for(auto childComponent : getChildren()) {
+        if (childComponent->keyStateChanged(isKeyDown)) return true;
+    }
+    return false;
 }
