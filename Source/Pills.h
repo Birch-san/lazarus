@@ -32,5 +32,7 @@ private:
     template <typename ComponentType>
     ComponentType* addToList (ComponentType* newComp);
 
+    void populate(int initiallySelectedItem);
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Pills)
 };
