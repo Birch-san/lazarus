@@ -18,14 +18,14 @@ TableComponent::TableComponent(
         const vector<string> &columns,
         const vector<vector<string>> &rows,
         const function<void (int)> &onRowSelected,
-        const function<int (const vector<string>&)> &rowToIndexMapper,
+        const function<int (const vector<string>&)> &rowToIDMapper,
         int initiallySelectedRow
 )
         : font (14.0f),
           columns(columns),
           rows(rows),
           onRowSelected(onRowSelected),
-          rowToIndexMapper(rowToIndexMapper)
+          rowToIDMapper(rowToIDMapper)
 {
     // Create our table component and add it to this component..
     addAndMakeVisible (table);
@@ -195,7 +195,7 @@ void TableComponent::selectedRowsChanged (int row) {
     if (row < 0) {
         return;
     }
-    onRowSelected(rowToIndexMapper(rows[row]));
+    onRowSelected(rowToIDMapper(rows[row]));
 }
 
 bool TableComponent::keyPressed(const KeyPress &key) {

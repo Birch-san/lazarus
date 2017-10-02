@@ -40,6 +40,7 @@ private:
 
     void onBankSelected(int bank);
     void onPresetSelected(int preset);
+    int presetToIndexMapper(int preset);
 
     fluid_preset_t* getCurrentPreset();
     Preset getFirstPresetInBank(int bank);

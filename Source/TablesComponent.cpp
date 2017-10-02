@@ -18,7 +18,7 @@ TablesComponent::TablesComponent(
     selectedBank = currentPreset->get_banknum(currentPreset);
     int selectedPreset = currentPreset->get_num(currentPreset);
 
-    auto rowToIndexMapper = [](const vector<string> &row) {
+    auto rowToPresetMapper = [this](const vector<string> &row) {
         return stoi(row[0]);
     };
     auto itemToBankMapper = [](const string &item) {
@@ -34,8 +34,8 @@ TablesComponent::TablesComponent(
             [this](int preset){
                 this->onPresetSelected(preset);
             },
-            rowToIndexMapper,
-            selectedPreset
+            rowToPresetMapper,
+            presetToIndexMapper(selectedPreset)
     );
     banks = new Pills(
             "Banks",
@@ -81,8 +81,20 @@ void TablesComponent::onBankSelected(int bank) {
                     banksToPresets,
                     bank
             ),
-            firstPresetInBank.getPreset()
+            presetToIndexMapper(firstPresetInBank.getPreset())
     );
+}
+
+int TablesComponent::presetToIndexMapper(int preset) {
+    int ix = 0;
+    pair<BanksToPresets::const_iterator, BanksToPresets::const_iterator> iterators = this->banksToPresets.equal_range(this->selectedBank);
+    for (auto it = iterators.first; it != iterators.second; ++it, ix++) {
+        Preset b = it->second;
+        if (preset == b.getPreset()) {
+            return ix;
+        }
+    }
+    return 0;
 }
 
 void TablesComponent::onPresetSelected(int preset) {
