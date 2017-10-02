@@ -10,12 +10,12 @@ Pills::Pills(
         string label,
         const vector<string> &items,
         const function<void (int)> &onItemSelected,
-        const function<int (const string&)> &itemToIndexMapper,
+        const function<int (const string&)> &itemToIDMapper,
         int initiallySelectedItem
 ) : label(label),
     items(items),
     onItemSelected(onItemSelected),
-    itemToIndexMapper(itemToIndexMapper)
+    itemToIDMapper(itemToIDMapper)
 {
     populate(initiallySelectedItem);
 }
@@ -37,13 +37,15 @@ void Pills::populate(int initiallySelectedItem) {
             pill->setToggleState(true, dontSendNotification);
             selected = pill;
         }
+        pill->setClickingTogglesState(true);
+        pill->addListener(this);
         index++;
     }
 }
 
 void Pills::buttonClicked (Button* button) {
     selected = button;
-    onItemSelected(itemToIndexMapper(button->getName().toStdString()));
+    onItemSelected(itemToIDMapper(button->getName().toStdString()));
 }
 
 TextButton* Pills::addToList (TextButton* newButton) {
@@ -53,9 +55,9 @@ TextButton* Pills::addToList (TextButton* newButton) {
 }
 
 void Pills::cycle(bool right) {
-    int currentIx = itemToIndexMapper(selected->getName().toStdString());
+    int currentIx = static_cast<const int>(distance(buttons.begin(), find(buttons.begin(), buttons.end(), selected)));
     currentIx += right ? 1 : -1;
-    selected = buttons[currentIx % buttons.size()];
+    buttons[currentIx % buttons.size()]->triggerClick();
 }
 
 void Pills::resized() {

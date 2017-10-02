@@ -21,7 +21,7 @@ TablesComponent::TablesComponent(
     auto rowToIndexMapper = [](const vector<string> &row) {
         return stoi(row[0]);
     };
-    auto itemToIndexMapper = [](const string &item) {
+    auto itemToBankMapper = [](const string &item) {
         return stoi(item);
     };
 
@@ -63,7 +63,7 @@ TablesComponent::TablesComponent(
             [this](int bank){
                 this->onBankSelected(bank);
             },
-            itemToIndexMapper,
+            itemToBankMapper,
             selectedBank
     );
 
@@ -179,13 +179,10 @@ void TablesComponent::resized() {
 }
 
 bool TablesComponent::keyPressed(const KeyPress &key) {
-    if (key.getKeyCode() == KeyPress::leftKey && focused == presetTable) {
-        focused = bankTable;
+    if (key.getKeyCode() == KeyPress::leftKey
+            || key.getKeyCode() == KeyPress::rightKey) {
+        banks->cycle(key.getKeyCode() == KeyPress::rightKey);
         return true;
     }
-    if (key.getKeyCode() == KeyPress::rightKey && focused == bankTable) {
-        focused = presetTable;
-        return true;
-    }
-    return focused->keyPressed(key);
+    return presetTable->keyPressed(key);
 }
