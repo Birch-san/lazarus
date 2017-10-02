@@ -35,19 +35,27 @@ void Pills::populate(int initiallySelectedItem) {
         pill->setRadioGroupId(34567);
         if (index == initiallySelectedItem) {
             pill->setToggleState(true, dontSendNotification);
+            selected = pill;
         }
         index++;
     }
 }
 
 void Pills::buttonClicked (Button* button) {
-
+    selected = button;
+    onItemSelected(itemToIndexMapper(button->getName().toStdString()));
 }
 
 TextButton* Pills::addToList (TextButton* newButton) {
     buttons.add (newButton);
     addAndMakeVisible (newButton);
     return newButton;
+}
+
+void Pills::cycle(bool right) {
+    int currentIx = itemToIndexMapper(selected->getName().toStdString());
+    currentIx += right ? 1 : -1;
+    selected = buttons[currentIx % buttons.size()];
 }
 
 void Pills::resized() {

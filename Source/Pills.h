@@ -28,8 +28,11 @@ private:
     function<int (const string&)> itemToIndexMapper;
 
     OwnedArray<TextButton> buttons;
+    Button* selected;
 
     TextButton* addToList (TextButton* newButton);
+
+    void cycle(bool right);
 
     void populate(int initiallySelectedItem);
     void resized() override;
