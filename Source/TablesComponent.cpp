@@ -132,7 +132,7 @@ vector<vector<string>> TablesComponent::mapPresets(const BanksToPresets &banksTo
 
 void TablesComponent::resized() {
     Rectangle<int> r (getLocalBounds());
-    banks->setBounds (r.removeFromTop(30));
+    banks->setBounds (r.removeFromTop(27).reduced(5,0));
 
     presetTable->setBounds (r);
 }

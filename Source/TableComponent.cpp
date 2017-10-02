@@ -161,7 +161,7 @@ int TableComponent::getColumnAutoSizeWidth (int columnId) {
 //==============================================================================
 void TableComponent::resized() {
     // position our table with a gap around its edge
-    table.setBoundsInset (BorderSize<int> (8));
+    table.setBoundsInset (BorderSize<int> (7));
 }
 
 //==============================================================================
