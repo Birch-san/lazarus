@@ -25,17 +25,6 @@ TablesComponent::TablesComponent(
         return stoi(item);
     };
 
-    bankTable = new TableComponent(
-            {"Bank"},
-            mapBanks(
-                    banksToPresets
-            ),
-            [this](int bank){
-                this->onBankSelected(bank);
-            },
-            rowToIndexMapper,
-            selectedBank
-    );
     presetTable = new TableComponent(
             {"Preset", "Name"},
             mapPresets(
@@ -48,24 +37,19 @@ TablesComponent::TablesComponent(
             rowToIndexMapper,
             selectedPreset
     );
-
-    bankTable->setWantsKeyboardFocus(false);
-    presetTable->setWantsKeyboardFocus(false);
-
-    focused = presetTable;
-
-    addAndMakeVisible (bankTable);
-    addAndMakeVisible (presetTable);
-
     banks = new Pills(
             "Banks",
-            mapBanks2(banksToPresets),
+            mapBanks(banksToPresets),
             [this](int bank){
                 this->onBankSelected(bank);
             },
             itemToBankMapper,
             selectedBank
     );
+
+    presetTable->setWantsKeyboardFocus(false);
+
+    addAndMakeVisible (presetTable);
 
     addAndMakeVisible (banks);
 
@@ -111,30 +95,11 @@ void TablesComponent::onPresetSelected(int preset) {
 }
 
 TablesComponent::~TablesComponent() {
-    delete bankTable;
     delete presetTable;
     delete banks;
 }
 
-vector<vector<string>> TablesComponent::mapBanks(const BanksToPresets &banksToPresets) {
-    vector<vector<string>> rows;
-
-    const auto compareKey = [](const BanksToPresets::value_type& lhs, const BanksToPresets::value_type& rhs) {
-        return lhs.first < rhs.first;
-    };
-
-    for(auto i = banksToPresets.begin(); i != banksToPresets.end(); i = std::upper_bound(i, banksToPresets.end(), *i, compareKey)) {
-        vector<string> row;
-
-        row.push_back(to_string(i->first));
-
-        rows.push_back(row);
-    }
-
-    return rows;
-}
-
-vector<string> TablesComponent::mapBanks2(const BanksToPresets &banksToPresets) {
+vector<string> TablesComponent::mapBanks(const BanksToPresets &banksToPresets) {
     vector<string> rows;
 
     const auto compareKey = [](const BanksToPresets::value_type& lhs, const BanksToPresets::value_type& rhs) {
@@ -166,16 +131,10 @@ vector<vector<string>> TablesComponent::mapPresets(const BanksToPresets &banksTo
 }
 
 void TablesComponent::resized() {
-
     Rectangle<int> r (getLocalBounds());
-    const int thirdHeight = r.proportionOfHeight(0.33f);
-    banks->setBounds (r.removeFromTop(thirdHeight));
+    banks->setBounds (r.removeFromTop(30));
 
-//    Rectangle<int> r2 (getLocalBounds());
-    bankTable->setBounds (r.removeFromTop(thirdHeight));
-
-//    Rectangle<int> r3 (getLocalBounds());
-    presetTable->setBounds (r.removeFromTop(thirdHeight));
+    presetTable->setBounds (r);
 }
 
 bool TablesComponent::keyPressed(const KeyPress &key) {

@@ -56,7 +56,7 @@ TextButton* Pills::addToList (TextButton* newButton) {
 
 void Pills::cycle(bool right) {
     int currentIx = static_cast<const int>(distance(buttons.begin(), find(buttons.begin(), buttons.end(), selected)));
-    currentIx += right ? 1 : -1;
+    currentIx += right ? 1 : buttons.size()-1;
     buttons[currentIx % buttons.size()]->triggerClick();
 }
 

@@ -29,19 +29,14 @@ public:
 private:
     shared_ptr<FluidSynthModel> fluidSynthModel;
     int selectedBank;
-//    int selectedPreset;
 
     Pills* banks;
-    TableComponent* bankTable;
     TableComponent* presetTable;
-
-    TableComponent* focused;
 
     BanksToPresets banksToPresets;
 
     static vector<vector<string>> mapPresets(const BanksToPresets &banksToPresets, int bank);
-    static vector<vector<string>> mapBanks(const BanksToPresets &banksToPresets);
-    static vector<string> mapBanks2(const BanksToPresets &banksToPresets);
+    static vector<string> mapBanks(const BanksToPresets &banksToPresets);
 
     void onBankSelected(int bank);
     void onPresetSelected(int preset);
