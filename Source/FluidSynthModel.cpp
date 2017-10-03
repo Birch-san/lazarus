@@ -4,7 +4,6 @@
 
 #include <iostream>
 #include "FluidSynthModel.h"
-#include "Preset.h"
 
 using namespace std;
 
@@ -107,4 +106,8 @@ shared_ptr<fluid_synth_t> FluidSynthModel::getSynth() {
     // You can pass a shared_ptr to another function in the following ways:
     // Pass the shared_ptr by value. This invokes the copy constructor, increments the reference count, and makes the callee an owner.
     return synth;
+}
+
+void FluidSynthModel::onFileNameChanged(const string &absPath) {
+    fluid_synth_sfunload(synth.get(), sfont_id, 1);
 }

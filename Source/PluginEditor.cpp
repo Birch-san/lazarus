@@ -17,7 +17,7 @@ LazarusAudioProcessorEditor::LazarusAudioProcessorEditor (LazarusAudioProcessor&
       processor (p),
       midiKeyboard (p.keyboardState, SurjectiveMidiKeyboardComponent::horizontalKeyboard),
       tablesComponent(p.getFluidSynthModel()),
-      filePicker()
+      filePicker(p.getFluidSynthModel())
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
@@ -63,9 +63,9 @@ void LazarusAudioProcessorEditor::resized()
 {
     const int padding = 8;
     const int pianoHeight = 70;
-    const int filePickerHeight = 27 + padding;
+    const int filePickerHeight = 25;
     Rectangle<int> r (getLocalBounds());
-    filePicker.setBounds(r.removeFromTop(filePickerHeight).reduced(padding, 0).withTrimmedTop(padding));
+    filePicker.setBounds(r.removeFromTop(filePickerHeight + padding).reduced(padding, 0).withTrimmedTop(padding));
     midiKeyboard.setBounds (r.removeFromBottom (pianoHeight).reduced(padding, 0));
     tablesComponent.setBounds(r.reduced(0, padding));
 

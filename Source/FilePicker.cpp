@@ -5,7 +5,9 @@
 #include "FilePicker.h"
 #include "MyColours.h"
 
-FilePicker::FilePicker()
+FilePicker::FilePicker(
+        shared_ptr<FluidSynthModel> fluidSynthModel
+)
 : fileChooser(
         "File",
         File(),
@@ -15,7 +17,8 @@ FilePicker::FilePicker()
         "*.sf2;*.sf3",
         String(),
         "Choose a Soundfont file to load into the synthesizer"
-) {
+),
+  fluidSynthModel(fluidSynthModel) {
     // faster (rounded edges introduce transparency)
     setOpaque (true);
 
@@ -40,5 +43,5 @@ void FilePicker::paint(Graphics& g)
 }
 
 void FilePicker::filenameComponentChanged (FilenameComponent*) {
-//    fileChooser.getCurrentFile().loadFileAsString()
+    fluidSynthModel.get()->onFileNameChanged(fileChooser.getCurrentFile().getFullPathName().toStdString());
 }

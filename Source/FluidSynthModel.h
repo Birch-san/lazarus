@@ -25,6 +25,8 @@ public:
     void changePreset(int bank, int preset);
     int getChannel();
 
+    void onFileNameChanged(const string &absPath);
+
 private:
     shared_ptr<fluid_synth_t> synth;
     fluid_settings_t* settings;
