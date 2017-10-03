@@ -105,4 +105,5 @@ fluid_synth_t* FluidSynthModel::getSynth() {
 
 void FluidSynthModel::onFileNameChanged(const string &absPath) {
     fluid_synth_sfunload(synth, sfont_id, 1);
+    fluid_synth_sfload(synth, absPath.c_str(), 1);
 }
