@@ -12,7 +12,7 @@ using std::shared_ptr;
 
 class SoundfontSynthVoice : public SynthesiserVoice {
 public:
-    SoundfontSynthVoice(shared_ptr<fluid_synth_t> synth);
+    SoundfontSynthVoice(fluid_synth_t* synth);
 
     bool canPlaySound (SynthesiserSound* sound) override;
     void startNote (
@@ -35,5 +35,5 @@ private:
     double angleDelta;
     int midiNoteNumber;
 
-    shared_ptr<fluid_synth_t> synth;
+    fluid_synth_t* synth;
 };

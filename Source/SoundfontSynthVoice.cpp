@@ -5,7 +5,7 @@
 #include "SoundfontSynthVoice.h"
 #include "SoundfontSynthSound.h"
 
-SoundfontSynthVoice::SoundfontSynthVoice(const shared_ptr<fluid_synth_t> synth)
+SoundfontSynthVoice::SoundfontSynthVoice(fluid_synth_t* synth)
 : tailOff (0.0),
 level(0.0),
 currentAngle(0.0),
@@ -24,7 +24,7 @@ void SoundfontSynthVoice::startNote(
         SynthesiserSound* sound,
         int /*currentPitchWheelPosition*/) {
     this->midiNoteNumber = midiNoteNumber;
-    fluid_synth_noteon(synth.get(), 0, midiNoteNumber, static_cast<int>(velocity * 127));
+    fluid_synth_noteon(synth, 0, midiNoteNumber, static_cast<int>(velocity * 127));
 
 //    currentAngle = 0.0;
 //    level = velocity * 0.15;
@@ -56,7 +56,7 @@ void SoundfontSynthVoice::stopNote (float /*velocity*/, bool allowTailOff) {
 //        angleDelta = 0.0;
 //    }
     clearCurrentNote();
-    fluid_synth_noteoff(synth.get(), 0, this->midiNoteNumber);
+    fluid_synth_noteoff(synth, 0, this->midiNoteNumber);
 }
 void SoundfontSynthVoice::pitchWheelMoved (int /*newValue*/) {
     // who cares?

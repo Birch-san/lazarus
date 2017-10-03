@@ -17,7 +17,7 @@ class FluidSynthModel {
 public:
     ~FluidSynthModel();
 
-    shared_ptr<fluid_synth_t> getSynth();
+    fluid_synth_t* getSynth();
     void initialise();
 
     BanksToPresets getBanks();
@@ -28,11 +28,11 @@ public:
     void onFileNameChanged(const string &absPath);
 
 private:
-    shared_ptr<fluid_synth_t> synth;
+    fluid_synth_t* synth;
     fluid_settings_t* settings;
 //    fluid_audio_driver_t* driver;
 
-    fluid_preset_t* getFirstPreset();
+    const fluid_preset_t getFirstPreset();
     void selectFirstPreset();
 
     bool initialised;

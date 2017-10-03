@@ -58,7 +58,7 @@ TablesComponent::TablesComponent(
 
 fluid_preset_t* TablesComponent::getCurrentPreset() {
     FluidSynthModel* fluidSynthModelP = fluidSynthModel.get();
-    fluid_synth_t* synth = fluidSynthModelP->getSynth().get();
+    fluid_synth_t* synth = fluidSynthModelP->getSynth();
 
     return fluid_synth_get_channel_preset(synth, fluidSynthModelP->getChannel());
 }
