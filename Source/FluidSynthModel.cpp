@@ -24,9 +24,9 @@ void FluidSynthModel::initialise() {
 
     synth = new_fluid_synth(settings);
 
+    sfont_id = 0;
     loadFont("/Users/birch/Documents/soundfont/EarthBound.sf2");
 
-    sfont_id = 1;
 
     fluid_synth_set_gain(synth, 2.0);
 
@@ -112,6 +112,7 @@ void FluidSynthModel::unloadAndLoadFont(const string &absPath) {
 }
 
 void FluidSynthModel::loadFont(const string &absPath) {
+    sfont_id++;
     fluid_synth_sfload(synth, absPath.c_str(), 1);
     selectFirstPreset();
 }
