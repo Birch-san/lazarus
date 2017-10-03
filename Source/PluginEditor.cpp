@@ -16,7 +16,8 @@ LazarusAudioProcessorEditor::LazarusAudioProcessorEditor (LazarusAudioProcessor&
     : AudioProcessorEditor (&p),
       processor (p),
       midiKeyboard (p.keyboardState, SurjectiveMidiKeyboardComponent::horizontalKeyboard),
-      tablesComponent(p.getFluidSynthModel())
+      tablesComponent(p.getFluidSynthModel()),
+      filePicker()
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
@@ -31,6 +32,7 @@ LazarusAudioProcessorEditor::LazarusAudioProcessorEditor (LazarusAudioProcessor&
     addAndMakeVisible (midiKeyboard);
 
     addAndMakeVisible(tablesComponent);
+    addAndMakeVisible(filePicker);
 }
 
 LazarusAudioProcessorEditor::~LazarusAudioProcessorEditor()
@@ -61,16 +63,22 @@ void LazarusAudioProcessorEditor::resized()
 {
     const int padding = 8;
     const int pianoHeight = 70;
-    Rectangle<int> r (getLocalBounds().reduced (padding));
+    const int filePickerHeight = 27 + padding;
+    Rectangle<int> r (getLocalBounds());
+    filePicker.setBounds(r.removeFromTop(filePickerHeight).reduced(padding, 0).withTrimmedTop(padding));
+    midiKeyboard.setBounds (r.removeFromBottom (pianoHeight).reduced(padding, 0));
+    tablesComponent.setBounds(r.reduced(0, padding));
 
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
-    midiKeyboard.setBounds (r.removeFromBottom (pianoHeight));
-
-    Rectangle<int> r2 (getLocalBounds());
-    r2.reduce(0, padding);
-    r2.removeFromBottom(pianoHeight);
-    tablesComponent.setBounds (r2);
+//    Rectangle<int> r2 (getLocalBounds());
+//    r2.reduce(0, padding);
+//    r2.removeFromBottom(pianoHeight);
+//    r2.removeFromTop(filePickerHeight);
+//    tablesComponent.setBounds (r2);
+//
+//    Rectangle<int> r3 (getLocalBounds());
+//    r3.removeFromTop(filePickerHeight);
+//
+//    filePicker.setBounds(r3);
 }
 
 bool LazarusAudioProcessorEditor::keyPressed(const KeyPress &key) {

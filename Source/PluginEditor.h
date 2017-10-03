@@ -14,6 +14,7 @@
 #include "PluginProcessor.h"
 #include "TablesComponent.h"
 #include "SurjectiveMidiKeyboardComponent.h"
+#include "FilePicker.h"
 
 //==============================================================================
 /**
@@ -38,6 +39,7 @@ private:
 
     SurjectiveMidiKeyboardComponent midiKeyboard;
     TablesComponent tablesComponent;
+    FilePicker filePicker;
 
     bool focusInitialized;
 
