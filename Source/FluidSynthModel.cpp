@@ -23,7 +23,8 @@ void FluidSynthModel::initialise() {
     fluid_settings_setstr(settings, "synth.verbose", "yes");
 
     synth = new_fluid_synth(settings);
-    fluid_synth_sfload(synth, "/Users/birch/Documents/soundfont/EarthBound.sf2", 1);
+
+    loadFont("/Users/birch/Documents/soundfont/EarthBound.sf2");
 
     sfont_id = 1;
 
@@ -34,8 +35,6 @@ void FluidSynthModel::initialise() {
 //    fluid_handle_inst
 
 //    driver = new_fluid_audio_driver(settings, synth);
-
-    selectFirstPreset();
 
 //    changePreset(128, 13);
 
@@ -104,6 +103,15 @@ fluid_synth_t* FluidSynthModel::getSynth() {
 }
 
 void FluidSynthModel::onFileNameChanged(const string &absPath) {
+    unloadAndLoadFont(absPath);
+}
+
+void FluidSynthModel::unloadAndLoadFont(const string &absPath) {
     fluid_synth_sfunload(synth, sfont_id, 1);
+    loadFont(absPath);
+}
+
+void FluidSynthModel::loadFont(const string &absPath) {
     fluid_synth_sfload(synth, absPath.c_str(), 1);
+    selectFirstPreset();
 }

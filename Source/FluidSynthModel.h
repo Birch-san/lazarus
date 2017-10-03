@@ -35,6 +35,9 @@ private:
     const fluid_preset_t getFirstPreset();
     void selectFirstPreset();
 
+    void unloadAndLoadFont(const string &absPath);
+    void loadFont(const string &absPath);
+
     bool initialised;
     unsigned int sfont_id;
     unsigned int channel;
