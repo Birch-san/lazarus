@@ -68,6 +68,7 @@ void TableComponent::setRows(const vector<vector<string>>& rows, int initiallySe
     this->rows = rows;
     table.deselectAllRows();
     table.updateContent();
+    table.getHeader().setSortColumnId(0, true);
     table.selectRow(initiallySelectedRow);
 }
 
