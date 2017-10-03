@@ -14,6 +14,7 @@ public:
     ~FilePicker();
 
     void resized() override;
+    void paint (Graphics& g) override;
 private:
     FilenameComponent fileChooser;
 

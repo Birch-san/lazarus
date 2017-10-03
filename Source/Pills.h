@@ -35,6 +35,7 @@ private:
 
     void populate(int initiallySelectedItem);
     void resized() override;
+    void paint(Graphics& g) override;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Pills)
 };

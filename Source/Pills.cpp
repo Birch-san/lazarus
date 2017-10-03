@@ -3,6 +3,7 @@
 //
 
 #include "Pills.h"
+#include "MyColours.h"
 
 using namespace std;
 
@@ -17,6 +18,9 @@ Pills::Pills(
     onItemSelected(onItemSelected),
     itemToIDMapper(itemToIDMapper)
 {
+    // faster (rounded edges introduce transparency)
+    setOpaque (true);
+
     populate(initiallySelectedItem);
 }
 
@@ -71,4 +75,12 @@ void Pills::resized() {
         t->setBounds (r2);
         index++;
     }
+}
+
+/**
+ * This is required to support setOpaque(true)
+ */
+void Pills::paint(Graphics& g)
+{
+    g.fillAll(MyColours::getUIColourIfAvailable(LookAndFeel_V4::ColourScheme::UIColour::windowBackground, Colours::lightgrey));
 }

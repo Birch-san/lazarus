@@ -75,6 +75,7 @@
 		596725FC1F8F0A335063FB43 /* Pills.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59672462150FA7B676474799 /* Pills.cpp */; };
 		5967291A562D16D6861E97C2 /* SoundfontSynthSound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59672ACB08865F9E7E6E17AB /* SoundfontSynthSound.cpp */; };
 		5967298583ADD01CF9AF6F03 /* FluidSynthModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59672ECDD9C4A449FE14195E /* FluidSynthModel.cpp */; };
+		59672A4F3976D6DEED8A345A /* MyColours.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59672E4C6C8D38915A359DA3 /* MyColours.cpp */; };
 		59672B77138ABF83AF391256 /* FilePicker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59672EFC750D2C5E945A501B /* FilePicker.cpp */; };
 		59672E1EEBDA9BA30CF97C40 /* Preset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59672EE6A7EA4B1566779158 /* Preset.cpp */; };
 		59672E87A2E09D4B464EE2C8 /* SurjectiveMidiKeyboardComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59672FD4FDDB16C2F079AD72 /* SurjectiveMidiKeyboardComponent.cpp */; };
@@ -166,7 +167,9 @@
 		596728FCF4084A07DE2B4859 /* PresetsToBanks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresetsToBanks.h; path = ../../Source/PresetsToBanks.h; sourceTree = "<group>"; };
 		59672ACB08865F9E7E6E17AB /* SoundfontSynthSound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SoundfontSynthSound.cpp; path = ../../Source/SoundfontSynthSound.cpp; sourceTree = "<group>"; };
 		59672ADE72329BE51F4E12DD /* SurjectiveMidiKeyboardComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SurjectiveMidiKeyboardComponent.h; path = ../../Source/SurjectiveMidiKeyboardComponent.h; sourceTree = "<group>"; };
+		59672C8CC99E19713C7D82F6 /* MyColours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyColours.h; path = ../../Source/MyColours.h; sourceTree = "<group>"; };
 		59672D6FEFAA75CA5DFB38D5 /* TableComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableComponent.h; path = ../../Source/TableComponent.h; sourceTree = "<group>"; };
+		59672E4C6C8D38915A359DA3 /* MyColours.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MyColours.cpp; path = ../../Source/MyColours.cpp; sourceTree = "<group>"; };
 		59672ECDD9C4A449FE14195E /* FluidSynthModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FluidSynthModel.cpp; path = ../../Source/FluidSynthModel.cpp; sourceTree = "<group>"; };
 		59672EE6A7EA4B1566779158 /* Preset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Preset.cpp; path = ../../Source/Preset.cpp; sourceTree = "<group>"; };
 		59672EFC750D2C5E945A501B /* FilePicker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FilePicker.cpp; path = ../../Source/FilePicker.cpp; sourceTree = "<group>"; };
@@ -320,6 +323,8 @@
 				596722091C01B250D2F35844 /* Pills.h */,
 				59672EFC750D2C5E945A501B /* FilePicker.cpp */,
 				596728D5760A96403BD6D3F6 /* FilePicker.h */,
+				59672E4C6C8D38915A359DA3 /* MyColours.cpp */,
+				59672C8CC99E19713C7D82F6 /* MyColours.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -720,6 +725,7 @@
 				59672E87A2E09D4B464EE2C8 /* SurjectiveMidiKeyboardComponent.cpp in Sources */,
 				596725FC1F8F0A335063FB43 /* Pills.cpp in Sources */,
 				59672B77138ABF83AF391256 /* FilePicker.cpp in Sources */,
+				59672A4F3976D6DEED8A345A /* MyColours.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

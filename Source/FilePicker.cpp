@@ -3,6 +3,7 @@
 //
 
 #include "FilePicker.h"
+#include "MyColours.h"
 
 FilePicker::FilePicker()
 : fileChooser(
@@ -15,7 +16,9 @@ FilePicker::FilePicker()
         String(),
         "Choose a Soundfont file to load into the synthesizer"
 ) {
-//    setOpaque (true);
+    // faster (rounded edges introduce transparency)
+    setOpaque (true);
+
     addAndMakeVisible (fileChooser);
     fileChooser.addListener (this);
 }
@@ -26,6 +29,14 @@ FilePicker::~FilePicker() {
 void FilePicker::resized() {
     Rectangle<int> r (getLocalBounds());
     fileChooser.setBounds (r);
+}
+
+/**
+ * This is required to support setOpaque(true)
+ */
+void FilePicker::paint(Graphics& g)
+{
+    g.fillAll(MyColours::getUIColourIfAvailable(LookAndFeel_V4::ColourScheme::UIColour::windowBackground, Colours::lightgrey));
 }
 
 void FilePicker::filenameComponentChanged (FilenameComponent*) {
