@@ -12,7 +12,6 @@
 #include "PluginEditor.h"
 #include "SoundfontSynthVoice.h"
 #include "SoundfontSynthSound.h"
-// #include "Model.hpp"
 
 AudioProcessor* JUCE_CALLTYPE createPluginFilter();
 
@@ -20,9 +19,7 @@ AudioProcessor* JUCE_CALLTYPE createPluginFilter();
 //==============================================================================
 LazarusAudioProcessor::LazarusAudioProcessor()
      : AudioProcessor (getBusesProperties()),
-       fluidSynthModel(new FluidSynthModel())
-        /*,
-       model(new Model())*/
+       fluidSynthModel()
 {
     initialiseSynth();
 }
@@ -33,15 +30,15 @@ LazarusAudioProcessor::~LazarusAudioProcessor()
 }
 
 void LazarusAudioProcessor::initialiseSynth() {
-    fluidSynthModel->initialise();
+    fluidSynthModel.initialise();
 
-    fluidSynth = fluidSynthModel->getSynth();
+    fluidSynth = fluidSynthModel.getSynth();
 
     const int numVoices = 8;
 
     // Add some voices...
     for (int i = numVoices; --i >= 0;)
-        synth.addVoice (new SoundfontSynthVoice(fluidSynthModel->getSynth()));
+        synth.addVoice (new SoundfontSynthVoice(fluidSynthModel.getSynth()));
 
     // ..and give the synth a sound to play
     synth.addSound (new SoundfontSynthSound());
@@ -193,8 +190,8 @@ bool LazarusAudioProcessor::supportsDoublePrecisionProcessing() const {
     return false;
 }
 
-shared_ptr<FluidSynthModel> LazarusAudioProcessor::getFluidSynthModel() {
-    return shared_ptr<FluidSynthModel>(fluidSynthModel);
+FluidSynthModel* LazarusAudioProcessor::getFluidSynthModel() {
+    return &fluidSynthModel;
 }
 
 //==============================================================================

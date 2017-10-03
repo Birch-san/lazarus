@@ -11,11 +11,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "Model.hpp"
 #include "FluidSynthModel.h"
-#include <memory>
-
-using std::shared_ptr;
 
 //==============================================================================
 /**
@@ -61,13 +57,13 @@ public:
 
     bool supportsDoublePrecisionProcessing() const override;
 
-    shared_ptr<FluidSynthModel> getFluidSynthModel();
+    FluidSynthModel* getFluidSynthModel();
 
     MidiKeyboardState keyboardState;
 private:
     void initialiseSynth();
 
-    FluidSynthModel* fluidSynthModel;
+    FluidSynthModel fluidSynthModel;
     fluid_synth_t* fluidSynth;
     Synthesiser synth;
 

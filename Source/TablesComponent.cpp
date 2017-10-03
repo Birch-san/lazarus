@@ -8,7 +8,7 @@ using namespace std;
 using namespace placeholders;
 
 TablesComponent::TablesComponent(
-        shared_ptr<FluidSynthModel> fluidSynthModel
+        FluidSynthModel* fluidSynthModel
 ) : fluidSynthModel(fluidSynthModel),
     banksToPresets(fluidSynthModel->getBanks()),
     initialised(false)
@@ -57,7 +57,7 @@ TablesComponent::TablesComponent(
 }
 
 fluid_preset_t* TablesComponent::getCurrentPreset() {
-    FluidSynthModel* fluidSynthModelP = fluidSynthModel.get();
+    FluidSynthModel* fluidSynthModelP = fluidSynthModel;
     fluid_synth_t* synth = fluidSynthModelP->getSynth();
 
     return fluid_synth_get_channel_preset(synth, fluidSynthModelP->getChannel());
@@ -103,7 +103,7 @@ void TablesComponent::onPresetSelected(int preset) {
     }
     cout << "Preset " << preset << endl;
 //    selectedPreset = preset;
-    fluidSynthModel.get()->changePreset(selectedBank, preset);
+    fluidSynthModel->changePreset(selectedBank, preset);
 }
 
 TablesComponent::~TablesComponent() {

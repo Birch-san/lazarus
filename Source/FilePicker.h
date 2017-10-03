@@ -12,7 +12,7 @@ class FilePicker: public Component,
 {
 public:
     FilePicker(
-            shared_ptr<FluidSynthModel> fluidSynthModel
+            FluidSynthModel* fluidSynthModel
     );
     ~FilePicker();
 
@@ -21,7 +21,7 @@ public:
 private:
     FilenameComponent fileChooser;
 
-    shared_ptr<FluidSynthModel> fluidSynthModel;
+    FluidSynthModel* fluidSynthModel;
 
     void filenameComponentChanged (FilenameComponent*) override;
 

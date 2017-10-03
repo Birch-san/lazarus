@@ -18,7 +18,7 @@ using namespace std;
 class TablesComponent : public Component {
 public:
     TablesComponent(
-            shared_ptr<FluidSynthModel> fluidSynthModel
+            FluidSynthModel* fluidSynthModel
     );
     ~TablesComponent();
 
@@ -27,7 +27,7 @@ public:
     bool keyPressed(const KeyPress &key) override;
 
 private:
-    shared_ptr<FluidSynthModel> fluidSynthModel;
+    FluidSynthModel* fluidSynthModel;
     int selectedBank;
 
     Pills* banks;

@@ -6,7 +6,7 @@
 #include "MyColours.h"
 
 FilePicker::FilePicker(
-        shared_ptr<FluidSynthModel> fluidSynthModel
+        FluidSynthModel* fluidSynthModel
 )
 : fileChooser(
         "File",
@@ -43,5 +43,5 @@ void FilePicker::paint(Graphics& g)
 }
 
 void FilePicker::filenameComponentChanged (FilenameComponent*) {
-    fluidSynthModel.get()->onFileNameChanged(fileChooser.getCurrentFile().getFullPathName().toStdString());
+    fluidSynthModel->onFileNameChanged(fileChooser.getCurrentFile().getFullPathName().toStdString());
 }
