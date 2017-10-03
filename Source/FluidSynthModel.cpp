@@ -24,7 +24,6 @@ void FluidSynthModel::initialise() {
 
     fluid_synth_t* synth = new_fluid_synth(settings);
     fluid_synth_sfload(synth, "/Users/birch/Documents/soundfont/EarthBound.sf2", 1);
-//    fluid_synth_sfload(synth, "/Users/birch/Documents/soundfont/free/Perfect Sine.sf2", 1);
 
     sfont_id = 1;
 
@@ -40,6 +39,9 @@ void FluidSynthModel::initialise() {
         std::cout << "[fluid_synth_t deleter invoked]\n";
         delete_fluid_synth(f);
     });
+
+    selectFirstPreset();
+
 //    changePreset(128, 13);
 
     initialised = true;
@@ -51,6 +53,28 @@ int FluidSynthModel::getChannel() {
 
 void FluidSynthModel::changePreset(int bank, int preset) {
     fluid_synth_program_select(synth.get(), channel, sfont_id, static_cast<unsigned int>(bank), static_cast<unsigned int>(preset));
+}
+
+fluid_preset_t* FluidSynthModel::getFirstPreset() {
+    fluid_sfont_t* sfont = fluid_synth_get_sfont_by_id(this->synth.get(), sfont_id);
+
+    jassert(sfont != nullptr);
+    sfont->iteration_start(sfont);
+
+    fluid_preset_t* preset;
+
+    sfont->iteration_next(sfont, preset);
+
+    return preset;
+}
+
+void FluidSynthModel::selectFirstPreset() {
+    fluid_preset_t* preset = getFirstPreset();
+    jassert(preset != nullptr);
+
+    int offset = fluid_synth_get_bank_offset(this->synth.get(), sfont_id);
+
+    changePreset(preset->get_banknum(preset) + offset, preset->get_num(preset));
 }
 
 BanksToPresets FluidSynthModel::getBanks() {

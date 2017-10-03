@@ -30,6 +30,9 @@ private:
     fluid_settings_t* settings;
 //    fluid_audio_driver_t* driver;
 
+    fluid_preset_t* getFirstPreset();
+    void selectFirstPreset();
+
     bool initialised;
     unsigned int sfont_id;
     unsigned int channel;
