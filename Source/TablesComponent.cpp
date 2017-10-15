@@ -49,11 +49,13 @@ TablesComponent::TablesComponent(
 
     presetTable->setWantsKeyboardFocus(false);
 
-    addAndMakeVisible (presetTable);
+    addAndMakeVisible(presetTable);
 
-    addAndMakeVisible (banks);
+    addAndMakeVisible(banks);
 
     initialised = true;
+
+    fluidSynthModel->addListener(this);
 }
 
 fluid_preset_t* TablesComponent::getCurrentPreset() {
@@ -109,6 +111,7 @@ void TablesComponent::onPresetSelected(int preset) {
 TablesComponent::~TablesComponent() {
     delete presetTable;
     delete banks;
+    fluidSynthModel->removeListener(this);
 }
 
 vector<string> TablesComponent::mapBanks(const BanksToPresets &banksToPresets) {
@@ -156,4 +159,26 @@ bool TablesComponent::keyPressed(const KeyPress &key) {
         return true;
     }
     return presetTable->keyPressed(key);
+}
+
+void TablesComponent::fontChanged(FluidSynthModel *) {
+    banksToPresets = fluidSynthModel->getBanks();
+
+    fluid_preset_t* currentPreset = getCurrentPreset();
+
+    selectedBank = currentPreset->get_banknum(currentPreset);
+    int selectedPreset = currentPreset->get_num(currentPreset);
+
+    presetTable->setRows(
+            mapPresets(
+                    banksToPresets,
+                    selectedBank
+            ),
+            presetToIndexMapper(selectedPreset)
+    );
+
+    banks->setItems(
+            mapBanks(banksToPresets),
+            selectedBank
+    );
 }

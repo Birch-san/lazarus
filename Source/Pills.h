@@ -19,6 +19,11 @@ public:
             int initiallySelectedItem
     );
 
+    void setItems(
+            const vector<string> &items,
+            int initiallySelectedItem
+    );
+
     void buttonClicked (Button* button) override;
     void cycle(bool right);
 

@@ -47,6 +47,14 @@ void Pills::populate(int initiallySelectedItem) {
     }
 }
 
+void Pills::setItems(
+        const vector<string> &items,
+        int initiallySelectedItem
+) {
+    this->items = items;
+    populate(initiallySelectedItem);
+}
+
 void Pills::buttonClicked (Button* button) {
     selected = button;
     onItemSelected(itemToIDMapper(button->getName().toStdString()));

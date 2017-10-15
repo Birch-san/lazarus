@@ -15,7 +15,9 @@
 
 using namespace std;
 
-class TablesComponent : public Component {
+class TablesComponent : public Component,
+                        public FluidSynthModel::Listener
+{
 public:
     TablesComponent(
             FluidSynthModel* fluidSynthModel
@@ -25,6 +27,7 @@ public:
     void resized() override;
 
     bool keyPressed(const KeyPress &key) override;
+    void fontChanged(FluidSynthModel *) override;
 
 private:
     FluidSynthModel* fluidSynthModel;

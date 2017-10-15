@@ -104,6 +104,7 @@ fluid_synth_t* FluidSynthModel::getSynth() {
 
 void FluidSynthModel::onFileNameChanged(const string &absPath) {
     unloadAndLoadFont(absPath);
+    eventListeners.call(&FluidSynthModel::Listener::fontChanged, this);
 }
 
 void FluidSynthModel::unloadAndLoadFont(const string &absPath) {
@@ -115,4 +116,21 @@ void FluidSynthModel::loadFont(const string &absPath) {
     sfont_id++;
     fluid_synth_sfload(synth, absPath.c_str(), 1);
     selectFirstPreset();
+}
+
+FluidSynthModel::Listener::~Listener() {
+}
+
+void FluidSynthModel::Listener::fontChanged(FluidSynthModel *) {
+}
+
+//==============================================================================
+void FluidSynthModel::addListener (FluidSynthModel::Listener* const newListener)
+{
+    eventListeners.add(newListener);
+}
+
+void FluidSynthModel::removeListener (FluidSynthModel::Listener* const listener)
+{
+    eventListeners.remove(listener);
 }
