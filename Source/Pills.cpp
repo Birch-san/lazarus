@@ -52,7 +52,12 @@ void Pills::setItems(
         int initiallySelectedItem
 ) {
     this->items = items;
+    for(TextButton* t : buttons) {
+        t->removeListener(this);
+    }
+    buttons.clear(true);
     populate(initiallySelectedItem);
+    resized();
 }
 
 void Pills::buttonClicked (Button* button) {

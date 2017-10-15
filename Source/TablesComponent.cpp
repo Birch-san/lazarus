@@ -59,10 +59,9 @@ TablesComponent::TablesComponent(
 }
 
 fluid_preset_t* TablesComponent::getCurrentPreset() {
-    FluidSynthModel* fluidSynthModelP = fluidSynthModel;
-    fluid_synth_t* synth = fluidSynthModelP->getSynth();
+    fluid_synth_t* synth = fluidSynthModel->getSynth();
 
-    return fluid_synth_get_channel_preset(synth, fluidSynthModelP->getChannel());
+    return fluid_synth_get_channel_preset(synth, fluidSynthModel->getChannel());
 }
 
 Preset TablesComponent::getFirstPresetInBank(int bank) {
