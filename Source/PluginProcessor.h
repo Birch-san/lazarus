@@ -60,6 +60,13 @@ public:
     FluidSynthModel* getFluidSynthModel();
 
     MidiKeyboardState keyboardState;
+
+    int getLastUIWidth();
+    int getLastUIHeight();
+
+    void setLastUIWidth(int width);
+    void setLastUIHeight(int height);
+
 private:
     void initialiseSynth();
 
@@ -68,6 +75,8 @@ private:
     Synthesiser synth;
 
     static BusesProperties getBusesProperties();
+
+    int lastUIWidth, lastUIHeight;
 
 //    Model* model;
     //==============================================================================

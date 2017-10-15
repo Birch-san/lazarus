@@ -19,9 +19,11 @@ LazarusAudioProcessorEditor::LazarusAudioProcessorEditor (LazarusAudioProcessor&
       tablesComponent(p.getFluidSynthModel()),
       filePicker(p.getFluidSynthModel())
 {
-    // Make sure that before the constructor has finished, you've set the
-    // editor's size to whatever you need it to be.
-    setSize (400, 300);
+    // set resize limits for this plug-in
+    setResizeLimits (400, 300, 800, 600);
+
+    setSize (p.getLastUIWidth(),
+            p.getLastUIHeight());
 
     midiKeyboard.setName ("MIDI Keyboard");
 
@@ -79,6 +81,9 @@ void LazarusAudioProcessorEditor::resized()
 //    r3.removeFromTop(filePickerHeight);
 //
 //    filePicker.setBounds(r3);
+
+    processor.setLastUIWidth(getWidth());
+    processor.setLastUIHeight(getHeight());
 }
 
 bool LazarusAudioProcessorEditor::keyPressed(const KeyPress &key) {
