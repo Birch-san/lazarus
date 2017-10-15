@@ -15,6 +15,7 @@ using std::shared_ptr;
 
 class FluidSynthModel {
 public:
+    FluidSynthModel();
     ~FluidSynthModel();
 
     fluid_synth_t* getSynth();

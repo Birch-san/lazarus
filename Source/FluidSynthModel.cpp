@@ -7,6 +7,8 @@
 
 using namespace std;
 
+FluidSynthModel::FluidSynthModel() {}
+
 FluidSynthModel::~FluidSynthModel() {
     if (initialised) {
 //        delete_fluid_audio_driver(driver);
