@@ -9,7 +9,7 @@
 using namespace std;
 
 class Pills : public Component,
-              public ButtonListener {
+              public Button::Listener {
 public:
     Pills(
             string label,
